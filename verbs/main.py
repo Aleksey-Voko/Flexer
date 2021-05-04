@@ -239,16 +239,37 @@ def get_present_future_forms(src_dict) -> list:
         'НБI5ь*!': present_future_nbi5y_prim_excl,
         'НБI5ь**!': present_future_nbi5y_2prim_excl,
         'НБI5ь***!': present_future_nbi5y_3prim_excl,
+        'НБI6д': present_future_nbi6d,
+        'НБI6е': present_future_nbi6e,
+        'НБI6ж': present_future_nbi6g,
+        'НБI6й': present_future_nbi6j,
+        'НБI6м': present_future_nbi6m,
+        'НБI6о': present_future_nbi6o,
+        'НБI6т': present_future_nbi6t,
+        'НБI6ч': present_future_nbi6ch,
+        'НБI6ч-': present_future_nbi6ch_dash,
+        'НБI6ш': present_future_nbi6sh,
+        'НБI6щ': present_future_nbi6zsh,
+        'НБI6ы': present_future_nbi6ji,
+        'НБI6я': present_future_nbi6ja,
+        'НБI6е*': present_future_nbi6e_prim,
+        'НБI6е**': present_future_nbi6e_2prim,
+        'НБI6е***': present_future_nbi6e_3prim,
+        'НБI6е****': present_future_nbi6e_4prim,
+        'НБI6е*****': present_future_nbi6e_5prim,
+        'НБI6е**!': present_future_nbi6e_2prim_excl,
+        'НБI6й*': present_future_nbi6j_prim,
+        'НБI6о*': present_future_nbi6o_prim,
+        'НБI6о**': present_future_nbi6o_2prim,
+        'НБI6т*': present_future_nbi6t_prim,
+        'НБI6т**': present_future_nbi6t_2prim,
+        'НБI6т***!': present_future_nbi6t_3prim_excl,
 
         'НБI-II3': present_future_nbi_ii3,
         'НБI-II4ч': present_future_nbi_ii4ch,
         'НБI3&6ч': present_future_nbi3_6ch,
         'НБI3&6ш': present_future_nbi3_6sh,
         'НБI5л&I-II1': present_future_nbi5l_and_i_ii1,
-        'НБI6ж': present_future_nbi6g,
-        'НБI6ч': present_future_nbi6ch,
-        'НБI6ч-': present_future_nbi6ch_dash,
-        'НБI6ш': present_future_nbi6sh,
         'НБI7': present_future_nbi7,
         'НБI8щ': present_future_nbi8shch,
         'НБI9е': present_future_nbi9e,
@@ -1557,6 +1578,596 @@ def present_future_nbi5y_3prim_excl(src_dict) -> list:
     return word_forms
 
 
+# НБI6д
+def present_future_nbi6d(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}ду', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}дешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}дет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}дем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}дете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}дут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}дусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}дешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}дется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}демся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}детесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}дутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6е
+def present_future_nbi6e(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}еру', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}ерешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}ерет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}ерем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}ерете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}ерут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}ерусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}ерешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}ерется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}еремся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}еретесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}ерутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6ж
+def present_future_nbi6g(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}жу', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}жешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}жет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}жем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}жете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}жут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}жусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}жешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}жется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}жемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}жетесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}жутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6й
+def present_future_nbi6j(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}йму', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}ймешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}ймет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}ймем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}ймете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}ймут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}ймусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}ймешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}ймется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}ймемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}йметесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}ймутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6м
+def present_future_nbi6m(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}му', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}мешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}мет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}мем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}мете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}мут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}мусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}мешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}мется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}мемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}метесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}мутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6о
+def present_future_nbi6o(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}ову', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}овешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}овет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}овем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}овете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}овут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}овусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}овешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}овется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}овемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}оветесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}овутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6т
+def present_future_nbi6t(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}ту', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}тешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}тет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}тем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}тете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}тут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}тусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}тешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}тется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}темся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}тетесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}тутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6ч
+def present_future_nbi6ch(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}чу', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}чешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}чет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}чем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}чете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}чут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}чусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}чешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}чется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}чемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}четесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}чутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6ч-
+def present_future_nbi6ch_dash(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}чет', '.ГНБ3е'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}чется', '.ГНБ3е'),
+        ]
+    return word_forms
+
+
+# НБI6ш
+def present_future_nbi6sh(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}шу', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}шешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}шет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}шем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}шете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}шут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}шусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}шешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}шется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}шемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}шетесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}шутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6щ
+def present_future_nbi6zsh(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}щу', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}щешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}щет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}щем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}щете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}щут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}щусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}щешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}щется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}щемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}щетесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}щутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6ы
+def present_future_nbi6ji(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}ыму', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}ымешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}ымет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}ымем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}ымете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}ымут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}ымусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}ымешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}ымется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}ымемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}ыметесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}ымутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6я
+def present_future_nbi6ja(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-4]}яду', '.ГНБ1е'),
+            WordForm(f'{name[:-4]}ядешь', '.ГНБ2е'),
+            WordForm(f'{name[:-4]}ядет', '.ГНБ3е'),
+            WordForm(f'{name[:-4]}ядем', '.ГНБ1мн'),
+            WordForm(f'{name[:-4]}ядете', '.ГНБ2мн'),
+            WordForm(f'{name[:-4]}ядут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-6]}ядусь', '.ГНБ1е'),
+            WordForm(f'{name[:-6]}ядешься', '.ГНБ2е'),
+            WordForm(f'{name[:-6]}ядется', '.ГНБ3е'),
+            WordForm(f'{name[:-6]}ядемся', '.ГНБ1мн'),
+            WordForm(f'{name[:-6]}ядетесь', '.ГНБ2мн'),
+            WordForm(f'{name[:-6]}ядутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6е*
+def present_future_nbi6e_prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[0]}{name[2:-4]}еру', '.ГНБ1е'),
+            WordForm(f'{name[0]}{name[2:-4]}ерешь', '.ГНБ2е'),
+            WordForm(f'{name[0]}{name[2:-4]}ерет', '.ГНБ3е'),
+            WordForm(f'{name[0]}{name[2:-4]}ерем', '.ГНБ1мн'),
+            WordForm(f'{name[0]}{name[2:-4]}ерете', '.ГНБ2мн'),
+            WordForm(f'{name[0]}{name[2:-4]}ерут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[0]}{name[2:-6]}ерусь', '.ГНБ1е'),
+            WordForm(f'{name[0]}{name[2:-6]}ерешься', '.ГНБ2е'),
+            WordForm(f'{name[0]}{name[2:-6]}ерется', '.ГНБ3е'),
+            WordForm(f'{name[0]}{name[2:-6]}еремся', '.ГНБ1мн'),
+            WordForm(f'{name[0]}{name[2:-6]}еретесь', '.ГНБ2мн'),
+            WordForm(f'{name[0]}{name[2:-6]}ерутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6е**
+def present_future_nbi6e_2prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:2]}{name[3:-4]}еру', '.ГНБ1е'),
+            WordForm(f'{name[:2]}{name[3:-4]}ерешь', '.ГНБ2е'),
+            WordForm(f'{name[:2]}{name[3:-4]}ерет', '.ГНБ3е'),
+            WordForm(f'{name[:2]}{name[3:-4]}ерем', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}{name[3:-4]}ерете', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}{name[3:-4]}ерут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:2]}{name[3:-6]}ерусь', '.ГНБ1е'),
+            WordForm(f'{name[:2]}{name[3:-6]}ерешься', '.ГНБ2е'),
+            WordForm(f'{name[:2]}{name[3:-6]}ерется', '.ГНБ3е'),
+            WordForm(f'{name[:2]}{name[3:-6]}еремся', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}{name[3:-6]}еретесь', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}{name[3:-6]}ерутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6е***
+def present_future_nbi6e_3prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:3]}{name[4:-4]}еру', '.ГНБ1е'),
+            WordForm(f'{name[:3]}{name[4:-4]}ерешь', '.ГНБ2е'),
+            WordForm(f'{name[:3]}{name[4:-4]}ерет', '.ГНБ3е'),
+            WordForm(f'{name[:3]}{name[4:-4]}ерем', '.ГНБ1мн'),
+            WordForm(f'{name[:3]}{name[4:-4]}ерете', '.ГНБ2мн'),
+            WordForm(f'{name[:3]}{name[4:-4]}ерут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:3]}{name[4:-6]}ерусь', '.ГНБ1е'),
+            WordForm(f'{name[:3]}{name[4:-6]}ерешься', '.ГНБ2е'),
+            WordForm(f'{name[:3]}{name[4:-6]}ерется', '.ГНБ3е'),
+            WordForm(f'{name[:3]}{name[4:-6]}еремся', '.ГНБ1мн'),
+            WordForm(f'{name[:3]}{name[4:-6]}еретесь', '.ГНБ2мн'),
+            WordForm(f'{name[:3]}{name[4:-6]}ерутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6е****
+def present_future_nbi6e_4prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:4]}{name[5:-4]}еру', '.ГНБ1е'),
+            WordForm(f'{name[:4]}{name[5:-4]}ерешь', '.ГНБ2е'),
+            WordForm(f'{name[:4]}{name[5:-4]}ерет', '.ГНБ3е'),
+            WordForm(f'{name[:4]}{name[5:-4]}ерем', '.ГНБ1мн'),
+            WordForm(f'{name[:4]}{name[5:-4]}ерете', '.ГНБ2мн'),
+            WordForm(f'{name[:4]}{name[5:-4]}ерут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:4]}{name[5:-6]}ерусь', '.ГНБ1е'),
+            WordForm(f'{name[:4]}{name[5:-6]}ерешься', '.ГНБ2е'),
+            WordForm(f'{name[:4]}{name[5:-6]}ерется', '.ГНБ3е'),
+            WordForm(f'{name[:4]}{name[5:-6]}еремся', '.ГНБ1мн'),
+            WordForm(f'{name[:4]}{name[5:-6]}еретесь', '.ГНБ2мн'),
+            WordForm(f'{name[:4]}{name[5:-6]}ерутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6е*****
+def present_future_nbi6e_5prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:5]}{name[6:-4]}еру', '.ГНБ1е'),
+            WordForm(f'{name[:5]}{name[6:-4]}ерешь', '.ГНБ2е'),
+            WordForm(f'{name[:5]}{name[6:-4]}ерет', '.ГНБ3е'),
+            WordForm(f'{name[:5]}{name[6:-4]}ерем', '.ГНБ1мн'),
+            WordForm(f'{name[:5]}{name[6:-4]}ерете', '.ГНБ2мн'),
+            WordForm(f'{name[:5]}{name[6:-4]}ерут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:5]}{name[6:-6]}ерусь', '.ГНБ1е'),
+            WordForm(f'{name[:5]}{name[6:-6]}ерешься', '.ГНБ2е'),
+            WordForm(f'{name[:5]}{name[6:-6]}ерется', '.ГНБ3е'),
+            WordForm(f'{name[:5]}{name[6:-6]}еремся', '.ГНБ1мн'),
+            WordForm(f'{name[:5]}{name[6:-6]}еретесь', '.ГНБ2мн'),
+            WordForm(f'{name[:5]}{name[6:-6]}ерутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6е**!
+def present_future_nbi6e_2prim_excl(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'о{name[3:-4]}еру', '.ГНБ1е'),
+            WordForm(f'о{name[3:-4]}ерешь', '.ГНБ2е'),
+            WordForm(f'о{name[3:-4]}ерет', '.ГНБ3е'),
+            WordForm(f'о{name[3:-4]}ерем', '.ГНБ1мн'),
+            WordForm(f'о{name[3:-4]}ерете', '.ГНБ2мн'),
+            WordForm(f'о{name[3:-4]}ерут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'о{name[3:-6]}ерусь', '.ГНБ1е'),
+            WordForm(f'о{name[3:-6]}ерешься', '.ГНБ2е'),
+            WordForm(f'о{name[3:-6]}ерется', '.ГНБ3е'),
+            WordForm(f'о{name[3:-6]}еремся', '.ГНБ1мн'),
+            WordForm(f'о{name[3:-6]}еретесь', '.ГНБ2мн'),
+            WordForm(f'о{name[3:-6]}ерутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6й*
+def present_future_nbi6j_prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:2]}о{name[2:-4]}йму', '.ГНБ1е'),
+            WordForm(f'{name[:2]}о{name[2:-4]}ймешь', '.ГНБ2е'),
+            WordForm(f'{name[:2]}о{name[2:-4]}ймет', '.ГНБ3е'),
+            WordForm(f'{name[:2]}о{name[2:-4]}ймем', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}о{name[2:-4]}ймете', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}о{name[2:-4]}ймут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:2]}о{name[2:-6]}ймусь', '.ГНБ1е'),
+            WordForm(f'{name[:2]}о{name[2:-6]}ймешься', '.ГНБ2е'),
+            WordForm(f'{name[:2]}о{name[2:-6]}ймется', '.ГНБ3е'),
+            WordForm(f'{name[:2]}о{name[2:-6]}ймемся', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}о{name[2:-6]}йметесь', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}о{name[2:-6]}ймутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6о*
+def present_future_nbi6o_prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:2]}{name[3:-4]}ову', '.ГНБ1е'),
+            WordForm(f'{name[:2]}{name[3:-4]}овешь', '.ГНБ2е'),
+            WordForm(f'{name[:2]}{name[3:-4]}овет', '.ГНБ3е'),
+            WordForm(f'{name[:2]}{name[3:-4]}овем', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}{name[3:-4]}овете', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}{name[3:-4]}овут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:2]}{name[3:-6]}овусь', '.ГНБ1е'),
+            WordForm(f'{name[:2]}{name[3:-6]}овешься', '.ГНБ2е'),
+            WordForm(f'{name[:2]}{name[3:-6]}овется', '.ГНБ3е'),
+            WordForm(f'{name[:2]}{name[3:-6]}овемся', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}{name[3:-6]}оветесь', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}{name[3:-6]}овутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6о**
+def present_future_nbi6o_2prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:3]}{name[4:-4]}ову', '.ГНБ1е'),
+            WordForm(f'{name[:3]}{name[4:-4]}овешь', '.ГНБ2е'),
+            WordForm(f'{name[:3]}{name[4:-4]}овет', '.ГНБ3е'),
+            WordForm(f'{name[:3]}{name[4:-4]}овем', '.ГНБ1мн'),
+            WordForm(f'{name[:3]}{name[4:-4]}овете', '.ГНБ2мн'),
+            WordForm(f'{name[:3]}{name[4:-4]}овут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:3]}{name[4:-6]}овусь', '.ГНБ1е'),
+            WordForm(f'{name[:3]}{name[4:-6]}овешься', '.ГНБ2е'),
+            WordForm(f'{name[:3]}{name[4:-6]}овется', '.ГНБ3е'),
+            WordForm(f'{name[:3]}{name[4:-6]}овемся', '.ГНБ1мн'),
+            WordForm(f'{name[:3]}{name[4:-6]}оветесь', '.ГНБ2мн'),
+            WordForm(f'{name[:3]}{name[4:-6]}овутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6т*
+def present_future_nbi6t_prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[0]}о{name[1:-4]}ту', '.ГНБ1е'),
+            WordForm(f'{name[0]}о{name[1:-4]}тешь', '.ГНБ2е'),
+            WordForm(f'{name[0]}о{name[1:-4]}тет', '.ГНБ3е'),
+            WordForm(f'{name[0]}о{name[1:-4]}тем', '.ГНБ1мн'),
+            WordForm(f'{name[0]}о{name[1:-4]}тете', '.ГНБ2мн'),
+            WordForm(f'{name[0]}о{name[1:-4]}тут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[0]}о{name[1:-6]}тусь', '.ГНБ1е'),
+            WordForm(f'{name[0]}о{name[1:-6]}тешься', '.ГНБ2е'),
+            WordForm(f'{name[0]}о{name[1:-6]}тется', '.ГНБ3е'),
+            WordForm(f'{name[0]}о{name[1:-6]}темся', '.ГНБ1мн'),
+            WordForm(f'{name[0]}о{name[1:-6]}тетесь', '.ГНБ2мн'),
+            WordForm(f'{name[0]}о{name[1:-6]}тутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6т**
+def present_future_nbi6t_2prim(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:2]}о{name[2:-4]}ту', '.ГНБ1е'),
+            WordForm(f'{name[:2]}о{name[2:-4]}тешь', '.ГНБ2е'),
+            WordForm(f'{name[:2]}о{name[2:-4]}тет', '.ГНБ3е'),
+            WordForm(f'{name[:2]}о{name[2:-4]}тем', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}о{name[2:-4]}тете', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}о{name[2:-4]}тут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:2]}о{name[2:-6]}тусь', '.ГНБ1е'),
+            WordForm(f'{name[:2]}о{name[2:-6]}тешься', '.ГНБ2е'),
+            WordForm(f'{name[:2]}о{name[2:-6]}тется', '.ГНБ3е'),
+            WordForm(f'{name[:2]}о{name[2:-6]}темся', '.ГНБ1мн'),
+            WordForm(f'{name[:2]}о{name[2:-6]}тетесь', '.ГНБ2мн'),
+            WordForm(f'{name[:2]}о{name[2:-6]}тутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
+# НБI6т***!
+def present_future_nbi6t_3prim_excl(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'разо{name[3:-4]}ту', '.ГНБ1е'),
+            WordForm(f'разо{name[3:-4]}тешь', '.ГНБ2е'),
+            WordForm(f'разо{name[3:-4]}тет', '.ГНБ3е'),
+            WordForm(f'разо{name[3:-4]}тем', '.ГНБ1мн'),
+            WordForm(f'разо{name[3:-4]}тете', '.ГНБ2мн'),
+            WordForm(f'разо{name[3:-4]}тут', '.ГНБ3мн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'разо{name[3:-6]}тусь', '.ГНБ1е'),
+            WordForm(f'разо{name[3:-6]}тешься', '.ГНБ2е'),
+            WordForm(f'разо{name[3:-6]}тется', '.ГНБ3е'),
+            WordForm(f'разо{name[3:-6]}темся', '.ГНБ1мн'),
+            WordForm(f'разо{name[3:-6]}тетесь', '.ГНБ2мн'),
+            WordForm(f'разо{name[3:-6]}тутся', '.ГНБ3мн'),
+        ]
+    return word_forms
+
+
 # НБI4ь*
 def present_future_nbi4y_prim(src_dict) -> list:
     name = src_dict['name']
@@ -1731,92 +2342,6 @@ def present_future_nbi5l_and_i_ii1(src_dict) -> list:
             WordForm(f'{name[:-5]}етесь', '.ГНБ2мн2'),
             WordForm(f'{name[:-5]}лются', '.ГНБ3мн1'),
             WordForm(f'{name[:-5]}ятся', '.ГНБ3мн2'),
-        ]
-    return word_forms
-
-
-# НБI6ж
-def present_future_nbi6g(src_dict) -> list:
-    name = src_dict['name']
-    if not name.endswith(('ся', 'сь')):
-        word_forms = [
-            WordForm(f'{name[:-4]}жу', '.ГНБ1е'),
-            WordForm(f'{name[:-4]}жешь', '.ГНБ2е'),
-            WordForm(f'{name[:-4]}жет', '.ГНБ3е'),
-            WordForm(f'{name[:-4]}жем', '.ГНБ1мн'),
-            WordForm(f'{name[:-4]}жете', '.ГНБ2мн'),
-            WordForm(f'{name[:-4]}жут', '.ГНБ3мн'),
-        ]
-    else:
-        word_forms = [
-            WordForm(f'{name[:-6]}жусь', '.ГНБ1е'),
-            WordForm(f'{name[:-6]}жешься', '.ГНБ2е'),
-            WordForm(f'{name[:-6]}жется', '.ГНБ3е'),
-            WordForm(f'{name[:-6]}жемся', '.ГНБ1мн'),
-            WordForm(f'{name[:-6]}жетесь', '.ГНБ2мн'),
-            WordForm(f'{name[:-6]}жутся', '.ГНБ3мн'),
-        ]
-    return word_forms
-
-
-# НБI6ч
-def present_future_nbi6ch(src_dict) -> list:
-    name = src_dict['name']
-    if not name.endswith(('ся', 'сь')):
-        word_forms = [
-            WordForm(f'{name[:-4]}чу', '.ГНБ1е'),
-            WordForm(f'{name[:-4]}чешь', '.ГНБ2е'),
-            WordForm(f'{name[:-4]}чет', '.ГНБ3е'),
-            WordForm(f'{name[:-4]}чем', '.ГНБ1мн'),
-            WordForm(f'{name[:-4]}чете', '.ГНБ2мн'),
-            WordForm(f'{name[:-4]}чут', '.ГНБ3мн'),
-        ]
-    else:
-        word_forms = [
-            WordForm(f'{name[:-6]}чусь', '.ГНБ1е'),
-            WordForm(f'{name[:-6]}чешься', '.ГНБ2е'),
-            WordForm(f'{name[:-6]}чется', '.ГНБ3е'),
-            WordForm(f'{name[:-6]}чемся', '.ГНБ1мн'),
-            WordForm(f'{name[:-6]}четесь', '.ГНБ2мн'),
-            WordForm(f'{name[:-6]}чутся', '.ГНБ3мн'),
-        ]
-    return word_forms
-
-
-# НБI6ч-
-def present_future_nbi6ch_dash(src_dict) -> list:
-    name = src_dict['name']
-    if not name.endswith(('ся', 'сь')):
-        word_forms = [
-            WordForm(f'{name[:-4]}чет', '.ГНБ3е'),
-        ]
-    else:
-        word_forms = [
-            WordForm(f'{name[:-6]}чется', '.ГНБ3е'),
-        ]
-    return word_forms
-
-
-# НБI6ш
-def present_future_nbi6sh(src_dict) -> list:
-    name = src_dict['name']
-    if not name.endswith(('ся', 'сь')):
-        word_forms = [
-            WordForm(f'{name[:-4]}шу', '.ГНБ1е'),
-            WordForm(f'{name[:-4]}шешь', '.ГНБ2е'),
-            WordForm(f'{name[:-4]}шет', '.ГНБ3е'),
-            WordForm(f'{name[:-4]}шем', '.ГНБ1мн'),
-            WordForm(f'{name[:-4]}шете', '.ГНБ2мн'),
-            WordForm(f'{name[:-4]}шут', '.ГНБ3мн'),
-        ]
-    else:
-        word_forms = [
-            WordForm(f'{name[:-6]}шусь', '.ГНБ1е'),
-            WordForm(f'{name[:-6]}шешься', '.ГНБ2е'),
-            WordForm(f'{name[:-6]}шется', '.ГНБ3е'),
-            WordForm(f'{name[:-6]}шемся', '.ГНБ1мн'),
-            WordForm(f'{name[:-6]}шетесь', '.ГНБ2мн'),
-            WordForm(f'{name[:-6]}шутся', '.ГНБ3мн'),
         ]
     return word_forms
 
