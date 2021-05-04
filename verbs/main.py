@@ -2,28 +2,18 @@ import csv
 from collections import OrderedDict
 from pathlib import Path
 
-
+# ############################################################
+# VARIABLES
 IN_VERBS = 'Глаголы.csv'
 OUT_VERBS = 'Добавить группы в БС. Глаголы.txt'
-
-
-def get_dicts_from_csv_file(f_name, encoding='utf-8',
-                            newline='', delimiter=','):
-    with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
-        csv_reader = csv.DictReader(f_in, delimiter=delimiter)
-        for row in csv_reader:
-            yield row
-
-
-def save_bs_dicts_to_txt(in_dicts: list, f_name, encoding='cp1251'):
-    Path(f_name).parent.mkdir(parents=True, exist_ok=True)
-    with open(Path(f_name), 'w', encoding=encoding) as f_out:
-        f_out.write('\n\n'.join(str(x) for x in in_dicts) + '\n')
+# ############################################################
 
 
 L_JUST_SIZE = 32
 
 
+# ############################################################
+# BS
 class WordForm:
     def __init__(self, name, idf):
         self.__name = name
@@ -1763,7 +1753,7 @@ def joint_action_c2(src_dict) -> list:
 
 
 # ############################################################
-#  Причастие настоящего времени действительное
+# Причастие настоящего времени действительное
 def get_present_participle_is_valid(src_dict) -> list:
     present_participle = {
         'ПНД1': present_participle_is_valid_pnd1,
@@ -1840,7 +1830,7 @@ def present_participle_is_valid_pnd1(src_dict) -> list:
 
 
 # ############################################################
-#  Причастие настоящего времени страдательное
+# Причастие настоящего времени страдательное
 def get_passive_present_participle(src_dict) -> list:
     passive_present = {
         'ПНС1': passive_present_participle_pns1,
@@ -1944,7 +1934,7 @@ def passive_present_participle_pns2(src_dict) -> list:
 
 
 # ############################################################
-#   Причастие прошедшего времени действительное
+# Причастие прошедшего времени действительное
 def get_past_participle_is_valid(src_dict) -> list:
     past_participle = {
         'ППД1в': past_participle_is_valid_ppd1v,
@@ -2268,7 +2258,7 @@ def past_participle_is_valid_ppd5(src_dict) -> list:
 
 
 # ############################################################
-#   Причастие прошедшего времени страдательное
+# Причастие прошедшего времени страдательное
 def get_passive_past_participle(src_dict) -> list:
     passive_past_participle = {
         'ППС1': passive_past_participle_pps1,
@@ -2643,6 +2633,22 @@ def past_participle_dp9_and_10(src_dict) -> list:
             WordForm(f'{name[:-6]}шись', '.ДП2'),
         ]
     return word_forms
+
+
+# ############################################################
+# MAIN
+def get_dicts_from_csv_file(f_name, encoding='utf-8',
+                            newline='', delimiter=','):
+    with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
+        csv_reader = csv.DictReader(f_in, delimiter=delimiter)
+        for row in csv_reader:
+            yield row
+
+
+def save_bs_dicts_to_txt(in_dicts: list, f_name, encoding='cp1251'):
+    Path(f_name).parent.mkdir(parents=True, exist_ok=True)
+    with open(Path(f_name), 'w', encoding=encoding) as f_out:
+        f_out.write('\n\n'.join(str(x) for x in in_dicts) + '\n')
 
 
 def get_group_word_form(src_dict: dict) -> GroupWordForm:
