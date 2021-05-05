@@ -148,6 +148,7 @@ def get_present_future_forms(src_dict) -> list:
         'НБI3&II2л': present_future_nbi3_ii2l,
         'НБI8щ&II5щ': present_future_nbi8shch_ii5shch,
         'НБI5л&I-II1': present_future_nbi5l_i_ii1,
+        'НБI3&I5л&I-II1': present_future_nbi3_i5l_i_ii1,
     }
     return present_future_tmpl[src_dict['Inf_3']](src_dict)
 
@@ -3650,5 +3651,51 @@ def present_future_nbi5l_i_ii1(src_dict) -> list:
             WordForm(f'{name[:-5]}етесь', '.ГНБ2мн2'),
             WordForm(f'{name[:-5]}лются', '.ГНБ3мн1'),
             WordForm(f'{name[:-5]}ятся', '.ГНБ3мн2'),
+        ]
+    return word_forms
+
+
+# НБI3&I5л&I-II1
+def present_future_nbi3_i5l_i_ii1(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-2]}ю', '.ГНБ1е1'),
+            WordForm(f'{name[:-3]}лю', '.ГНБ1е2'),
+            WordForm(f'{name[:-2]}ешь', '.ГНБ2е1'),
+            WordForm(f'{name[:-3]}лешь', '.ГНБ2е2'),
+            WordForm(f'{name[:-3]}ешь', '.ГНБ2е3'),
+            WordForm(f'{name[:-2]}ет', '.ГНБ3е1'),
+            WordForm(f'{name[:-3]}лет', '.ГНБ3е2'),
+            WordForm(f'{name[:-3]}ет', '.ГНБ3е3'),
+            WordForm(f'{name[:-2]}ем', '.ГНБ1мн1'),
+            WordForm(f'{name[:-3]}лем', '.ГНБ1мн2'),
+            WordForm(f'{name[:-3]}ем', '.ГНБ1мн3'),
+            WordForm(f'{name[:-2]}ете', '.ГНБ2мн1'),
+            WordForm(f'{name[:-3]}лете', '.ГНБ2мн2'),
+            WordForm(f'{name[:-3]}ете', '.ГНБ2мн3'),
+            WordForm(f'{name[:-2]}ют', '.ГНБ3мн1'),
+            WordForm(f'{name[:-3]}лют', '.ГНБ3мн2'),
+            WordForm(f'{name[:-3]}ят', '.ГНБ3мн3'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-4]}юсь', '.ГНБ1е1'),
+            WordForm(f'{name[:-5]}люсь', '.ГНБ1е2'),
+            WordForm(f'{name[:-4]}ешься', '.ГНБ2е1'),
+            WordForm(f'{name[:-5]}лешься', '.ГНБ2е2'),
+            WordForm(f'{name[:-5]}ешься', '.ГНБ2е3'),
+            WordForm(f'{name[:-4]}ется', '.ГНБ3е1'),
+            WordForm(f'{name[:-5]}лется', '.ГНБ3е2'),
+            WordForm(f'{name[:-5]}ется', '.ГНБ3е3'),
+            WordForm(f'{name[:-4]}емся', '.ГНБ1мн1'),
+            WordForm(f'{name[:-5]}лемся', '.ГНБ1мн2'),
+            WordForm(f'{name[:-5]}емся', '.ГНБ1мн3'),
+            WordForm(f'{name[:-4]}етесь', '.ГНБ2мн1'),
+            WordForm(f'{name[:-5]}летесь', '.ГНБ2мн2'),
+            WordForm(f'{name[:-5]}етесь', '.ГНБ2мн3'),
+            WordForm(f'{name[:-4]}ются', '.ГНБ3мн1'),
+            WordForm(f'{name[:-5]}лются', '.ГНБ3мн2'),
+            WordForm(f'{name[:-5]}ятся', '.ГНБ3мн3'),
         ]
     return word_forms
