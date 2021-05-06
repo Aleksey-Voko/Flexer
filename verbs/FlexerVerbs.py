@@ -1,4 +1,5 @@
 from pathlib import Path
+from pprint import pprint
 
 from utils import (get_string_list_from_file, save_bs_dicts_to_txt,
                    get_verbs_dicts_from_csv_file)
@@ -79,26 +80,29 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 
 
 def save_groups_to_bs():
-    definitions = 'definitions.txt'
+    definitions = 'definitionsFlexer.txt'
 
     print('*' * 3)
-    print(f'Файл с настройками:')
+    print(f'Настройки:')
     print(definitions + '\n')
 
-    in_verbs, out_verbs = get_string_list_from_file(
+    *in_verbs_list, out_verbs = get_string_list_from_file(
         definitions, encoding='cp1251')
+    in_verbs_list = in_verbs_list[:-1]
 
     print('*' * 3)
-    print(f'Файл с исходными данными:')
-    print(in_verbs + '\n')
-
-    src_groups = get_verbs_dicts_from_csv_file(in_verbs)
+    print(f'Файлы с исходными данными:')
+    pprint(in_verbs_list)
+    print()
 
     count = 0
     add_groups_to_bs_list = []
-    for src_dict in src_groups:
-        add_groups_to_bs_list.append(get_group_word_form(src_dict))
-        count += 1
+
+    for in_verbs in in_verbs_list:
+        src_groups = get_verbs_dicts_from_csv_file(in_verbs)
+        for src_dict in src_groups:
+            add_groups_to_bs_list.append(get_group_word_form(src_dict))
+            count += 1
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_verbs)
     print('*' * 3)
