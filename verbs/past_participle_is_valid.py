@@ -1,15 +1,20 @@
 """Причастие прошедшего времени действительное"""
 
 from verbs.past_tense import get_past_tense_forms
+from verbs.present_future import get_present_future_forms
 from word_form import WordForm
 
 
 def get_past_participle_is_valid(src_dict) -> list:
     past_participle_tmpl = {
         'ППД1в': past_participle_is_valid_ppd1v,
+        'ППД1д': past_participle_is_valid_ppd1d,
+        'ППД1т': past_participle_is_valid_ppd1t,
         'ППД2в': past_participle_is_valid_ppd2v,
-        'ППД2в&5': past_participle_is_valid_ppd2v_and_5,
+        'ППД3': past_participle_is_valid_ppd3,
+        'ППД4': past_participle_is_valid_ppd4,
         'ППД5': past_participle_is_valid_ppd5,
+        'ППД2в&5': past_participle_is_valid_ppd2v_5,
     }
     return past_participle_tmpl[src_dict['Inf_9']](src_dict)
 
@@ -52,6 +57,142 @@ def past_participle_is_valid_ppd1v(src_dict) -> list:
         ]
     else:
         ppdmi = f'{gpm[:-3]}вшийся'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДмП'),
+            WordForm(f'{ppdmi[:-4]}аяся', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжР'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжД'),
+            WordForm(f'{ppdmi[:-4]}уюся', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-4]}еюся', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжП'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДсР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДсД'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДсП'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-4]}имися', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнП'),
+        ]
+    return word_forms
+
+
+# ППД1д
+def past_participle_is_valid_ppd1d(src_dict) -> list:
+    name = src_dict['name']
+    gpm = list(filter(
+        lambda x: x.idf == '.ГПм',
+        get_past_tense_forms(src_dict)
+    ))[0].name
+    if not name.endswith(('ся', 'сь')):
+        ppdmi = f'{gpm[:-1]}дший'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДмР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДмП'),
+            WordForm(f'{ppdmi[:-2]}ая', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжР'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжД'),
+            WordForm(f'{ppdmi[:-2]}ую', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-2]}ею', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжП'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДсР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДсД'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДсП'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-2]}ими', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнП'),
+        ]
+    else:
+        ppdmi = f'{gpm[:-3]}дшийся'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДмП'),
+            WordForm(f'{ppdmi[:-4]}аяся', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжР'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжД'),
+            WordForm(f'{ppdmi[:-4]}уюся', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-4]}еюся', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжП'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДсР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДсД'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДсП'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-4]}имися', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнП'),
+        ]
+    return word_forms
+
+
+# ППД1т
+def past_participle_is_valid_ppd1t(src_dict) -> list:
+    name = src_dict['name']
+    gpm = list(filter(
+        lambda x: x.idf == '.ГПм',
+        get_past_tense_forms(src_dict)
+    ))[0].name
+    if not name.endswith(('ся', 'сь')):
+        ppdmi = f'{gpm[:-1]}тший'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДмР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДмП'),
+            WordForm(f'{ppdmi[:-2]}ая', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжР'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжД'),
+            WordForm(f'{ppdmi[:-2]}ую', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-2]}ею', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжП'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДсР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДсД'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДсП'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-2]}ими', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнП'),
+        ]
+    else:
+        ppdmi = f'{gpm[:-3]}тшийся'
         word_forms = [
             WordForm(ppdmi, '.ППДмИ'),
             WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
@@ -146,8 +287,204 @@ def past_participle_is_valid_ppd2v(src_dict) -> list:
     return word_forms
 
 
+# ППД3
+def past_participle_is_valid_ppd3(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        ppdmi = f'{name}ший'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДмР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДмП'),
+            WordForm(f'{ppdmi[:-2]}ая', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжР'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжД'),
+            WordForm(f'{ppdmi[:-2]}ую', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-2]}ею', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжП'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДсР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДсД'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДсП'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-2]}ими', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнП'),
+        ]
+    else:
+        ppdmi = f'{name[:-2]}шийся'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДмП'),
+            WordForm(f'{ppdmi[:-4]}аяся', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжР'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжД'),
+            WordForm(f'{ppdmi[:-4]}уюся', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-4]}еюся', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжП'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДсР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДсД'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДсП'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-4]}имися', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнП'),
+        ]
+    return word_forms
+
+
+# ППД4
+def past_participle_is_valid_ppd4(src_dict) -> list:
+    name = src_dict['name']
+    gnb3mn = list(filter(
+        lambda x: x.idf == '.ГНБ3мн',
+        get_present_future_forms(src_dict)
+    ))[0].name
+    if not name.endswith(('ся', 'сь')):
+        ppdmi = f'{gnb3mn[:-2]}ший'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДмР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДмП'),
+            WordForm(f'{ppdmi[:-2]}ая', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжР'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжД'),
+            WordForm(f'{ppdmi[:-2]}ую', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-2]}ею', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжП'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДсР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДсД'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДсП'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-2]}ими', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнП'),
+        ]
+    else:
+        ppdmi = f'{gnb3mn[:-4]}шийся'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДмП'),
+            WordForm(f'{ppdmi[:-4]}аяся', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжР'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжД'),
+            WordForm(f'{ppdmi[:-4]}уюся', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-4]}еюся', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжП'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДсР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДсД'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДсП'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-4]}имися', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнП'),
+        ]
+    return word_forms
+
+
+# ППД5
+def past_participle_is_valid_ppd5(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        ppdmi = f'{name[:-4]}ший'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДмР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДмП'),
+            WordForm(f'{ppdmi[:-2]}ая', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжР'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжД'),
+            WordForm(f'{ppdmi[:-2]}ую', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-2]}ею', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-2]}ей', '.ППДжП'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-2]}его', '.ППДсР'),
+            WordForm(f'{ppdmi[:-2]}ему', '.ППДсД'),
+            WordForm(f'{ppdmi[:-2]}ее', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-2]}ем', '.ППДсП'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-2]}им', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-2]}ими', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-2]}их', '.ППДмнП'),
+        ]
+    else:
+        ppdmi = f'{name[:-6]}шийся'
+        word_forms = [
+            WordForm(ppdmi, '.ППДмИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДмД'),
+            WordForm(ppdmi, '.ППДмВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДмП'),
+            WordForm(f'{ppdmi[:-4]}аяся', '.ППДжИ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжР'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжД'),
+            WordForm(f'{ppdmi[:-4]}уюся', '.ППДжВ'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжТ1'),
+            WordForm(f'{ppdmi[:-4]}еюся', '.ППДжТ2'),
+            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжП'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсИ'),
+            WordForm(f'{ppdmi[:-4]}егося', '.ППДсР'),
+            WordForm(f'{ppdmi[:-4]}емуся', '.ППДсД'),
+            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсВ'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДсТ'),
+            WordForm(f'{ppdmi[:-4]}емся', '.ППДсП'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнИ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнР'),
+            WordForm(f'{ppdmi[:-4]}имся', '.ППДмнД'),
+            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнВ'),
+            WordForm(f'{ppdmi[:-4]}имися', '.ППДмнТ'),
+            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнП'),
+        ]
+    return word_forms
+
+
 # ППД2в&5
-def past_participle_is_valid_ppd2v_and_5(src_dict) -> list:
+def past_participle_is_valid_ppd2v_5(src_dict) -> list:
     name = src_dict['name']
     if not name.endswith(('ся', 'сь')):
         ppdm1i = f'{name[:-2]}вший'
@@ -258,69 +595,5 @@ def past_participle_is_valid_ppd2v_and_5(src_dict) -> list:
             WordForm(f'{ppdm2i[:-4]}иеся', '.ППД2мнВ'),
             WordForm(f'{ppdm2i[:-4]}имися', '.ППД2мнТ'),
             WordForm(f'{ppdm2i[:-4]}ихся', '.ППД2мнП'),
-        ]
-    return word_forms
-
-
-# ППД5
-def past_participle_is_valid_ppd5(src_dict) -> list:
-    name = src_dict['name']
-    if not name.endswith(('ся', 'сь')):
-        ppdmi = f'{name[:-4]}ший'
-        word_forms = [
-            WordForm(ppdmi, '.ППДмИ'),
-            WordForm(f'{ppdmi[:-2]}его', '.ППДмР'),
-            WordForm(f'{ppdmi[:-2]}ему', '.ППДмД'),
-            WordForm(ppdmi, '.ППДмВ'),
-            WordForm(f'{ppdmi[:-2]}им', '.ППДмТ'),
-            WordForm(f'{ppdmi[:-2]}ем', '.ППДмП'),
-            WordForm(f'{ppdmi[:-2]}ая', '.ППДжИ'),
-            WordForm(f'{ppdmi[:-2]}ей', '.ППДжР'),
-            WordForm(f'{ppdmi[:-2]}ей', '.ППДжД'),
-            WordForm(f'{ppdmi[:-2]}ую', '.ППДжВ'),
-            WordForm(f'{ppdmi[:-2]}ей', '.ППДжТ1'),
-            WordForm(f'{ppdmi[:-2]}ею', '.ППДжТ2'),
-            WordForm(f'{ppdmi[:-2]}ей', '.ППДжП'),
-            WordForm(f'{ppdmi[:-2]}ее', '.ППДсИ'),
-            WordForm(f'{ppdmi[:-2]}его', '.ППДсР'),
-            WordForm(f'{ppdmi[:-2]}ему', '.ППДсД'),
-            WordForm(f'{ppdmi[:-2]}ее', '.ППДсВ'),
-            WordForm(f'{ppdmi[:-2]}им', '.ППДсТ'),
-            WordForm(f'{ppdmi[:-2]}ем', '.ППДсП'),
-            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнИ'),
-            WordForm(f'{ppdmi[:-2]}их', '.ППДмнР'),
-            WordForm(f'{ppdmi[:-2]}им', '.ППДмнД'),
-            WordForm(f'{ppdmi[:-2]}ие', '.ППДмнВ'),
-            WordForm(f'{ppdmi[:-2]}ими', '.ППДмнТ'),
-            WordForm(f'{ppdmi[:-2]}их', '.ППДмнП'),
-        ]
-    else:
-        ppdmi = f'{name[:-6]}шийся'
-        word_forms = [
-            WordForm(ppdmi, '.ППДмИ'),
-            WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
-            WordForm(f'{ppdmi[:-4]}емуся', '.ППДмД'),
-            WordForm(ppdmi, '.ППДмВ'),
-            WordForm(f'{ppdmi[:-4]}имся', '.ППДмТ'),
-            WordForm(f'{ppdmi[:-4]}емся', '.ППДмП'),
-            WordForm(f'{ppdmi[:-4]}аяся', '.ППДжИ'),
-            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжР'),
-            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжД'),
-            WordForm(f'{ppdmi[:-4]}уюся', '.ППДжВ'),
-            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжТ1'),
-            WordForm(f'{ppdmi[:-4]}еюся', '.ППДжТ2'),
-            WordForm(f'{ppdmi[:-4]}ейся', '.ППДжП'),
-            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсИ'),
-            WordForm(f'{ppdmi[:-4]}егося', '.ППДсР'),
-            WordForm(f'{ppdmi[:-4]}емуся', '.ППДсД'),
-            WordForm(f'{ppdmi[:-4]}ееся', '.ППДсВ'),
-            WordForm(f'{ppdmi[:-4]}имся', '.ППДсТ'),
-            WordForm(f'{ppdmi[:-4]}емся', '.ППДсП'),
-            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнИ'),
-            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнР'),
-            WordForm(f'{ppdmi[:-4]}имся', '.ППДмнД'),
-            WordForm(f'{ppdmi[:-4]}иеся', '.ППДмнВ'),
-            WordForm(f'{ppdmi[:-4]}имися', '.ППДмнТ'),
-            WordForm(f'{ppdmi[:-4]}ихся', '.ППДмнП'),
         ]
     return word_forms
