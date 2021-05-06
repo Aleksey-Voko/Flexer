@@ -24,6 +24,8 @@ def get_past_tense_forms(src_dict) -> list:
         'П9-': past_tense_p9_dash,
         'П10о': past_tense_p10o,
         'П*': past_tense_p_prim,
+        'П2+8': past_tense_p2_8,
+        'П2+9': past_tense_p2_9,
     }
     return past_tense_tmpl[src_dict['Inf_4']](src_dict)
 
@@ -420,5 +422,49 @@ def past_tense_p_prim(src_dict) -> list:
             WordForm(f'{name[:-4]}лась', '.ГПж'),
             WordForm(f'{name[:-4]}лось', '.ГПс'),
             WordForm(f'{name[:-4]}лись', '.ГПмн'),
+        ]
+    return word_forms
+
+
+# П2+8
+def past_tense_p2_8(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-2]}л', '.ГПм1'),
+            WordForm(f'{name[:-4]}л', '.ГПм2'),
+            WordForm(f'{name[:-4]}ла', '.ГПж'),
+            WordForm(f'{name[:-4]}ло', '.ГПс'),
+            WordForm(f'{name[:-4]}ли', '.ГПмн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-4]}лся', '.ГПм1'),
+            WordForm(f'{name[:-6]}лся', '.ГПм2'),
+            WordForm(f'{name[:-6]}лась', '.ГПж'),
+            WordForm(f'{name[:-6]}лось', '.ГПс'),
+            WordForm(f'{name[:-6]}лись', '.ГПмн'),
+        ]
+    return word_forms
+
+
+# П2+9
+def past_tense_p2_9(src_dict) -> list:
+    name = src_dict['name']
+    if not name.endswith(('ся', 'сь')):
+        word_forms = [
+            WordForm(f'{name[:-2]}л', '.ГПм1'),
+            WordForm(f'{name[:-4]}', '.ГПм2'),
+            WordForm(f'{name[:-4]}ла', '.ГПж'),
+            WordForm(f'{name[:-4]}ло', '.ГПс'),
+            WordForm(f'{name[:-4]}ли', '.ГПмн'),
+        ]
+    else:
+        word_forms = [
+            WordForm(f'{name[:-4]}лся', '.ГПм1'),
+            WordForm(f'{name[:-6]}ся', '.ГПм2'),
+            WordForm(f'{name[:-6]}лась', '.ГПж'),
+            WordForm(f'{name[:-6]}лось', '.ГПс'),
+            WordForm(f'{name[:-6]}лись', '.ГПмн'),
         ]
     return word_forms
