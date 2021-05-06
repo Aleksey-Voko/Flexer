@@ -10,12 +10,36 @@ def get_string_list_from_file(f_name, encoding='utf-8'):
             yield line.rstrip()
 
 
-def get_dicts_from_csv_file(f_name, encoding='utf-8',
-                            newline='', delimiter=','):
+def get_dicts_from_csv_file(f_name, encoding='cp1251',
+                            newline='', delimiter=';'):
     with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
         csv_reader = csv.DictReader(f_in, delimiter=delimiter)
         for row in csv_reader:
             yield row
+
+
+def get_verbs_dicts_from_csv_file(f_name, encoding='cp1251',
+                                  newline='', delimiter=';'):
+    with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
+        csv_reader = csv.reader(f_in, delimiter=delimiter)
+        fieldnames = [
+            'name',
+            'Inf_0',
+            'Inf_1',
+            'Inf_2',
+            'Inf_3',
+            'Inf_4',
+            'Inf_5',
+            'Inf_6',
+            'Inf_7',
+            'Inf_8',
+            'Inf_9',
+            'Inf_10',
+            'Inf_11',
+            'Inf_12',
+        ]
+        for row in csv_reader:
+            yield dict(zip(fieldnames, row))
 
 
 def save_bs_dicts_to_txt(in_dicts: list, f_name, encoding='cp1251'):

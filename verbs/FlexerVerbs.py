@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from utils import (get_string_list_from_file, get_dicts_from_csv_file,
-                   save_bs_dicts_to_txt)
+from utils import (get_string_list_from_file, save_bs_dicts_to_txt,
+                   get_verbs_dicts_from_csv_file)
 from verbs.imperative_mood import get_imperative_mood_forms
 from verbs.joint_action import get_joint_action_forms
 from verbs.passive_past_participle import get_passive_past_participle
@@ -12,7 +12,6 @@ from verbs.past_tense import get_past_tense_forms
 from verbs.present_future import get_present_future_forms
 from verbs.present_participle import get_present_participle
 from verbs.present_participle_is_valid import get_present_participle_is_valid
-
 from word_form import GroupWordForm, TitleWordForm
 
 
@@ -93,7 +92,7 @@ def save_groups_to_bs():
     print(f'Файл с исходными данными:')
     print(in_verbs + '\n')
 
-    src_groups = get_dicts_from_csv_file(in_verbs)
+    src_groups = get_verbs_dicts_from_csv_file(in_verbs)
 
     count = 0
     add_groups_to_bs_list = []
