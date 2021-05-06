@@ -13,7 +13,7 @@ def add_groups_to_bs():
         definitions, encoding='cp1251')
 
     print('*' * 3)
-    print('Словарь:')
+    print('База словоформ:')
     print(f'"{in_bs}"\n')
     word_forms_bases = list(read_src_bs(in_bs))
 
@@ -26,7 +26,7 @@ def add_groups_to_bs():
     save_bs_dicts_to_txt(sorted(word_forms_bases), out_bs)
 
     print('*' * 3)
-    print(f'В словарь добавлено {len(verbs)} групп словоформ\n')
+    print(f'В БС добавлено {len(verbs)} групп словоформ\n')
 
     print('*' * 3)
     print(f'Файл с результатами "{out_bs}" сохранён в текущей директории:')
