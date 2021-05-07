@@ -42,6 +42,24 @@ def get_verbs_dicts_from_csv_file(f_name, encoding='cp1251',
             yield dict(zip(fieldnames, row))
 
 
+def get_nouns_dicts_from_csv_file(f_name, encoding='cp1251',
+                                  newline='', delimiter=';'):
+    with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
+        csv_reader = csv.reader(f_in, delimiter=delimiter)
+        fieldnames = [
+            'name',
+            'Inf_0',
+            'Inf_1',
+            'Inf_2',
+            'Inf_3',
+            'Inf_4',
+            'Inf_5',
+            'Inf_6',
+        ]
+        for row in csv_reader:
+            yield dict(zip(fieldnames, row))
+
+
 def save_bs_dicts_to_txt(in_dicts: list, f_name, encoding='cp1251'):
     Path(f_name).parent.mkdir(parents=True, exist_ok=True)
     with open(Path(f_name), 'w', encoding=encoding) as f_out:
