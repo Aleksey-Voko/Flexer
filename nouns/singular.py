@@ -44,8 +44,12 @@ def get_singular_forms(src_dict) -> list:
         'I1+2': get_singular_i1_2,
         'I1#+2#': get_singular_i1_sharp_2_sharp,
         'II2+4': get_singular_i2_4,
-
+        'I1&1#': get_singular_i1_and_1_sharp,
+        'I3#&3#*': get_singular_i3_sharp_and_3_sharp_prim,
         'I5&II2*': get_singular_i5_and_ii2_prim,
+        'I7&II4*': get_singular_i7_and_ii4_prim,
+        'III1&1*': get_singular_iii1_and_1_prim,
+        'II1/&1/*': get_singular_ii1_slash_1_slash_prim,
     }
     return singular_tmpl[src_dict['Inf_3']](src_dict)
 
@@ -694,6 +698,42 @@ def get_singular_i2_4(src_dict) -> list:
     return word_forms
 
 
+# I1&1#
+def get_singular_i1_and_1_sharp(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name}а', '.СеР1'),
+        WordForm(f'{name[:-2]}{name[-1]}а', '.СеР2'),
+        WordForm(f'{name}у', '.СеД1'),
+        WordForm(f'{name[:-2]}{name[-1]}у', '.СеД2'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name}ом', '.СеТ1'),
+        WordForm(f'{name[:-2]}{name[-1]}ом', '.СеТ2'),
+        WordForm(f'{name}е', '.СеП1'),
+        WordForm(f'{name[:-2]}{name[-1]}е', '.СеП2'),
+    ]
+    return word_forms
+
+
+# I3#&3#*
+def get_singular_i3_sharp_and_3_sharp_prim(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-3]}{name[-2]}я', '.СеР1'),
+        WordForm(f'{name[:3]}у{name[3:-3]}{name[-2]}я', '.СеР2'),
+        WordForm(f'{name[:-3]}{name[-2]}ю', '.СеД1'),
+        WordForm(f'{name[:3]}у{name[3:-3]}{name[-2]}ю', '.СеД2'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name[:-3]}{name[-2]}ем', '.СеТ1'),
+        WordForm(f'{name[:3]}у{name[3:-3]}{name[-2]}ем', '.СеТ2'),
+        WordForm(f'{name[:-3]}{name[-2]}е', '.СеП1'),
+        WordForm(f'{name[:3]}у{name[3:-3]}{name[-2]}е', '.СеП2'),
+    ]
+    return word_forms
+
+
 # I5&II2*
 def get_singular_i5_and_ii2_prim(src_dict) -> list:
     name = src_dict['name']
@@ -707,5 +747,65 @@ def get_singular_i5_and_ii2_prim(src_dict) -> list:
         WordForm(f'{name[:-1]}ом', '.СеТ1'),
         WordForm(f'{name[:-1]}ой', '.СеТ2'),
         WordForm(f'{name[:-1]}е', '.СеП'),
+    ]
+    return word_forms
+
+
+# I7&II4*
+def get_singular_i7_and_ii4_prim(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
+    if inf_0 == 'неод':
+        sev = f'{name[:-1]}а'
+    else:
+        sev = f'{name[:-1]}е'
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-1]}а', '.СеР1'),
+        WordForm(f'{name[:-1]}и', '.СеР2'),
+        WordForm(f'{name[:-1]}у', '.СеД1'),
+        WordForm(f'{name[:-1]}е', '.СеД2'),
+        WordForm(sev, '.СеВ'),
+        WordForm(f'{name[:-1]}ем', '.СеТ1'),
+        WordForm(f'{name[:-1]}ей', '.СеТ2'),
+        WordForm(f'{name[:-1]}е', '.СеП'),
+    ]
+    return word_forms
+
+
+# III1&1*
+def get_singular_iii1_and_1_prim(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-1]}и', '.СеР1'),
+        WordForm(f'{name[:3]}у{name[3:-1]}и', '.СеР2'),
+        WordForm(f'{name[:-1]}и', '.СеД1'),
+        WordForm(f'{name[:3]}у{name[3:-1]}и', '.СеД2'),
+        WordForm(name, '.СеВ'),
+        WordForm(f'{name}ю', '.СеТ1'),
+        WordForm(f'{name[:3]}у{name[3:]}ю', '.СеТ2'),
+        WordForm(f'{name[:-1]}и', '.СеП1'),
+        WordForm(f'{name[:3]}у{name[3:-1]}и', '.СеП1'),
+    ]
+    return word_forms
+
+
+# II1/&1/*
+def get_singular_ii1_slash_1_slash_prim(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ/'),
+        WordForm(f'{name}', '.СеР/1'),
+        WordForm(f'{name[:3]}у{name[3:]}', '.СеР/2'),
+        WordForm(f'{name[:-1]}е', '.СеД/1'),
+        WordForm(f'{name[:3]}у{name[3:-1]}е', '.СеД/2'),
+        WordForm(f'{name}', '.СеВ/'),
+        WordForm(f'{name[:-1]}ой', '.СеТ/1'),
+        WordForm(f'{name[:-1]}ою', '.СеТ/2'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ой', '.СеТ/3'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ою', '.СеТ/4'),
+        WordForm(f'{name[:-1]}е', '.СеП/1'),
+        WordForm(f'{name[:3]}у{name[3:-1]}е', '.СеП/2'),
     ]
     return word_forms
