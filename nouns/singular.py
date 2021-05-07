@@ -1,4 +1,5 @@
 """Существительные единственное число"""
+
 from word_form import WordForm
 
 
@@ -27,11 +28,13 @@ def get_singular_forms(src_dict) -> list:
         'II6': get_singl_ii6,
         'III1': get_singl_iii1,
     }
-    return singular_tmpl[src_dict['Inf_3']](src_dict['name'], src_dict['Inf_0'])
+    return singular_tmpl[src_dict['Inf_3']](src_dict)
 
 
 # I1
-def get_singl_i1(name: str, inf_0: str) -> list:
+def get_singl_i1(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -48,7 +51,9 @@ def get_singl_i1(name: str, inf_0: str) -> list:
 
 
 # I1#
-def get_singl_i1_sharp(name: str, inf_0: str) -> list:
+def get_singl_i1_sharp(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -65,7 +70,9 @@ def get_singl_i1_sharp(name: str, inf_0: str) -> list:
 
 
 # I1#й
-def get_singl_i1_sharp_ii(name: str, inf_0: str) -> list:
+def get_singl_i1_sharp_ii(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -82,7 +89,9 @@ def get_singl_i1_sharp_ii(name: str, inf_0: str) -> list:
 
 
 # I1#ь
-def get_singl_i1_sharp_soft(name: str, inf_0: str) -> list:
+def get_singl_i1_sharp_soft(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -99,7 +108,9 @@ def get_singl_i1_sharp_soft(name: str, inf_0: str) -> list:
 
 
 # I2
-def get_singl_i2(name: str, inf_0: str) -> list:
+def get_singl_i2(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -116,7 +127,9 @@ def get_singl_i2(name: str, inf_0: str) -> list:
 
 
 # I2#
-def get_singl_i2_sharp(name: str, inf_0: str) -> list:
+def get_singl_i2_sharp(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -133,7 +146,9 @@ def get_singl_i2_sharp(name: str, inf_0: str) -> list:
 
 
 # I2#й
-def get_singl_i2_sharp_ii(name: str, inf_0: str) -> list:
+def get_singl_i2_sharp_ii(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -150,7 +165,9 @@ def get_singl_i2_sharp_ii(name: str, inf_0: str) -> list:
 
 
 # I3
-def get_singl_i3(name: str, inf_0: str) -> list:
+def get_singl_i3(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -167,7 +184,9 @@ def get_singl_i3(name: str, inf_0: str) -> list:
 
 
 # I3#
-def get_singl_i3_sharp(name: str, inf_0: str) -> list:
+def get_singl_i3_sharp(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -184,7 +203,9 @@ def get_singl_i3_sharp(name: str, inf_0: str) -> list:
 
 
 # I4
-def get_singl_i4(name: str, inf_0: str) -> list:
+def get_singl_i4(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -201,7 +222,9 @@ def get_singl_i4(name: str, inf_0: str) -> list:
 
 
 # I5
-def get_singl_i5(name: str, inf_0: str) -> list:
+def get_singl_i5(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -218,7 +241,8 @@ def get_singl_i5(name: str, inf_0: str) -> list:
 
 
 # I5&II2*
-def get_singl_i5_and_ii2_prim(name: str, _) -> list:
+def get_singl_i5_and_ii2_prim(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}а', '.СеР1'),
@@ -234,7 +258,9 @@ def get_singl_i5_and_ii2_prim(name: str, _) -> list:
 
 
 # I6
-def get_singl_i6(name: str, inf_0: str) -> list:
+def get_singl_i6(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -251,7 +277,9 @@ def get_singl_i6(name: str, inf_0: str) -> list:
 
 
 # I7
-def get_singl_i7(name: str, inf_0: str) -> list:
+def get_singl_i7(src_dict) -> list:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
     if inf_0 == 'неод':
         sev = f'{name}'
     else:
@@ -268,7 +296,8 @@ def get_singl_i7(name: str, inf_0: str) -> list:
 
 
 # II1
-def get_singl_ii1(name: str, _) -> list:
+def get_singl_ii1(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}ы', '.СеР'),
@@ -282,7 +311,8 @@ def get_singl_ii1(name: str, _) -> list:
 
 
 # II2
-def get_singl_ii2(name: str, _) -> list:
+def get_singl_ii2(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}и', '.СеР'),
@@ -296,7 +326,8 @@ def get_singl_ii2(name: str, _) -> list:
 
 
 # II3
-def get_singl_ii3(name: str, _) -> list:
+def get_singl_ii3(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}ы', '.СеР'),
@@ -310,7 +341,8 @@ def get_singl_ii3(name: str, _) -> list:
 
 
 # II4
-def get_singl_ii4(name: str, _) -> list:
+def get_singl_ii4(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}и', '.СеР'),
@@ -324,7 +356,8 @@ def get_singl_ii4(name: str, _) -> list:
 
 
 # II5
-def get_singl_ii5(name: str, _) -> list:
+def get_singl_ii5(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}и', '.СеР'),
@@ -338,7 +371,8 @@ def get_singl_ii5(name: str, _) -> list:
 
 
 # II5*
-def get_singl_ii5_prim(name: str, _) -> list:
+def get_singl_ii5_prim(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}и', '.СеР'),
@@ -351,7 +385,8 @@ def get_singl_ii5_prim(name: str, _) -> list:
 
 
 # II6
-def get_singl_ii6(name: str, _) -> list:
+def get_singl_ii6(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}и', '.СеР'),
@@ -365,7 +400,8 @@ def get_singl_ii6(name: str, _) -> list:
 
 
 # III1
-def get_singl_iii1(name: str, _) -> list:
+def get_singl_iii1(src_dict) -> list:
+    name = src_dict['name']
     word_forms = [
         WordForm(f'{name}', '.СеИ'),
         WordForm(f'{name[:-1]}и', '.СеР'),

@@ -3,7 +3,8 @@ from pprint import pprint
 
 from nouns.plural import get_plural_forms
 from nouns.singular import get_singular_forms
-from utils import get_string_list_from_file, get_nouns_dicts_from_csv_file, save_bs_dicts_to_txt
+from utils import (get_string_list_from_file, get_nouns_dicts_from_csv_file,
+                   save_bs_dicts_to_txt)
 from word_form import GroupWordForm, TitleWordForm
 
 
