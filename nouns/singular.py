@@ -36,6 +36,11 @@ def get_singular_forms(src_dict) -> list:
         'III3': get_singular_iii3,
         'III4': get_singular_iii4,
         'III5': get_singular_iii5,
+        'I1/*': get_singular_i1_slash_prim,
+        'I1/**': get_singular_i1_slash_2prim,
+        'II1/': get_singular_ii1_slash,
+        'II1/*': get_singular_ii1_slash_prim,
+        'II4**/*': get_singular_ii4_2prim_slash_prim,
 
         'I5&II2*': get_singular_i5_and_ii2_prim,
     }
@@ -556,6 +561,80 @@ def get_singular_iii5(src_dict) -> list:
         WordForm(f'{name}тей', '.СеТ1'),
         WordForm(f'{name}тею', '.СеТ1'),
         WordForm(f'{name}ти', '.СеП'),
+    ]
+    return word_forms
+
+
+# I1/*
+def get_singular_i1_slash_prim(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}а', '.СеР/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}у', '.СеД/'),
+        WordForm(f'{name}', '.СеВ/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ом', '.СеТ/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}е', '.СеП/'),
+    ]
+    return word_forms
+
+
+# I1/**
+def get_singular_i1_slash_2prim(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ/'),
+        WordForm(f'полу{name[3:-1]}а', '.СеР/'),
+        WordForm(f'полу{name[3:-1]}у', '.СеД/'),
+        WordForm(f'{name}', '.СеВ/'),
+        WordForm(f'полу{name[3:-1]}ом', '.СеТ/'),
+        WordForm(f'полу{name[3:-1]}е', '.СеП/'),
+    ]
+    return word_forms
+
+
+# II1/
+def get_singular_ii1_slash(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ/'),
+        WordForm(f'{name}', '.СеР/'),
+        WordForm(f'{name[:-1]}е', '.СеД/'),
+        WordForm(f'{name}', '.СеВ/'),
+        WordForm(f'{name[:-1]}ой', '.СеТ/1'),
+        WordForm(f'{name[:-1]}ою', '.СеТ/2'),
+        WordForm(f'{name[:-1]}е', '.СеП/'),
+    ]
+    return word_forms
+
+
+# II1/*
+def get_singular_ii1_slash_prim(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ/'),
+        WordForm(f'{name[:3]}у{name[3:]}', '.СеР/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}е', '.СеД/'),
+        WordForm(f'{name}', '.СеВ/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ой', '.СеТ/1'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ою', '.СеТ/2'),
+        WordForm(f'{name[:3]}у{name[3:-1]}е', '.СеП/'),
+    ]
+    return word_forms
+
+
+# II4**/*
+def get_singular_ii4_2prim_slash_prim(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ/'),
+        WordForm(f'{name[:3]}у{name[3:]}', '.СеР/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}е', '.СеД/'),
+        WordForm(f'{name}', '.СеВ/'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ей', '.СеТ/1'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ею', '.СеТ/2'),
+        WordForm(f'{name[:3]}у{name[3:-1]}ью', '.СеТ/3'),
+        WordForm(f'{name[:3]}у{name[3:-1]}е', '.СеП/'),
     ]
     return word_forms
 
