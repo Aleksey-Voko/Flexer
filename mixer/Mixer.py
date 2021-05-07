@@ -43,7 +43,7 @@ def add_groups_to_bs():
     print()
 
     print('*' * 3)
-    print('Для выхода нажмите любую клавишу')
+    print('Для выхода нажмите любую Enter')
     input()
 
 
