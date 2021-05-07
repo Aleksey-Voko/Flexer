@@ -30,9 +30,14 @@ def get_singular_forms(src_dict) -> list:
         'II5*': get_singular_ii5_prim,
         'II6': get_singular_ii6,
         'II4**': get_singular_ii4_2prim,
+        'III1': get_singular_iii1,
+        'III1#': get_singular_iii1_sharp,
+        'III2': get_singular_iii2,
+        'III3': get_singular_iii3,
+        'III4': get_singular_iii4,
+        'III5': get_singular_iii5,
 
         'I5&II2*': get_singular_i5_and_ii2_prim,
-        'III1': get_singular_iii1,
     }
     return singular_tmpl[src_dict['Inf_3']](src_dict)
 
@@ -470,6 +475,91 @@ def get_singular_ii4_2prim(src_dict) -> list:
     return word_forms
 
 
+# III1
+def get_singular_iii1(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-1]}и', '.СеР'),
+        WordForm(f'{name[:-1]}и', '.СеД'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name[:-1]}ью', '.СеТ'),
+        WordForm(f'{name[:-1]}и', '.СеП'),
+    ]
+    return word_forms
+
+
+# III1#
+def get_singular_iii1_sharp(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-3]}{name[-2:-1]}и', '.СеР'),
+        WordForm(f'{name[:-3]}{name[-2:-1]}и', '.СеД'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name}ю', '.СеТ'),
+        WordForm(f'{name[:-3]}{name[-2:-1]}и', '.СеП'),
+    ]
+    return word_forms
+
+
+# III2
+def get_singular_iii2(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-1]}ени', '.СеР'),
+        WordForm(f'{name[:-1]}ени', '.СеД'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name[:-1]}енем', '.СеТ'),
+        WordForm(f'{name[:-1]}ени', '.СеП'),
+    ]
+    return word_forms
+
+
+# III3
+def get_singular_iii3(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-1]}ери', '.СеР'),
+        WordForm(f'{name[:-1]}ери', '.СеД'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name[:-1]}ерью', '.СеТ'),
+        WordForm(f'{name[:-1]}ери', '.СеП'),
+    ]
+    return word_forms
+
+
+# III4
+def get_singular_iii4(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name[:-1]}и', '.СеР'),
+        WordForm(f'{name[:-1]}и', '.СеД'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name[:-1]}ем', '.СеТ'),
+        WordForm(f'{name[:-1]}и', '.СеП'),
+    ]
+    return word_forms
+
+
+# III5
+def get_singular_iii5(src_dict) -> list:
+    name = src_dict['name']
+    word_forms = [
+        WordForm(f'{name}', '.СеИ'),
+        WordForm(f'{name}ти', '.СеР'),
+        WordForm(f'{name}ти', '.СеД'),
+        WordForm(f'{name}', '.СеВ'),
+        WordForm(f'{name}тей', '.СеТ1'),
+        WordForm(f'{name}тею', '.СеТ1'),
+        WordForm(f'{name}ти', '.СеП'),
+    ]
+    return word_forms
+
+
 # I5&II2*
 def get_singular_i5_and_ii2_prim(src_dict) -> list:
     name = src_dict['name']
@@ -483,19 +573,5 @@ def get_singular_i5_and_ii2_prim(src_dict) -> list:
         WordForm(f'{name[:-1]}ом', '.СеТ1'),
         WordForm(f'{name[:-1]}ой', '.СеТ2'),
         WordForm(f'{name[:-1]}е', '.СеП'),
-    ]
-    return word_forms
-
-
-# III1
-def get_singular_iii1(src_dict) -> list:
-    name = src_dict['name']
-    word_forms = [
-        WordForm(f'{name}', '.СеИ'),
-        WordForm(f'{name[:-1]}и', '.СеР'),
-        WordForm(f'{name[:-1]}и', '.СеД'),
-        WordForm(f'{name}', '.СеВ'),
-        WordForm(f'{name[:-1]}ью', '.СеТ'),
-        WordForm(f'{name[:-1]}и', '.СеП'),
     ]
     return word_forms
