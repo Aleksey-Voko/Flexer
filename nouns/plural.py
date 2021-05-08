@@ -83,17 +83,34 @@ def get_plural_forms(src_dict, singl_word_forms) -> list:
         'III11': get_plural_iii11,
         'III12': get_plural_iii12,
         'III12*': get_plural_iii12_prim,
+        'IV1': get_plural_iv1,
+        'IV2': get_plural_iv2,
+        'IV3': get_plural_iv3,
+        'IV3*': get_plural_iv3_prim,
+        'IV4': get_plural_iv4,
+        'IV5': get_plural_iv5,
+        'IV6': get_plural_iv6,
+        'IV6*': get_plural_iv6_prim,
+        'IV6е': get_plural_iv6e,
+        'IV6е*': get_plural_iv6e_prim,
+        'IV6#е': get_plural_iv6_sharp_e,
+        'IV6#е*': get_plural_iv6_sharp_e_prim,
+        'IV6#и': get_plural_iv6_sharp_i,
+        'IV6о': get_plural_iv6o,
+        'IV7': get_plural_iv7,
+        'IV7#я': get_plural_iv7_sharp_y,
+        'IV8': get_plural_iv8,
+        'IV9': get_plural_iv9,
+        'IV10': get_plural_iv10,
+        'IV11': get_plural_iv11,
+        'IV12': get_plural_iv12,
+        'IV13': get_plural_iv13,
 
         'I1&IV11': get_plural_i1_and_iv11,
         'I4+III7': get_plural_i4_and_iii7,
         'II1*+6*': get_plural_ii1_prim_and_6_prim,
         'II1+IV1': get_plural_ii1_and_iv1,
-        'IV1': get_plural_iv1,
         'IV1+I1': get_plural_iv1_and_i1,
-        'IV12': get_plural_iv12,
-        'IV13': get_plural_iv13,
-        'IV6': get_plural_iv6,
-        'IV6*': get_plural_iv6_prim,
         'IV6*+I13*': get_plural_iv6_prim_and_i13,
         'IV6*+II5*': get_plural_iv6_prim_and_ii5_prim,
         'IV6+I13': get_plural_iv6_and_i13,
@@ -1526,6 +1543,365 @@ def get_plural_iii12_prim(src_dict, _) -> list:
     return word_forms
 
 
+# IV1
+def get_plural_iv1(src_dict, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-1]}ов'
+    inf_0 = src_dict['Inf_0']
+    if inf_0 == 'неод':
+        smnv = smni
+    else:
+        smnv = smnr
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnv, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV2
+def get_plural_iv2(_, singl_word_forms) -> list:
+    sei = list(filter(lambda x: x.idf == '.СеИ', singl_word_forms))[0].name
+    smni = f'{sei[:-2]}а'
+    smnr = f'{smni[:-1]}ов'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV3
+def get_plural_iv3(_, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-1]}ев'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV3*
+def get_plural_iv3_prim(src_dict, _) -> list:
+    smni = src_dict['name']
+    smnr = f'{smni[:-1]}ев'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV4
+def get_plural_iv4(_, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-1]}ей'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnr, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV5
+def get_plural_iv5(_, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = list(filter(lambda x: x.idf == '.СеИ', singl_word_forms))[0].name
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6
+def get_plural_iv6(src_dict, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-1]}'
+    inf_0 = src_dict['Inf_0']
+    if inf_0 == 'неод':
+        smnv = smni
+    else:
+        smnv = smnr
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnv, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6*
+def get_plural_iv6_prim(src_dict, _) -> list:
+    smni = src_dict['name']
+    smnr = f'{smni[:-1]}'
+    inf_0 = src_dict['Inf_0']
+    if inf_0 == 'неод':
+        smnv = smni
+    else:
+        smnv = smnr
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnv, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6е
+def get_plural_iv6e(src_dict, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-2]}е{smni[-2]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6е*
+def get_plural_iv6e_prim(src_dict, _) -> list:
+    smni = src_dict['name']
+    smnr = f'{smni[:-2]}е{smni[-2]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6#е
+def get_plural_iv6_sharp_e(_, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-3]}е{smni[-2]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6#е*
+def get_plural_iv6_sharp_e_prim(src_dict, _) -> list:
+    smni = src_dict['name']
+    smnr = f'{smni[:-3]}е{smni[-2]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6#и
+def get_plural_iv6_sharp_i(_, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-3]}и{smni[-2]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV6о
+def get_plural_iv6o(_, singl_word_forms) -> list:
+    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smnr = f'{smni[:-2]}о{smni[-2]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV7
+def get_plural_iv7(_, singl_word_forms) -> list:
+    ser = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smni = f'{ser[:-1]}а'
+    smnr = f'{smni[:-1]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV7#я
+def get_plural_iv7_sharp_y(_, singl_word_forms) -> list:
+    ser = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+    smni = f'{ser[:-1]}а'
+    smnr = f'{smni[:-3]}я{smni[-2]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV8
+def get_plural_iv8(_, singl_word_forms) -> list:
+    sei = list(filter(lambda x: x.idf == '.И', singl_word_forms))[0].name
+    smni = f'{sei[:-2]}а'
+    smnr = f'{smni[:-1]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnr, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV9
+def get_plural_iv9(_, singl_word_forms) -> list:
+    sei = list(filter(lambda x: x.idf == '.И', singl_word_forms))[0].name
+    smni = f'{sei[:-1]}еса'
+    smnr = f'{smni[:-1]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smni, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV10
+def get_plural_iv10(_, singl_word_forms) -> list:
+    sei = list(filter(lambda x: x.idf == '.И', singl_word_forms))[0].name
+    smni = f'{sei[:-2]}ева'
+    smnr = f'{smni[:-1]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnr, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV11
+def get_plural_iv11(_, singl_word_forms) -> list:
+    sei = list(filter(lambda x: x.idf == '.И', singl_word_forms))[0].name
+    smni = f'{sei[:-2]}ята'
+    smnr = f'{smni[:-1]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnr, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV12
+def get_plural_iv12(src_dict, singl_word_forms) -> list:
+    sei = list(filter(lambda x: x.idf == '.И', singl_word_forms))[0].name
+    smni = f'{sei[:-4]}ята'
+    smnr = f'{smni[:-1]}'
+    inf_0 = src_dict['Inf_0']
+    if inf_0 == 'неод':
+        smnv = smni
+    else:
+        smnv = smnr
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnv, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
+# IV13
+def get_plural_iv13(src_dict, singl_word_forms) -> list:
+    sei = list(filter(lambda x: x.idf == '.И', singl_word_forms))[0].name
+    smni = f'{sei[:-4]}ата'
+    smnr = f'{smni[:-1]}'
+    word_forms = [
+        WordForm(smni, '.СмнИ'),
+        WordForm(smnr, '.СмнР'),
+        WordForm(f'{smni[:-1]}ам', '.СмнД'),
+        WordForm(smnr, '.СмнВ'),
+        WordForm(f'{smni[:-1]}ами', '.СмнТ'),
+        WordForm(f'{smni[:-1]}ах', '.СмнП'),
+    ]
+    return word_forms
+
+
 # I1&IV11
 def get_plural_i1_and_iv11(src_dict, singl_word_forms) -> list:
     name = src_dict['name']
@@ -1614,25 +1990,6 @@ def get_plural_ii1_and_iv1(src_dict, singl_word_forms) -> list:
     return list(filter(None, word_forms))
 
 
-# IV1
-def get_plural_iv1(src_dict, singl_word_forms) -> list:
-    inf_0 = src_dict['Inf_0']
-    ser = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
-    if inf_0 == 'неод':
-        smnv = f'{ser}'
-    else:
-        smnv = f'{ser[:-1]}ов'
-    word_forms = [
-        WordForm(f'{ser}', '.СмнИ'),
-        WordForm(f'{ser[:-1]}ов', '.СмнР'),
-        WordForm(f'{ser[:-1]}ам', '.СмнД'),
-        WordForm(smnv, '.СмнВ'),
-        WordForm(f'{ser[:-1]}ами', '.СмнТ'),
-        WordForm(f'{ser[:-1]}ах', '.СмнП'),
-    ]
-    return word_forms
-
-
 # IV1+I1
 def get_plural_iv1_and_i1(_, singl_word_forms) -> list:
     ser = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
@@ -1645,77 +2002,6 @@ def get_plural_iv1_and_i1(_, singl_word_forms) -> list:
         WordForm(f'{ser[:-1]}и', '.СмнВ2'),
         WordForm(f'{ser[:-1]}ами', '.СмнТ'),
         WordForm(f'{ser[:-1]}ах', '.СмнП'),
-    ]
-    return word_forms
-
-
-# IV12
-def get_plural_iv12(src_dict, _) -> list:
-    name = src_dict['name']
-    inf_0 = src_dict['Inf_0']
-    if inf_0 == 'неод':
-        smnv = f'{name[:-4]}ята'
-    else:
-        smnv = f'{name[:-4]}ят'
-    word_forms = [
-        WordForm(f'{name[:-4]}ята', '.СмнИ'),
-        WordForm(f'{name[:-4]}ят', '.СмнР'),
-        WordForm(f'{name[:-4]}ятам', '.СмнД'),
-        WordForm(smnv, '.СмнВ'),
-        WordForm(f'{name[:-4]}ятами', '.СмнТ'),
-        WordForm(f'{name[:-4]}ятах', '.СмнП'),
-    ]
-    return word_forms
-
-
-# IV13
-def get_plural_iv13(src_dict, _) -> list:
-    name = src_dict['name']
-    word_forms = [
-        WordForm(f'{name[:-4]}ата', '.СмнИ'),
-        WordForm(f'{name[:-4]}ат', '.СмнР'),
-        WordForm(f'{name[:-4]}атам', '.СмнД'),
-        WordForm(f'{name[:-4]}ат', '.СмнВ'),
-        WordForm(f'{name[:-4]}атами', '.СмнТ'),
-        WordForm(f'{name[:-4]}атах', '.СмнП'),
-    ]
-    return word_forms
-
-
-# IV6
-def get_plural_iv6(src_dict, singl_word_forms) -> list:
-    inf_0 = src_dict['Inf_0']
-    ser = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
-    if inf_0 == 'неод':
-        smnv = f'{ser}'
-    else:
-        smnv = f'{ser[:-1]}'
-    word_forms = [
-        WordForm(f'{ser}', '.СмнИ'),
-        WordForm(f'{ser[:-1]}', '.СмнР'),
-        WordForm(f'{ser[:-1]}ам', '.СмнД'),
-        WordForm(smnv, '.СмнВ'),
-        WordForm(f'{ser[:-1]}ами', '.СмнТ'),
-        WordForm(f'{ser[:-1]}ах', '.СмнП'),
-    ]
-    return word_forms
-
-
-# IV6*
-def get_plural_iv6_prim(src_dict, _) -> list:
-    name = src_dict['name']
-    inf_0 = src_dict['Inf_0']
-    if inf_0 == 'неод':
-        smnv = f'{name}'
-    else:
-        smnv = f'{name[:-1]}'
-    word_forms = [
-        WordForm(f'{name}', '.СмнИ'),
-        WordForm(f'{name[:-1]}', '.СмнР'),
-        WordForm(f'{name[:-1]}ам', '.СмнД'),
-        WordForm(smnv, '.СмнВ'),
-        WordForm(f'{name[:-1]}ами', '.СмнТ'),
-        WordForm(f'{name[:-1]}ах', '.СмнП'),
     ]
     return word_forms
 
