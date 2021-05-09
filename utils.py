@@ -10,6 +10,13 @@ def get_string_list_from_file(f_name, encoding='utf-8'):
             yield line.rstrip()
 
 
+def save_list_to_file(input_list: list, out_file: str, encoding='utf-8'):
+    Path(out_file).parent.mkdir(parents=True, exist_ok=True)
+    with open(Path(out_file), 'w', encoding=encoding) as f_out:
+        for line in input_list:
+            f_out.write(str(line) + '\n')
+
+
 def get_dicts_from_csv_file(f_name, encoding='cp1251',
                             newline='', delimiter=';'):
     with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
