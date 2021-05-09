@@ -93,4 +93,4 @@ if __name__ == '__main__':
     save_groups_to_bs()
 
 # compilation
-# pyinstaller -F nouns/FlexerNouns.py
+# pyinstaller -F -i nouns/icon.ico nouns/FlexerNouns.py
