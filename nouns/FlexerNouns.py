@@ -11,32 +11,37 @@ from word_form import GroupWordForm, TitleWordForm
 
 def get_group_word_form(src_dict: dict) -> GroupWordForm:
     name = src_dict['name']
-    info = [src_dict['Inf_0']]
-    if src_dict['Inf_1']:
-        info.append(''.join(list(filter(None, [
-            src_dict['Inf_1'],
-            src_dict['Inf_2'],
-            src_dict['Inf_3']]))))
-    if src_dict['Inf_4']:
-        info.append(''.join(list(filter(None, [
-            src_dict['Inf_4'],
-            src_dict['Inf_5'],
-            src_dict['Inf_6']]))))
-
-    word_forms = []
-    if src_dict['Inf_1']:
-        singular_word_forms = get_singular_forms(src_dict)
-        word_forms += singular_word_forms
+    inf_0 = src_dict['Inf_0']
+    if inf_0:
+        info = [inf_0]
+        if src_dict['Inf_1']:
+            info.append(''.join(list(filter(None, [
+                src_dict['Inf_1'],
+                src_dict['Inf_2'],
+                src_dict['Inf_3']]))))
         if src_dict['Inf_4']:
-            plural_word_forms = get_plural_forms(
-                src_dict, singular_word_forms)
-            word_forms += plural_word_forms
-    elif src_dict['Inf_4']:
-        plural_word_forms = get_plural_forms(src_dict, [])
-        word_forms += plural_word_forms
+            info.append(''.join(list(filter(None, [
+                src_dict['Inf_4'],
+                src_dict['Inf_5'],
+                src_dict['Inf_6']]))))
 
-    title_word_form = TitleWordForm(name, word_forms[0].idf, info, '')
-    return GroupWordForm(title_word_form, word_forms[1:])
+        word_forms = []
+        if src_dict['Inf_1']:
+            singular_word_forms = get_singular_forms(src_dict)
+            word_forms += singular_word_forms
+            if src_dict['Inf_4']:
+                plural_word_forms = get_plural_forms(
+                    src_dict, singular_word_forms)
+                word_forms += plural_word_forms
+        elif src_dict['Inf_4']:
+            plural_word_forms = get_plural_forms(src_dict, [])
+            word_forms += plural_word_forms
+
+        title_word_form = TitleWordForm(name, word_forms[0].idf, info, '')
+        return GroupWordForm(title_word_form, word_forms[1:])
+    else:
+        title_word_form = TitleWordForm(name, '', [], '')
+        return GroupWordForm(title_word_form, [])
 
 
 def save_groups_to_bs():
