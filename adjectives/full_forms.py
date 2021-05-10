@@ -18,14 +18,20 @@ def get_full_forms(src_dict) -> list:
         'I3с': get_full_i3s,
         'I3-с': get_full_i3_s,
         'I4': get_full_i4,
-
         'II1': get_full_ii1,
-        'II1-с': get_full_ii1_c,
-        'II1ж': get_full_ii1g,
-        'II1с': get_full_ii1c,
+        'II1м': get_full_ii1m,
+        'II1ж': get_full_ii1zh,
+        'II1с': get_full_ii1s,
+        'II1-с': get_full_ii1_s,
+        'II1мн': get_full_ii1mn,
         'II2': get_full_ii2,
-        'II2-с': get_full_ii2_c,
+        'II2-с': get_full_ii2_s,
         'II3': get_full_ii3,
+        'II3ж': get_full_ii3zh,
+        'II3с': get_full_ii3s,
+        'II3-с': get_full_ii3_s,
+        'II4': get_full_ii4,
+
         'III1': get_full_iii1,
         'III2': get_full_iii2,
         'III3': get_full_iii3,
@@ -502,239 +508,430 @@ def get_full_i4(src_dict) -> list:
 
 # II1
 def get_full_ii1(src_dict) -> list:
-    name = src_dict['name']
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}ого'
+    pmni = f'{pmi[:-2]}ые'
+    pmnr = f'{pmi[:-2]}ых'
     if src_dict['Inf_4'] != 'о':
-        pmv = f'{name}'
-        pmnv = f'{name[:-2]}ые'
+        pmv = pmi
+        pmnv = pmni
     else:
-        pmv = f'{name[:-2]}ого'
-        pmnv = f'{name[:-2]}ых'
-
+        pmv = pmr
+        pmnv = pmnr
     word_forms = [
-        WordForm(f'{name}', '.ПмИ'),
-        WordForm(f'{name[:-2]}ого', '.ПмР'),
-        WordForm(f'{name[:-2]}ому', '.ПмД'),
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПмД'),
         WordForm(pmv, '.ПмВ'),
-        WordForm(f'{name[:-2]}ым', '.ПмТ'),
-        WordForm(f'{name[:-2]}ом', '.ПмП'),
-        WordForm(f'{name[:-2]}ая', '.ПжИ'),
-        WordForm(f'{name[:-2]}ой', '.ПжР'),
-        WordForm(f'{name[:-2]}ой', '.ПжД'),
-        WordForm(f'{name[:-2]}ую', '.ПжВ'),
-        WordForm(f'{name[:-2]}ой', '.ПжТ1'),
-        WordForm(f'{name[:-2]}ою', '.ПжТ2'),
-        WordForm(f'{name[:-2]}ой', '.ПжП'),
-        WordForm(f'{name[:-2]}ое', '.ПсИ'),
-        WordForm(f'{name[:-2]}ого', '.ПсР'),
-        WordForm(f'{name[:-2]}ому', '.ПсД'),
-        WordForm(f'{name[:-2]}ое', '.ПсВ'),
-        WordForm(f'{name[:-2]}ым', '.ПсТ'),
-        WordForm(f'{name[:-2]}ом', '.ПсП'),
-        WordForm(f'{name[:-2]}ые', '.ПмнИ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнР'),
-        WordForm(f'{name[:-2]}ым', '.ПмнД'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПмП'),
+        WordForm(f'{pmi[:-2]}ая', '.ПжИ'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжР'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжД'),
+        WordForm(f'{pmi[:-2]}ую', '.ПжВ'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжТ1'),
+        WordForm(f'{pmi[:-2]}ою', '.ПжТ2'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжП'),
+        WordForm(f'{pmi[:-2]}ое', '.ПсИ'),
+        WordForm(f'{pmi[:-2]}ого', '.ПсР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПсД'),
+        WordForm(f'{pmi[:-2]}ое', '.ПсВ'),
+        WordForm(f'{pmi[:-2]}ым', '.ПсТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПсП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмнД'),
         WordForm(pmnv, '.ПмнВ'),
-        WordForm(f'{name[:-2]}ыми', '.ПмнТ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнП'),
+        WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
     return word_forms
 
 
-# II1-с
-def get_full_ii1_c(src_dict) -> list:
-    name = src_dict['name']
+# II1м
+def get_full_ii1m(src_dict) -> list:
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}ого'
+    pmni = f'{pmi[:-2]}ые'
+    pmnr = f'{pmi[:-2]}ых'
     if src_dict['Inf_4'] != 'о':
-        pmv = f'{name}'
-        pmnv = f'{name[:-2]}ые'
+        pmv = pmi
+        pmnv = pmni
     else:
-        pmv = f'{name[:-2]}ого'
-        pmnv = f'{name[:-2]}ых'
-
+        pmv = pmr
+        pmnv = pmnr
     word_forms = [
-        WordForm(f'{name}', '.ПмИ'),
-        WordForm(f'{name[:-2]}ого', '.ПмР'),
-        WordForm(f'{name[:-2]}ому', '.ПмД'),
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПмД'),
         WordForm(pmv, '.ПмВ'),
-        WordForm(f'{name[:-2]}ым', '.ПмТ'),
-        WordForm(f'{name[:-2]}ом', '.ПмП'),
-        WordForm(f'{name[:-2]}ая', '.ПжИ'),
-        WordForm(f'{name[:-2]}ой', '.ПжР'),
-        WordForm(f'{name[:-2]}ой', '.ПжД'),
-        WordForm(f'{name[:-2]}ую', '.ПжВ'),
-        WordForm(f'{name[:-2]}ой', '.ПжТ1'),
-        WordForm(f'{name[:-2]}ою', '.ПжТ2'),
-        WordForm(f'{name[:-2]}ой', '.ПжП'),
-        WordForm(f'{name[:-2]}ые', '.ПмнИ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнР'),
-        WordForm(f'{name[:-2]}ым', '.ПмнД'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПмП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмнД'),
         WordForm(pmnv, '.ПмнВ'),
-        WordForm(f'{name[:-2]}ыми', '.ПмнТ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнП'),
+        WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
     return word_forms
 
 
 # II1ж
-def get_full_ii1g(src_dict) -> list:
-    name = src_dict['name']
+def get_full_ii1zh(src_dict) -> list:
+    pzhi = src_dict['name']
+    pmni = f'{pzhi[:-2]}ые'
+    pmnr = f'{pzhi[:-2]}ых'
     if src_dict['Inf_4'] != 'о':
-        pmnv = f'{name[:-2]}ые'
+        pmnv = pmni
     else:
-        pmnv = f'{name[:-2]}ых'
-
+        pmnv = pmnr
     word_forms = [
-        WordForm(f'{name}', '.ПжИ'),
-        WordForm(f'{name[:-2]}ой', '.ПжР'),
-        WordForm(f'{name[:-2]}ой', '.ПжД'),
-        WordForm(f'{name[:-2]}ую', '.ПжВ'),
-        WordForm(f'{name[:-2]}ой', '.ПжТ1'),
-        WordForm(f'{name[:-2]}ою', '.ПжТ2'),
-        WordForm(f'{name[:-2]}ой', '.ПжП'),
-        WordForm(f'{name[:-2]}ые', '.ПмнИ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнР'),
-        WordForm(f'{name[:-2]}ым', '.ПмнД'),
+        WordForm(pzhi, '.ПжИ'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжР'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжД'),
+        WordForm(f'{pzhi[:-2]}ую', '.ПжВ'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжТ1'),
+        WordForm(f'{pzhi[:-2]}ою', '.ПжТ2'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pzhi[:-2]}ым', '.ПмнД'),
         WordForm(pmnv, '.ПмнВ'),
-        WordForm(f'{name[:-2]}ыми', '.ПмнТ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнП'),
+        WordForm(f'{pzhi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pzhi[:-2]}ых', '.ПмнП'),
     ]
     return word_forms
 
 
 # II1с
-def get_full_ii1c(src_dict) -> list:
-    name = src_dict['name']
+def get_full_ii1s(src_dict) -> list:
+    psi = src_dict['name']
+    pmni = f'{psi[:-2]}ые'
+    pmnr = f'{psi[:-2]}ых'
     if src_dict['Inf_4'] != 'о':
-        pmnv = f'{name[:-2]}ые'
+        pmnv = pmni
     else:
-        pmnv = f'{name[:-2]}ых'
-
+        pmnv = pmnr
     word_forms = [
-        WordForm(f'{name}', '.ПсИ'),
-        WordForm(f'{name[:-2]}ого', '.ПсР'),
-        WordForm(f'{name[:-2]}ому', '.ПсД'),
-        WordForm(f'{name}', '.ПсВ'),
-        WordForm(f'{name[:-2]}ым', '.ПсТ'),
-        WordForm(f'{name[:-2]}ом', '.ПсП'),
-        WordForm(f'{name[:-2]}ые', '.ПмнИ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнР'),
-        WordForm(f'{name[:-2]}ым', '.ПмнД'),
+        WordForm(psi, '.ПсИ'),
+        WordForm(f'{psi[:-2]}ого', '.ПсР'),
+        WordForm(f'{psi[:-2]}ому', '.ПсД'),
+        WordForm(f'{psi[:-2]}ое', '.ПсВ'),
+        WordForm(f'{psi[:-2]}ым', '.ПсТ'),
+        WordForm(f'{psi[:-2]}ом', '.ПсП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{psi[:-2]}ым', '.ПмнД'),
         WordForm(pmnv, '.ПмнВ'),
-        WordForm(f'{name[:-2]}ыми', '.ПмнТ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнП'),
+        WordForm(f'{psi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{psi[:-2]}ых', '.ПмнП'),
+    ]
+    return word_forms
+
+
+# II1-с
+def get_full_ii1_s(src_dict) -> list:
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}ого'
+    pmni = f'{pmi[:-2]}ые'
+    pmnr = f'{pmi[:-2]}ых'
+    if src_dict['Inf_4'] != 'о':
+        pmv = pmi
+        pmnv = pmni
+    else:
+        pmv = pmr
+        pmnv = pmnr
+    word_forms = [
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПмД'),
+        WordForm(pmv, '.ПмВ'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПмП'),
+        WordForm(f'{pmi[:-2]}ая', '.ПжИ'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжР'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжД'),
+        WordForm(f'{pmi[:-2]}ую', '.ПжВ'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжТ1'),
+        WordForm(f'{pmi[:-2]}ою', '.ПжТ2'),
+        WordForm(f'{pmi[:-2]}ой', '.ПжП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмнД'),
+        WordForm(pmnv, '.ПмнВ'),
+        WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
+    ]
+    return word_forms
+
+
+# II1мн
+def get_full_ii1mn(src_dict) -> list:
+    pmni = src_dict['name']
+    pmnr = f'{pmni[:-2]}ых'
+    if src_dict['Inf_4'] != 'о':
+        pmnv = pmni
+    else:
+        pmnv = pmnr
+    word_forms = [
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmni[:-2]}ым', '.ПмнД'),
+        WordForm(pmnv, '.ПмнВ'),
+        WordForm(f'{pmni[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pmni[:-2]}ых', '.ПмнП'),
     ]
     return word_forms
 
 
 # II2
 def get_full_ii2(src_dict) -> list:
-    name = src_dict['name']
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}ого'
+    pmni = f'{pmi[:-2]}ые'
+    pmnr = f'{pmi[:-2]}ых'
     if src_dict['Inf_4'] != 'о':
-        pmv = f'{name}'
-        pmnv = f'{name[:-2]}ые'
+        pmv = pmi
+        pmnv = pmni
     else:
-        pmv = f'{name[:-2]}ого'
-        pmnv = f'{name[:-2]}ых'
-
+        pmv = pmr
+        pmnv = pmnr
     word_forms = [
-        WordForm(f'{name}', '.ПмИ'),
-        WordForm(f'{name[:-2]}ого', '.ПмР'),
-        WordForm(f'{name[:-2]}ому', '.ПмД'),
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПмД'),
         WordForm(pmv, '.ПмВ'),
-        WordForm(f'{name[:-2]}ым', '.ПмТ'),
-        WordForm(f'{name[:-2]}ом', '.ПмП'),
-        WordForm(f'{name[:-2]}ая', '.ПжИ'),
-        WordForm(f'{name}', '.ПжР'),
-        WordForm(f'{name}', '.ПжД'),
-        WordForm(f'{name[:-2]}ую', '.ПжВ'),
-        WordForm(f'{name}', '.ПжТ1'),
-        WordForm(f'{name[:-2]}ою', '.ПжТ2'),
-        WordForm(f'{name}', '.ПжП'),
-        WordForm(f'{name[:-2]}ое', '.ПсИ'),
-        WordForm(f'{name[:-2]}ого', '.ПсР'),
-        WordForm(f'{name[:-2]}ому', '.ПсД'),
-        WordForm(f'{name[:-2]}ое', '.ПсВ'),
-        WordForm(f'{name[:-2]}ым', '.ПсТ'),
-        WordForm(f'{name[:-2]}ом', '.ПсП'),
-        WordForm(f'{name[:-2]}ые', '.ПмнИ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнР'),
-        WordForm(f'{name[:-2]}ым', '.ПмнД'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПмП'),
+        WordForm(f'{pmi[:-2]}ая', '.ПжИ'),
+        WordForm(pmi, '.ПжР'),
+        WordForm(pmi, '.ПжД'),
+        WordForm(f'{pmi[:-2]}ую', '.ПжВ'),
+        WordForm(pmi, '.ПжТ1'),
+        WordForm(f'{pmi[:-2]}ою', '.ПжТ2'),
+        WordForm(pmi, '.ПжП'),
+        WordForm(f'{pmi[:-2]}ое', '.ПсИ'),
+        WordForm(f'{pmi[:-2]}ого', '.ПсР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПсД'),
+        WordForm(f'{pmi[:-2]}ое', '.ПсВ'),
+        WordForm(f'{pmi[:-2]}ым', '.ПсТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПсП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмнД'),
         WordForm(pmnv, '.ПмнВ'),
-        WordForm(f'{name[:-2]}ыми', '.ПмнТ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнП'),
+        WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
     return word_forms
 
 
 # II2-с
-def get_full_ii2_c(src_dict) -> list:
-    name = src_dict['name']
+def get_full_ii2_s(src_dict) -> list:
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}ого'
+    pmni = f'{pmi[:-2]}ые'
+    pmnr = f'{pmi[:-2]}ых'
     if src_dict['Inf_4'] != 'о':
-        pmv = f'{name}'
-        pmnv = f'{name[:-2]}ые'
+        pmv = pmi
+        pmnv = pmni
     else:
-        pmv = f'{name[:-2]}ого'
-        pmnv = f'{name[:-2]}ых'
-
+        pmv = pmr
+        pmnv = pmnr
     word_forms = [
-        WordForm(f'{name}', '.ПмИ'),
-        WordForm(f'{name[:-2]}ого', '.ПмР'),
-        WordForm(f'{name[:-2]}ому', '.ПмД'),
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПмД'),
         WordForm(pmv, '.ПмВ'),
-        WordForm(f'{name[:-2]}ым', '.ПмТ'),
-        WordForm(f'{name[:-2]}ом', '.ПмП'),
-        WordForm(f'{name[:-2]}ая', '.ПжИ'),
-        WordForm(f'{name}', '.ПжР'),
-        WordForm(f'{name}', '.ПжД'),
-        WordForm(f'{name[:-2]}ую', '.ПжВ'),
-        WordForm(f'{name}', '.ПжТ1'),
-        WordForm(f'{name[:-2]}ою', '.ПжТ2'),
-        WordForm(f'{name}', '.ПжП'),
-        WordForm(f'{name[:-2]}ые', '.ПмнИ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнР'),
-        WordForm(f'{name[:-2]}ым', '.ПмнД'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПмП'),
+        WordForm(f'{pmi[:-2]}ая', '.ПжИ'),
+        WordForm(pmi, '.ПжР'),
+        WordForm(pmi, '.ПжД'),
+        WordForm(f'{pmi[:-2]}ую', '.ПжВ'),
+        WordForm(pmi, '.ПжТ1'),
+        WordForm(f'{pmi[:-2]}ою', '.ПжТ2'),
+        WordForm(pmi, '.ПжП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмнД'),
         WordForm(pmnv, '.ПмнВ'),
-        WordForm(f'{name[:-2]}ыми', '.ПмнТ'),
-        WordForm(f'{name[:-2]}ых', '.ПмнП'),
+        WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
     return word_forms
 
 
 # II3
 def get_full_ii3(src_dict) -> list:
-    name = src_dict['name']
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}ого'
+    pmni = f'{pmi[:-2]}ие'
+    pmnr = f'{pmi[:-2]}их'
     if src_dict['Inf_4'] != 'о':
-        pmv = f'{name}'
-        pmnv = f'{name[:-2]}ие'
+        pmv = pmi
+        pmnv = pmni
     else:
-        pmv = f'{name[:-2]}ого'
-        pmnv = f'{name[:-2]}их'
-
+        pmv = pmr
+        pmnv = pmnr
     word_forms = [
-        WordForm(f'{name}', '.ПмИ'),
-        WordForm(f'{name[:-2]}ого', '.ПмР'),
-        WordForm(f'{name[:-2]}ому', '.ПмД'),
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПмД'),
         WordForm(pmv, '.ПмВ'),
-        WordForm(f'{name[:-2]}им', '.ПмТ'),
-        WordForm(f'{name[:-2]}ом', '.ПмП'),
-        WordForm(f'{name[:-2]}ая', '.ПжИ'),
-        WordForm(f'{name}', '.ПжР'),
-        WordForm(f'{name}', '.ПжД'),
-        WordForm(f'{name[:-2]}ую', '.ПжВ'),
-        WordForm(f'{name}', '.ПжТ1'),
-        WordForm(f'{name[:-2]}ою', '.ПжТ2'),
-        WordForm(f'{name}', '.ПжП'),
-        WordForm(f'{name[:-2]}ое', '.ПсИ'),
-        WordForm(f'{name[:-2]}ого', '.ПсР'),
-        WordForm(f'{name[:-2]}ому', '.ПсД'),
-        WordForm(f'{name[:-2]}ое', '.ПсВ'),
-        WordForm(f'{name[:-2]}им', '.ПсТ'),
-        WordForm(f'{name[:-2]}ом', '.ПсП'),
-        WordForm(f'{name[:-2]}ие', '.ПмнИ'),
-        WordForm(f'{name[:-2]}их', '.ПмнР'),
-        WordForm(f'{name[:-2]}им', '.ПмнД'),
+        WordForm(f'{pmi[:-2]}им', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПмП'),
+        WordForm(f'{pmi[:-2]}ая', '.ПжИ'),
+        WordForm(pmi, '.ПжР'),
+        WordForm(pmi, '.ПжД'),
+        WordForm(f'{pmi[:-2]}ую', '.ПжВ'),
+        WordForm(pmi, '.ПжТ1'),
+        WordForm(f'{pmi[:-2]}ою', '.ПжТ2'),
+        WordForm(pmi, '.ПжП'),
+        WordForm(f'{pmi[:-2]}ое', '.ПсИ'),
+        WordForm(f'{pmi[:-2]}ого', '.ПсР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПсД'),
+        WordForm(f'{pmi[:-2]}ое', '.ПсВ'),
+        WordForm(f'{pmi[:-2]}им', '.ПсТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПсП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}им', '.ПмнД'),
         WordForm(pmnv, '.ПмнВ'),
-        WordForm(f'{name[:-2]}ими', '.ПмнТ'),
-        WordForm(f'{name[:-2]}их', '.ПмнП'),
+        WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}их', '.ПмнП'),
+    ]
+    return word_forms
+
+
+# II3ж
+def get_full_ii3zh(src_dict) -> list:
+    pzhi = src_dict['name']
+    pmni = f'{pzhi[:-2]}ие'
+    pmnr = f'{pzhi[:-2]}их'
+    if src_dict['Inf_4'] != 'о':
+        pmnv = pmni
+    else:
+        pmnv = pmnr
+    word_forms = [
+        WordForm(pzhi, '.ПжИ'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжР'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжД'),
+        WordForm(f'{pzhi[:-2]}ую', '.ПжВ'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжТ1'),
+        WordForm(f'{pzhi[:-2]}ою', '.ПжТ2'),
+        WordForm(f'{pzhi[:-2]}ой', '.ПжП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pzhi[:-2]}им', '.ПмнД'),
+        WordForm(pmnv, '.ПмнВ'),
+        WordForm(f'{pzhi[:-2]}ими', '.ПмнТ'),
+        WordForm(f'{pzhi[:-2]}их', '.ПмнП'),
+    ]
+    return word_forms
+
+
+# II3с
+def get_full_ii3s(src_dict) -> list:
+    psi = src_dict['name']
+    pmni = f'{psi[:-2]}ие'
+    pmnr = f'{psi[:-2]}их'
+    if src_dict['Inf_4'] != 'о':
+        pmnv = pmni
+    else:
+        pmnv = pmnr
+    word_forms = [
+        WordForm(psi, '.ПсИ'),
+        WordForm(f'{psi[:-2]}ого', '.ПсР'),
+        WordForm(f'{psi[:-2]}ому', '.ПсД'),
+        WordForm(psi, '.ПсВ'),
+        WordForm(f'{psi[:-2]}им', '.ПсТ'),
+        WordForm(f'{psi[:-2]}ом', '.ПсП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{psi[:-2]}им', '.ПмнД'),
+        WordForm(pmnv, '.ПмнВ'),
+        WordForm(f'{psi[:-2]}ими', '.ПмнТ'),
+        WordForm(f'{psi[:-2]}их', '.ПмнП'),
+    ]
+    return word_forms
+
+
+# II3-с
+def get_full_ii3_s(src_dict) -> list:
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}ого'
+    pmni = f'{pmi[:-2]}ие'
+    pmnr = f'{pmi[:-2]}их'
+    if src_dict['Inf_4'] != 'о':
+        pmv = pmi
+        pmnv = pmni
+    else:
+        pmv = pmr
+        pmnv = pmnr
+    word_forms = [
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ому', '.ПмД'),
+        WordForm(pmv, '.ПмВ'),
+        WordForm(f'{pmi[:-2]}им', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ом', '.ПмП'),
+        WordForm(f'{pmi[:-2]}ая', '.ПжИ'),
+        WordForm(pmi, '.ПжР'),
+        WordForm(pmi, '.ПжД'),
+        WordForm(f'{pmi[:-2]}ую', '.ПжВ'),
+        WordForm(pmi, '.ПжТ1'),
+        WordForm(f'{pmi[:-2]}ою', '.ПжТ2'),
+        WordForm(pmi, '.ПжП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}им', '.ПмнД'),
+        WordForm(pmnv, '.ПмнВ'),
+        WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}их', '.ПмнП'),
+    ]
+    return word_forms
+
+
+# II4
+def get_full_ii4(src_dict) -> list:
+    pmi = src_dict['name']
+    pmr = f'{pmi[:-2]}его'
+    pmni = f'{pmi[:-2]}ые'
+    pmnr = f'{pmi[:-2]}ых'
+    if src_dict['Inf_4'] != 'о':
+        pmv = pmi
+        pmnv = pmni
+    else:
+        pmv = pmr
+        pmnv = pmnr
+    word_forms = [
+        WordForm(pmi, '.ПмИ'),
+        WordForm(pmr, '.ПмР'),
+        WordForm(f'{pmi[:-2]}ему', '.ПмД'),
+        WordForm(pmv, '.ПмВ'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмТ'),
+        WordForm(f'{pmi[:-2]}ем', '.ПмП'),
+        WordForm(f'{pmi[:-2]}ая', '.ПжИ'),
+        WordForm(f'{pmi[:-2]}ей', '.ПжР'),
+        WordForm(f'{pmi[:-2]}ей', '.ПжД'),
+        WordForm(f'{pmi[:-2]}ую', '.ПжВ'),
+        WordForm(f'{pmi[:-2]}ей', '.ПжТ1'),
+        WordForm(f'{pmi[:-2]}ею', '.ПжТ2'),
+        WordForm(f'{pmi[:-2]}ей', '.ПжП'),
+        WordForm(f'{pmi[:-2]}ее', '.ПсИ'),
+        WordForm(f'{pmi[:-2]}его', '.ПсР'),
+        WordForm(f'{pmi[:-2]}ему', '.ПсД'),
+        WordForm(f'{pmi[:-2]}ее', '.ПсВ'),
+        WordForm(f'{pmi[:-2]}ым', '.ПсТ'),
+        WordForm(f'{pmi[:-2]}ем', '.ПсП'),
+        WordForm(pmni, '.ПмнИ'),
+        WordForm(pmnr, '.ПмнР'),
+        WordForm(f'{pmi[:-2]}ым', '.ПмнД'),
+        WordForm(pmnv, '.ПмнВ'),
+        WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
+        WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
     return word_forms
 
