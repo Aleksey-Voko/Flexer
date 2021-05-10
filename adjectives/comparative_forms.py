@@ -19,6 +19,15 @@ def get_comparative_forms(src_dict) -> list:
         'СII11ш': get_comparative_cii11sh,
         'СII12ш': get_comparative_cii12sh,
         'СII13щ': get_comparative_cii13shch,
+        'СI1&3о': get_comparative_ci1_3o,
+        'СI1&II3ж': get_comparative_ci1_ii3zh,
+        'СI1&II4ж': get_comparative_ci1_ii4zh,
+        'СI1&II10ш': get_comparative_ci1_ii10sh,
+        'СI1&II15л': get_comparative_ci1_ii15l,
+        'СI2&II5ч': get_comparative_ci2_ii5ch,
+        'СII5ч&7ч': get_comparative_cii5ch_7ch,
+        'СII5ч&14щ': get_comparative_cii5ch_14shch,
+        'СII6ч&9ш': get_comparative_cii6ch_9sh,
     }
     return comparative_tmpl[src_dict['Inf_2']](src_dict)
 
@@ -161,5 +170,127 @@ def get_comparative_cii13shch(src_dict) -> list:
     word_forms = [
         WordForm(f'{pmi[:-4]}ще', '.ПС'),
         WordForm(f'по{pmi[:-4]}ще', '.ПС*'),
+    ]
+    return word_forms
+
+
+# СI1&3о
+def get_comparative_ci1_3o(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-2]}ее', '.ПС1'),
+        WordForm(f'{pmi[:-2]}ей', '.ПС2'),
+        WordForm(f'{pmi[:-4]}онее', '.ПС3'),
+        WordForm(f'{pmi[:-4]}оней', '.ПС4'),
+        WordForm(f'по{pmi[:-2]}ее', '.ПС1*'),
+        WordForm(f'по{pmi[:-2]}ей', '.ПС2*'),
+        WordForm(f'по{pmi[:-4]}онее', '.ПС3*'),
+        WordForm(f'по{pmi[:-4]}оней', '.ПС4*'),
+    ]
+    return word_forms
+
+
+# СI1&II3ж
+def get_comparative_ci1_ii3zh(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-2]}ее', '.ПС1'),
+        WordForm(f'{pmi[:-2]}ей', '.ПС2'),
+        WordForm(f'{pmi[:-3]}же', '.ПС3'),
+        WordForm(f'по{pmi[:-2]}ее', '.ПС1*'),
+        WordForm(f'по{pmi[:-2]}ей', '.ПС2*'),
+        WordForm(f'по{pmi[:-3]}же', '.ПС3*'),
+    ]
+    return word_forms
+
+
+# СI1&II4ж
+def get_comparative_ci1_ii4zh(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-2]}ее', '.ПС1'),
+        WordForm(f'{pmi[:-2]}ей', '.ПС2'),
+        WordForm(f'{pmi[:-4]}же', '.ПС3'),
+        WordForm(f'по{pmi[:-2]}ее', '.ПС1*'),
+        WordForm(f'по{pmi[:-2]}ей', '.ПС2*'),
+        WordForm(f'по{pmi[:-4]}же', '.ПС3*'),
+    ]
+    return word_forms
+
+
+# СI1&II10ш
+def get_comparative_ci1_ii10sh(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-2]}ее', '.ПС1'),
+        WordForm(f'{pmi[:-2]}ей', '.ПС2'),
+        WordForm(f'{pmi[:-5]}ше', '.ПС3'),
+        WordForm(f'по{pmi[:-2]}ее', '.ПС1*'),
+        WordForm(f'по{pmi[:-2]}ей', '.ПС2*'),
+        WordForm(f'по{pmi[:-5]}ше', '.ПС3*'),
+    ]
+    return word_forms
+
+
+# СI1&II15л
+def get_comparative_ci1_ii15l(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-2]}ее', '.ПС1'),
+        WordForm(f'{pmi[:-2]}ей', '.ПС2'),
+        WordForm(f'{pmi[:-2]}ле', '.ПС3'),
+        WordForm(f'по{pmi[:-2]}ее', '.ПС1*'),
+        WordForm(f'по{pmi[:-2]}ей', '.ПС2*'),
+        WordForm(f'по{pmi[:-2]}ле', '.ПС3*'),
+    ]
+    return word_forms
+
+
+# СI2&II5ч
+def get_comparative_ci2_ii5ch(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-3]}ее', '.ПС1'),
+        WordForm(f'{pmi[:-3]}ей', '.ПС2'),
+        WordForm(f'{pmi[:-3]}е', '.ПС3'),
+        WordForm(f'по{pmi[:-3]}ее', '.ПС1*'),
+        WordForm(f'по{pmi[:-3]}ей', '.ПС2*'),
+        WordForm(f'по{pmi[:-3]}е', '.ПС3*'),
+    ]
+    return word_forms
+
+
+# СII5ч&7ч
+def get_comparative_cii5ch_7ch(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-3]}че', '.ПС1'),
+        WordForm(f'{pmi[:-3]}ьче', '.ПС2'),
+        WordForm(f'по{pmi[:-3]}че', '.ПС1*'),
+        WordForm(f'по{pmi[:-3]}ьче', '.ПС2*'),
+    ]
+    return word_forms
+
+
+# СII5ч&14щ
+def get_comparative_cii5ch_14shch(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-3]}че', '.ПС1'),
+        WordForm(f'{pmi[:-5]}ще', '.ПС2'),
+        WordForm(f'по{pmi[:-3]}че', '.ПС1*'),
+        WordForm(f'по{pmi[:-5]}ще', '.ПС2*'),
+    ]
+    return word_forms
+
+
+# СII6ч&9ш
+def get_comparative_cii6ch_9sh(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-4]}че', '.ПС1'),
+        WordForm(f'{pmi[:-4]}ше', '.ПС2'),
+        WordForm(f'по{pmi[:-4]}че', '.ПС1*'),
+        WordForm(f'по{pmi[:-4]}ше', '.ПС2*'),
     ]
     return word_forms
