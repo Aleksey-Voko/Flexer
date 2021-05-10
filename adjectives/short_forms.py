@@ -27,8 +27,10 @@ def get_short_forms(src_dict) -> list:
         'К6': get_short_k6,
         'К7': get_short_k7,
         'К8': get_short_k8,
-
+        'К1+1е': get_short_k1_1e,
         'К6+1е': get_short_k6_and_1e,
+        'К1&1#о': get_short_k1_1_sharp_o,
+        'К6&8': get_short_k6_8,
     }
     return short_tmpl[src_dict['Inf_1']](src_dict)
 
@@ -292,14 +294,60 @@ def get_short_k8(src_dict) -> list:
     return word_forms
 
 
+# К1+1е
+def get_short_k1_1e(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-2]}', '.ПКм1'),
+        WordForm(f'{pmi[:-3]}е{pmi[-3]}', '.ПКм2'),
+        WordForm(f'{pmi[:-2]}а', '.ПКж'),
+        WordForm(f'{pmi[:-2]}о', '.ПКс'),
+        WordForm(f'{pmi[:-2]}ы', '.ПКмн'),
+    ]
+    return word_forms
+
+
 # К6+1е
 def get_short_k6_and_1e(src_dict) -> list:
-    name = src_dict['name']
+    pmi = src_dict['name']
     word_forms = [
-        WordForm(f'{name[:-3]}', '.ПКм1'),
-        WordForm(f'{name[:-3]}е{name[-3]}', '.ПКм2'),
-        WordForm(f'{name[:-2]}а', '.ПКж'),
-        WordForm(f'{name[:-2]}о', '.ПКс'),
-        WordForm(f'{name[:-2]}ы', '.ПКмн'),
+        WordForm(f'{pmi[:-3]}', '.ПКм1'),
+        WordForm(f'{pmi[:-3]}е{pmi[-3]}', '.ПКм2'),
+        WordForm(f'{pmi[:-2]}а', '.ПКж'),
+        WordForm(f'{pmi[:-2]}о', '.ПКс'),
+        WordForm(f'{pmi[:-2]}ы', '.ПКмн'),
+    ]
+    return word_forms
+
+
+# К1&1#о
+def get_short_k1_1_sharp_o(src_dict) -> list:
+    pmi = src_dict['name']
+    pkm1 = f'{pmi[:-2]}'
+    pkm2 = f'{pmi[:-4]}о{pmi[-3]}'
+    word_forms = [
+        WordForm(pkm1, '.ПКм1'),
+        WordForm(pkm2, '.ПКм2'),
+        WordForm(f'{pkm1}а', '.ПКж1'),
+        WordForm(f'{pkm2}а', '.ПКж2'),
+        WordForm(f'{pkm1}о', '.ПКс1'),
+        WordForm(f'{pkm2}о', '.ПКс2'),
+        WordForm(f'{pkm1}ы', '.ПКмн1'),
+        WordForm(f'{pkm2}ы', '.ПКмн2'),
+    ]
+    return word_forms
+
+
+# К6&8
+def get_short_k6_8(src_dict) -> list:
+    pmi = src_dict['name']
+    word_forms = [
+        WordForm(f'{pmi[:-3]}', '.ПКм'),
+        WordForm(f'{pmi[:-2]}а', '.ПКж1'),
+        WordForm(f'{pmi[:-3]}а', '.ПКж2'),
+        WordForm(f'{pmi[:-2]}о', '.ПКс1'),
+        WordForm(f'{pmi[:-3]}о', '.ПКс2'),
+        WordForm(f'{pmi[:-2]}ы', '.ПКмн1'),
+        WordForm(f'{pmi[:-3]}ы', '.ПКмн2'),
     ]
     return word_forms
