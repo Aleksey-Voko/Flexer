@@ -45,9 +45,9 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 
 
 def save_groups_to_bs():
-    definitions = 'WordFormGen.Существительные.txt'
+    definitions = 'WordFormGen. Существительные.txt'
     print(f'Настройки:')
-    print(definitions + '\n')
+    print(f'"{definitions}"\n')
 
     *in_nouns_list, out_nouns = get_string_list_from_file(
         definitions, encoding='cp1251')
@@ -56,6 +56,10 @@ def save_groups_to_bs():
     print(f'Файлы с исходными данными:')
     pprint(in_nouns_list)
     print()
+
+    print('Для продолжения нажмите Enter')
+    input()
+    print(f'{"#" * 30}\n')
 
     count = 0
     add_groups_to_bs_list = []
@@ -73,15 +77,18 @@ def save_groups_to_bs():
     print(f'Создано {count} групп словоформ')
     print(f'Создан файл "{out_nouns}"')
 
-    add_to_bg = 'Добавить в БГ.Сушествительные.txt'
+    add_to_bg = 'Добавить в БГ. Существительные.txt'
     save_list_to_file(sorted(add_groups_to_bg_list,
                              key=lambda x: x.replace('*', '').lower()),
                       add_to_bg, encoding='cp1251')
-    print(f'Создан файл "{add_to_bg}"')
+    print(f'Создан файл "{add_to_bg}"\n')
 
     print(f'Файлы с результатами сохранены в текущей директории:')
     print(Path().resolve())
     print()
+
+    print('Для продолжения нажмите Enter')
+    input()
 
     print(f'{reminder}\n')
 
