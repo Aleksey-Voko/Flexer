@@ -104,6 +104,18 @@ class TitleWordForm(WordForm):
     def list_form(self):
         return super().list_form + [self.info, self.note]
 
+    @property
+    def bg_form(self):
+        return ' '.join(filter(
+            None,
+            [
+                self.name,
+                self.idf,
+                ' '.join(self.info),
+                self.note
+            ]
+        )).strip()
+
 
 class GroupWordForm:
     def __init__(self, title_word_form: TitleWordForm, word_forms: list):

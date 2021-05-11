@@ -73,7 +73,8 @@ def save_groups_to_bs():
         for src_dict in src_groups:
             group_word_form = get_group_word_form(src_dict)
             add_groups_to_bs_list.append(group_word_form)
-            add_groups_to_bg_list.append(str(group_word_form.title_word_form))
+            add_groups_to_bg_list.append(
+                group_word_form.title_word_form.bg_form)
             count += 1
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_adjectives)
