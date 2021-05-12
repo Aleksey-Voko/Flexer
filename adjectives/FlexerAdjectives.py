@@ -62,7 +62,7 @@ def save_groups_to_bs():
 
     print('Для продолжения нажмите Enter')
     input()
-    print(f'{"#" * 30}\n')
+    print(f'{"* " * 38}*\n')
 
     count = 0
     add_groups_to_bs_list = []

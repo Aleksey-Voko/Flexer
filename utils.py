@@ -40,7 +40,8 @@ def get_nouns_dicts_from_csv_file(f_name, encoding='cp1251',
             'Inf_6',
         ]
         for row in csv_reader:
-            yield dict(zip(fieldnames, row))
+            if row[0]:
+                yield dict(zip(fieldnames, row))
 
 
 def get_adjectives_dicts_from_csv_file(f_name, encoding='cp1251',
@@ -57,7 +58,8 @@ def get_adjectives_dicts_from_csv_file(f_name, encoding='cp1251',
             'Inf_5',
         ]
         for row in csv_reader:
-            yield dict(zip(fieldnames, row))
+            if row[0]:
+                yield dict(zip(fieldnames, row))
 
 
 def get_verbs_dicts_from_csv_file(f_name, encoding='cp1251',
@@ -81,7 +83,8 @@ def get_verbs_dicts_from_csv_file(f_name, encoding='cp1251',
             'Inf_12',
         ]
         for row in csv_reader:
-            yield dict(zip(fieldnames, row))
+            if row[0]:
+                yield dict(zip(fieldnames, row))
 
 
 def save_bs_dicts_to_txt(in_dicts: list, f_name, encoding='cp1251'):
