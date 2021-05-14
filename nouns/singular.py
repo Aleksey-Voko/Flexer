@@ -337,15 +337,11 @@ def get_singular_i6(src_dict) -> list:
 # I7
 def get_singular_i7(src_dict) -> list:
     sei = src_dict['name']
-    if src_dict['Inf_0'] == 'неод':
-        sev = sei
-    else:
-        sev = f'{sei[:-1]}а'
     word_forms = [
         WordForm(sei, '.СеИ'),
         WordForm(f'{sei[:-1]}а', '.СеР'),
         WordForm(f'{sei[:-1]}у', '.СеД'),
-        WordForm(sev, '.СеВ'),
+        WordForm(sei, '.СеВ'),
         WordForm(f'{sei[:-1]}ем', '.СеТ'),
         WordForm(f'{sei[:-1]}е', '.СеП'),
     ]
@@ -576,11 +572,11 @@ def get_singular_i1_slash_2prim(src_dict) -> list:
     sei = src_dict['name']
     word_forms = [
         WordForm(sei, '.СеИ/'),
-        WordForm(f'полу{sei[3:-1]}а', '.СеР/'),
-        WordForm(f'полу{sei[3:-1]}у', '.СеД/'),
+        WordForm(f'полу{sei[4:-1]}а', '.СеР/'),
+        WordForm(f'полу{sei[4:-1]}у', '.СеД/'),
         WordForm(sei, '.СеВ/'),
-        WordForm(f'полу{sei[3:-1]}ом', '.СеТ/'),
-        WordForm(f'полу{sei[3:-1]}е', '.СеП/'),
+        WordForm(f'полу{sei[4:-1]}ом', '.СеТ/'),
+        WordForm(f'полу{sei[4:-1]}е', '.СеП/'),
     ]
     return word_forms
 
@@ -738,17 +734,14 @@ def get_singular_i5_and_ii2_prim(src_dict) -> list:
 # I7&II4*
 def get_singular_i7_and_ii4_prim(src_dict) -> list:
     sei = src_dict['name']
-    if src_dict['Inf_0'] == 'неод':
-        sev = f'{sei[:-1]}а'
-    else:
-        sev = f'{sei[:-1]}е'
     word_forms = [
         WordForm(sei, '.СеИ'),
         WordForm(f'{sei[:-1]}а', '.СеР1'),
         WordForm(f'{sei[:-1]}и', '.СеР2'),
         WordForm(f'{sei[:-1]}у', '.СеД1'),
         WordForm(f'{sei[:-1]}е', '.СеД2'),
-        WordForm(sev, '.СеВ'),
+        WordForm(f'{sei[:-1]}а', '.СеВ1'),
+        WordForm(f'{sei[:-1]}у', '.СеВ2'),
         WordForm(f'{sei[:-1]}ем', '.СеТ1'),
         WordForm(f'{sei[:-1]}ей', '.СеТ2'),
         WordForm(f'{sei[:-1]}е', '.СеП'),
