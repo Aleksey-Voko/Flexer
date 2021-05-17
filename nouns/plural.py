@@ -117,7 +117,7 @@ def get_plural_forms(src_dict, singl_word_forms) -> list:
         'I5+16': get_plural_i5_16,
         'I6+7': get_plural_i6_7,
         'I6+17': get_plural_i6_17,
-        'I11+2**': get_plural_i11_2_2prim,
+        'I11+2***': get_plural_i11_2_3prim,
         'I16+16о': get_plural_i16_16o,
         'I16е*+16о*': get_plural_i16e_prim_16o_prim,
         'I17е+6': get_plural_i16e_6,
@@ -2075,8 +2075,8 @@ def get_plural_i6_17(_, singl_word_forms) -> list:
     return word_forms
 
 
-# I11+2**
-def get_plural_i11_2_2prim(_, singl_word_forms) -> list:
+# I11+2***
+def get_plural_i11_2_3prim(_, singl_word_forms) -> list:
     smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
     smnr1 = f'{smni[:-1]}й'
     smnr2 = f'{smni[:-1]}ев'
