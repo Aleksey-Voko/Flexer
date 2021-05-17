@@ -1,5 +1,6 @@
 """Существительные единственное число"""
 
+
 from word_form import WordForm
 
 
