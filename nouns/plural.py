@@ -258,14 +258,19 @@ def get_plural_i2_prim(src_dict, _) -> list:
 
 
 # I2**
-def get_plural_i2_2prim(_, singl_word_forms) -> list:
-    smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
+def get_plural_i2_2prim(src_dict, singl_word_forms) -> list:
+    sep = list(filter(lambda x: x.idf == '.СеП', singl_word_forms))[0].name
+    smni = sep
     smnr = f'{smni[:-1]}ев'
+    if src_dict['Inf_0'] == 'неод':
+        smnv = smni
+    else:
+        smnv = smnr
     word_forms = [
         WordForm(smni, '.СмнИ'),
         WordForm(smnr, '.СмнР'),
         WordForm(f'{smni[:-1]}ям', '.СмнД'),
-        WordForm(smnr, '.СмнВ'),
+        WordForm(smnv, '.СмнВ'),
         WordForm(f'{smni[:-1]}ями', '.СмнТ'),
         WordForm(f'{smni[:-1]}ях', '.СмнП'),
     ]
