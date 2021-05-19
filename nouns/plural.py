@@ -135,6 +135,7 @@ def get_plural_forms(src_dict, singl_word_forms) -> list:
         'III2+12': get_plural_iii2_12,
         'III3+9': get_plural_iii3_9,
         'IV1+I1': get_plural_iv1_i1,
+        'IV3+6е': get_plural_iv3_6e,
         'IV3+6#е': get_plural_iv3_6_sharp_e,
         'IV3*+6е*': get_plural_iv3_prim_6e_prim,
         'IV4+6': get_plural_iv4_6,
@@ -1909,7 +1910,8 @@ def get_plural_iv13(_, singl_word_forms) -> list:
 # V1
 def get_plural_v1(_, singl_word_forms) -> list:
     sei = list(filter(lambda x: x.idf == '.СеИ', singl_word_forms))[0].name
-    smni = f'{sei}е'
+    sep = list(filter(lambda x: x.idf == '.СеП', singl_word_forms))[0].name
+    smni = sep
     smnr = sei
     word_forms = [
         WordForm(smni, '.СмнИ'),
@@ -2255,7 +2257,7 @@ def get_plural_ii1_4(src_dict, singl_word_forms) -> list:
     else:
         smnv_form = ''
         smnv1_form = WordForm(smnr1, '.СмнВ1')
-        smnv2_form = WordForm(smnr2, '.СмнВ2'),
+        smnv2_form = WordForm(smnr2, '.СмнВ2')
     word_forms = [
         WordForm(smni, '.СмнИ'),
         WordForm(smnr1, '.СмнР1'),
@@ -2369,7 +2371,7 @@ def get_plural_ii1_iv1(src_dict, singl_word_forms) -> list:
     else:
         smnv1_form = ''
         smnv2_form = ''
-        smnv_form = WordForm(smnr, '.СмнВ'),
+        smnv_form = WordForm(smnr, '.СмнВ')
     word_forms = [
         WordForm(smni1, '.СмнИ1'),
         WordForm(smni2, '.СмнИ2'),
