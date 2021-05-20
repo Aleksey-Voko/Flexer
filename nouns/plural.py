@@ -161,6 +161,7 @@ def get_plural_forms(src_dict, singl_word_forms) -> list:
         'II1&III11': get_plural_ii1_iii11,
         'III3&IV6': get_plural_iii3_iv6,
         'IV2&6е': get_plural_iv2_6e,
+        'I4&IV6&III3': get_plural_i4_iv6_iii3,
     }
     return plural_tmpl[src_dict['Inf_6']](src_dict, singl_word_forms)
 

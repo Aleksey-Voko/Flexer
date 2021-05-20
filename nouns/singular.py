@@ -21,6 +21,7 @@ def get_singular_forms(src_dict) -> list:
         'I3#ь*': get_singular_i3_sharp_soft_prim,
         'I4': get_singular_i4,
         'I5': get_singular_i5,
+        'I5*': get_singular_i5_prim,
         'I6': get_singular_i6,
         'I7': get_singular_i7,
         'II1': get_singular_ii1,
@@ -302,15 +303,25 @@ def get_singular_i4(src_dict) -> list:
 # I5
 def get_singular_i5(src_dict) -> list:
     sei = src_dict['name']
-    if src_dict['Inf_0'] == 'неод':
-        sev = sei
-    else:
-        sev = f'{sei[:-1]}а'
     word_forms = [
         WordForm(sei, '.СеИ'),
         WordForm(f'{sei[:-1]}а', '.СеР'),
         WordForm(f'{sei[:-1]}у', '.СеД'),
-        WordForm(sev, '.СеВ'),
+        WordForm(sei, '.СеВ'),
+        WordForm(f'{sei[:-1]}ом', '.СеТ'),
+        WordForm(f'{sei[:-1]}е', '.СеП'),
+    ]
+    return word_forms
+
+
+# I5*
+def get_singular_i5_prim(src_dict) -> list:
+    sei = src_dict['name']
+    word_forms = [
+        WordForm(sei, '.СеИ'),
+        WordForm(f'{sei[:-1]}а', '.СеР'),
+        WordForm(f'{sei[:-1]}у', '.СеД'),
+        WordForm(f'{sei[:-1]}а', '.СеВ'),
         WordForm(f'{sei[:-1]}ом', '.СеТ'),
         WordForm(f'{sei[:-1]}е', '.СеП'),
     ]
