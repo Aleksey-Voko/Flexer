@@ -2112,7 +2112,7 @@ def get_plural_i16_16o(_, singl_word_forms) -> list:
         WordForm(smnr2, '.СмнР2'),
         WordForm(f'{smni[:-1]}ам', '.СмнД'),
         WordForm(smnr1, '.СмнВ1'),
-        WordForm(smnr1, '.СмнВ2'),
+        WordForm(smnr2, '.СмнВ2'),
         WordForm(f'{smni[:-1]}ами', '.СмнТ'),
         WordForm(f'{smni[:-1]}ах', '.СмнП'),
     ]
@@ -2165,7 +2165,7 @@ def get_plural_i19_6(src_dict, singl_word_forms) -> list:
     else:
         smnv_form = ''
         smnv1_form = WordForm(smnr1, '.СмнВ1')
-        smnv2_form = WordForm(smnr2, '.СмнВ2'),
+        smnv2_form = WordForm(smnr2, '.СмнВ2')
     word_forms = [
         WordForm(smni, '.СмнИ'),
         WordForm(smnr1, '.СмнР1'),
@@ -2344,8 +2344,8 @@ def get_plural_ii6_1_2prim(_, singl_word_forms) -> list:
 # II6е+6о
 def get_plural_ii6e_6o(_, singl_word_forms) -> list:
     smni = list(filter(lambda x: x.idf == '.СеР', singl_word_forms))[0].name
-    smnr1 = f'{smni[:-2]}е{smni[:-2]}'
-    smnr2 = f'{smni[:-2]}о{smni[:-2]}'
+    smnr1 = f'{smni[:-2]}е{smni[-2]}'
+    smnr2 = f'{smni[:-2]}о{smni[-2]}'
     word_forms = [
         WordForm(smni, '.СмнИ'),
         WordForm(smnr1, '.СмнР1'),
