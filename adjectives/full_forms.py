@@ -83,7 +83,10 @@ def get_full_i1(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # I1ж
@@ -155,7 +158,10 @@ def get_full_i2(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # I2*
@@ -197,7 +203,10 @@ def get_full_i2_prim(src_dict) -> list:
         WordForm(f'{pmi[:-4]}имися', '.ПмнТ'),
         WordForm(f'{pmi[:-4]}ихся', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # I2м
@@ -226,7 +235,10 @@ def get_full_i2m(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:7]
 
 
 # I2ж
@@ -253,7 +265,10 @@ def get_full_i2zh(src_dict) -> list:
         WordForm(f'{pzhi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pzhi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:7]
 
 
 # I2с
@@ -279,7 +294,10 @@ def get_full_i2s(src_dict) -> list:
         WordForm(f'{psi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{psi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # I2-с
@@ -315,7 +333,10 @@ def get_full_i2_s(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:13]
 
 
 # I3
@@ -357,7 +378,10 @@ def get_full_i3(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # I3м
@@ -386,7 +410,10 @@ def get_full_i3m(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # I3с
@@ -412,7 +439,10 @@ def get_full_i3s(src_dict) -> list:
         WordForm(f'{psi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{psi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # I3-с
@@ -448,7 +478,10 @@ def get_full_i3_s(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:13]
 
 
 # I4
@@ -507,7 +540,10 @@ def get_full_i4(src_dict) -> list:
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
         WordForm(f'{pmi[:-2]}оих', '.ПмнП*'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:32]
 
 
 # II1
@@ -549,7 +585,10 @@ def get_full_ii1(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # II1м
@@ -578,7 +617,10 @@ def get_full_ii1m(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # II1ж
@@ -605,7 +647,10 @@ def get_full_ii1zh(src_dict) -> list:
         WordForm(f'{pzhi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{pzhi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:7]
 
 
 # II1с
@@ -631,7 +676,10 @@ def get_full_ii1s(src_dict) -> list:
         WordForm(f'{psi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{psi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # II1-с
@@ -667,7 +715,10 @@ def get_full_ii1_s(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:13]
 
 
 # II1мн
@@ -728,7 +779,10 @@ def get_full_ii2(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # II2-с
@@ -764,7 +818,10 @@ def get_full_ii2_s(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:13]
 
 
 # II3
@@ -806,7 +863,10 @@ def get_full_ii3(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # II3ж
@@ -833,7 +893,10 @@ def get_full_ii3zh(src_dict) -> list:
         WordForm(f'{pzhi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pzhi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:7]
 
 
 # II3с
@@ -859,7 +922,10 @@ def get_full_ii3s(src_dict) -> list:
         WordForm(f'{psi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{psi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # II3-с
@@ -895,7 +961,10 @@ def get_full_ii3_s(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:13]
 
 
 # II4
@@ -937,7 +1006,10 @@ def get_full_ii4(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ыми', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # III1
@@ -979,7 +1051,10 @@ def get_full_iii1(src_dict) -> list:
         WordForm(f'{pmi}ыми', '.ПмнТ'),
         WordForm(f'{pmi}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # III1м
@@ -1008,7 +1083,10 @@ def get_full_iii1m(src_dict) -> list:
         WordForm(f'{pmi}ыми', '.ПмнТ'),
         WordForm(f'{pmi}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # III1ж
@@ -1035,7 +1113,10 @@ def get_full_iii1zh(src_dict) -> list:
         WordForm(f'{pzhi[:-1]}ыми', '.ПмнТ'),
         WordForm(f'{pzhi[:-1]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:7]
 
 
 # III1с
@@ -1061,7 +1142,10 @@ def get_full_iii1s(src_dict) -> list:
         WordForm(f'{psi[:-1]}ыми', '.ПмнТ'),
         WordForm(f'{psi[:-1]}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
 
 
 # III2
@@ -1103,7 +1187,10 @@ def get_full_iii2(src_dict) -> list:
         WordForm(f'{pmi}ыми', '.ПмнТ'),
         WordForm(f'{pmi}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # III3
@@ -1145,7 +1232,10 @@ def get_full_iii3(src_dict) -> list:
         WordForm(f'{pmi[:-2]}ьими', '.ПмнТ'),
         WordForm(f'{pmi[:-2]}ьих', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # III4#
@@ -1187,7 +1277,10 @@ def get_full_iii4_sharp(src_dict) -> list:
         WordForm(f'{pmi[:-3]}{pmi[-2]}ими', '.ПмнТ'),
         WordForm(f'{pmi[:-3]}{pmi[-2]}их', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:19]
 
 
 # IIIф
@@ -1223,7 +1316,10 @@ def get_full_iiif(src_dict) -> list:
         WordForm(f'{pmi}ыми', '.ПмнТ'),
         WordForm(f'{pmi}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:13]
 
 
 # IIIфм
@@ -1252,4 +1348,7 @@ def get_full_iiifm(src_dict) -> list:
         WordForm(f'{pmi}ыми', '.ПмнТ'),
         WordForm(f'{pmi}ых', '.ПмнП'),
     ]
-    return word_forms
+    if src_dict['Inf_5'] != 'е':
+        return word_forms
+    else:
+        return word_forms[:6]
