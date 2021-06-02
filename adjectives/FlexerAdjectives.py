@@ -14,19 +14,16 @@ from word_form import GroupWordForm, TitleWordForm
 
 def get_group_word_form(src_dict: dict) -> GroupWordForm:
     name = src_dict['name']
-    inf_0 = src_dict['Inf_0']
-    if inf_0:
-        info = [src_dict['Inf_0'], ' '.join(list(filter(None, [
-            src_dict['Inf_1'],
-            src_dict['Inf_2'],
-            src_dict['Inf_3'],
-            src_dict['Inf_4'],
-            src_dict['Inf_5'],
-        ])))]
+    src_dict['name'] = src_dict['name'].replace('*', '')
+    if any(list(src_dict.values())[1:-2]):
+        info = [src_dict['Inf_0'],
+                ' '.join(list(filter(None, list(src_dict.values())[2:])))]
 
         word_forms = []
-        adjectives_full_forms = get_full_forms(src_dict)
-        word_forms += adjectives_full_forms
+
+        if src_dict['Inf_0']:
+            adjectives_full_forms = get_full_forms(src_dict)
+            word_forms += adjectives_full_forms
 
         if src_dict['Inf_1']:
             adjectives_short_forms = get_short_forms(src_dict)
@@ -40,8 +37,12 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
             adjectives_superlative_forms = get_superlative_forms(src_dict)
             word_forms += adjectives_superlative_forms
 
-        title_word_form = TitleWordForm(name, word_forms[0].idf, info, '')
-        return GroupWordForm(title_word_form, word_forms[1:])
+        if name.startswith('*'):
+            title_word_form = TitleWordForm(name, '.ПмИ', info, '')
+            return GroupWordForm(title_word_form, word_forms)
+        else:
+            title_word_form = TitleWordForm(name, word_forms[0].idf, info, '')
+            return GroupWordForm(title_word_form, word_forms[1:])
     else:
         title_word_form = TitleWordForm(name, '', [], '')
         return GroupWordForm(title_word_form, [])

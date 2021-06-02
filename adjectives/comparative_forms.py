@@ -252,10 +252,10 @@ def get_comparative_ci2_ii5ch(src_dict) -> list:
     word_forms = [
         WordForm(f'{pmi[:-3]}ее', '.ПС1'),
         WordForm(f'{pmi[:-3]}ей', '.ПС2'),
-        WordForm(f'{pmi[:-3]}е', '.ПС3'),
+        WordForm(f'{pmi[:-3]}че', '.ПС3'),
         WordForm(f'по{pmi[:-3]}ее', '.ПС1*'),
         WordForm(f'по{pmi[:-3]}ей', '.ПС2*'),
-        WordForm(f'по{pmi[:-3]}е', '.ПС3*'),
+        WordForm(f'по{pmi[:-3]}че', '.ПС3*'),
     ]
     return word_forms
 

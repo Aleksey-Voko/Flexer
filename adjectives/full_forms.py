@@ -238,7 +238,7 @@ def get_full_i2m(src_dict) -> list:
     if src_dict['Inf_5'] != 'е':
         return word_forms
     else:
-        return word_forms[:7]
+        return word_forms[:6]
 
 
 # I2ж

@@ -49,12 +49,12 @@ def get_short_k1(src_dict) -> list:
 
 # К1*
 def get_short_k1_prim(src_dict) -> list:
-    pmi = src_dict['name']
+    pkm = src_dict['name']
     word_forms = [
-        WordForm(pmi, '.ПКм'),
-        WordForm(f'{pmi}а', '.ПКж'),
-        WordForm(f'{pmi}о', '.ПКс'),
-        WordForm(f'{pmi}ы', '.ПКмн'),
+        WordForm(pkm, '.ПКм'),
+        WordForm(f'{pkm}а', '.ПКж'),
+        WordForm(f'{pkm}о', '.ПКс'),
+        WordForm(f'{pkm}ы', '.ПКмн'),
     ]
     return word_forms
 
