@@ -290,8 +290,12 @@ def past_participle_is_valid_ppd2v(src_dict) -> list:
 # ППД3
 def past_participle_is_valid_ppd3(src_dict) -> list:
     name = src_dict['name']
+    gpm = list(filter(
+        lambda x: x.idf == '.ГПм',
+        get_past_tense_forms(src_dict)
+    ))[0].name
     if not name.endswith(('ся', 'сь')):
-        ppdmi = f'{name}ший'
+        ppdmi = f'{gpm}ший'
         word_forms = [
             WordForm(ppdmi, '.ППДмИ'),
             WordForm(f'{ppdmi[:-2]}его', '.ППДмР'),
@@ -320,7 +324,7 @@ def past_participle_is_valid_ppd3(src_dict) -> list:
             WordForm(f'{ppdmi[:-2]}их', '.ППДмнП'),
         ]
     else:
-        ppdmi = f'{name[:-2]}шийся'
+        ppdmi = f'{gpm[:-2]}шийся'
         word_forms = [
             WordForm(ppdmi, '.ППДмИ'),
             WordForm(f'{ppdmi[:-4]}егося', '.ППДмР'),
