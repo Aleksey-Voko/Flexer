@@ -36,7 +36,7 @@ def get_imperative_mood_forms(src_dict) -> list:
         'Пв2*&3*': imperative_mood_pv2_prim_3_prim,
         'Пв2!+3*-': imperative_mood_pv2_excl_3_prim_dash,
         'Пв2*-+3': imperative_mood_pv2_prim_dash_3,
-        'Пв1&2&2': imperative_mood_pv1_2_2,
+        'Пв1|2|2': imperative_mood_pv1_2_2,
     }
     return imperative_mood_tmpl[src_dict['Inf_5']](src_dict)
 
@@ -745,7 +745,7 @@ def imperative_mood_pv2_prim_dash_3(src_dict) -> list:
     return word_forms
 
 
-# Пв1&2&2
+# Пв1|2|2
 def imperative_mood_pv1_2_2(src_dict) -> list:
     name = src_dict['name']
     gnb3mn1 = list(filter(
