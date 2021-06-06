@@ -20,8 +20,8 @@ def get_imperative_mood_forms(src_dict) -> list:
         'Пв2!*': imperative_mood_pv2_excl_dash,
         'Пв3': imperative_mood_pv3,
         'Пв3-': imperative_mood_pv3_dash,
+        'Пв3*': imperative_mood_pv3_prim,
         'Пв3**': imperative_mood_pv3_2prim,
-        'Пв3***': imperative_mood_pv3_3prim,
         'Пв4': imperative_mood_pv4,
         'Пв5': imperative_mood_pv5,
         'Пв1|1': imperative_mood_pv1_1,
@@ -305,21 +305,21 @@ def imperative_mood_pv3_dash(src_dict) -> list:
     return word_forms
 
 
-# Пв3**
-def imperative_mood_pv3_2prim(src_dict) -> list:
+# Пв3*
+def imperative_mood_pv3_prim(src_dict) -> list:
     name = src_dict['name']
-    gnb3mn1 = list(filter(
-        lambda x: x.idf == '.ГНБ3мн1',
+    gnb3mn2 = list(filter(
+        lambda x: x.idf == '.ГНБ3мн2',
         get_present_future_forms(src_dict)
     ))[0].name
     if not name.endswith(('ся', 'сь')):
-        gpve = f'{gnb3mn1[:-2]}ь'
+        gpve = f'{gnb3mn2[:-2]}ь'
         word_forms = [
             WordForm(gpve, '.ГПве'),
             WordForm(f'{gpve}те', '.ГПвмн'),
         ]
     else:
-        gpve = f'{gnb3mn1[:-4]}ься'
+        gpve = f'{gnb3mn2[:-4]}ься'
         word_forms = [
             WordForm(gpve, '.ГПве'),
             WordForm(f'{gpve[:-2]}тесь', '.ГПвмн'),
@@ -327,8 +327,8 @@ def imperative_mood_pv3_2prim(src_dict) -> list:
     return word_forms
 
 
-# Пв3***
-def imperative_mood_pv3_3prim(src_dict) -> list:
+# Пв3**
+def imperative_mood_pv3_2prim(src_dict) -> list:
     name = src_dict['name']
     gnb2e = list(filter(
         lambda x: x.idf == '.ГНБ2е',

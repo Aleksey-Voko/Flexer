@@ -36,8 +36,6 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
             src_dict['Inf_12'],
         ]))
 
-        title_word_form = TitleWordForm(name, '.ГИ', info, '')
-
         word_forms = []
         if src_dict['Inf_3']:
             present_future_forms = get_present_future_forms(src_dict)
@@ -79,7 +77,12 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
             past_participle_forms = get_past_participle(src_dict)
             word_forms += past_participle_forms
 
-        return GroupWordForm(title_word_form, word_forms)
+        if name.endswith(('шел', 'шелся')):
+            title_word_form = TitleWordForm(name, word_forms[0].idf, info, '')
+            return GroupWordForm(title_word_form, word_forms[1:])
+        else:
+            title_word_form = TitleWordForm(name, '.ГИ', info, '')
+            return GroupWordForm(title_word_form, word_forms)
     else:
         title_word_form = TitleWordForm(name, '', [], '')
         return GroupWordForm(title_word_form, [])
@@ -109,11 +112,19 @@ def save_groups_to_bs():
     for in_verbs in in_verbs_list:
         src_groups = get_verbs_dicts_from_csv_file(in_verbs)
         for src_dict in src_groups:
-            group_word_form = get_group_word_form(src_dict)
-            add_groups_to_bs_list.append(group_word_form)
-            add_groups_to_bg_list.append(
-                group_word_form.title_word_form.bg_form)
-            count += 1
+
+            try:
+                group_word_form = get_group_word_form(src_dict)
+                add_groups_to_bs_list.append(group_word_form)
+                add_groups_to_bg_list.append(
+                    group_word_form.title_word_form.bg_form)
+                count += 1
+            except KeyError as e:
+                print('Аварийное завершение.')
+                print('Неизвестное имя шаблона:', e)
+                print('Для выхода нажмите Enter')
+                input()
+                quit()
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_verbs)
     print(f'Создано {count} групп словоформ')
