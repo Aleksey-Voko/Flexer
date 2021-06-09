@@ -120,8 +120,9 @@ def save_groups_to_bs():
                     group_word_form.title_word_form.bg_form)
                 count += 1
             except KeyError as e:
+                print('В Н И М А Н И Е !')
                 print('Аварийное завершение.')
-                print('Неизвестное имя шаблона:', e)
+                print('Несуществующий шаблон:', e)
                 print('Для выхода нажмите Enter')
                 input()
                 quit()

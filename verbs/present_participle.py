@@ -73,7 +73,7 @@ def present_participle_dn3(src_dict) -> list:
 def present_participle_dn4(src_dict) -> list:
     name = src_dict['name']
     gnb1mn = list(filter(
-        lambda x: x.idf == '.ГНБ2е',
+        lambda x: x.idf == '.ГНБ1мн',
         get_present_future_forms(src_dict)
     ))[0].name
     if not name.endswith(('ся', 'сь')):

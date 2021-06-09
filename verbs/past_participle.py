@@ -252,8 +252,8 @@ def past_participle_dp9(src_dict) -> list:
     name = src_dict['name']
     if not name.endswith(('ся', 'сь')):
         word_forms = [
-            WordForm(f'{name}в', '.ДП'),
-            WordForm(f'{name}вши', '.ДП*'),
+            WordForm(f'{name[:-2]}в', '.ДП'),
+            WordForm(f'{name[:-2]}вши', '.ДП*'),
         ]
     else:
         word_forms = [

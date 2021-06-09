@@ -775,7 +775,7 @@ def imperative_mood_pv1_2_2(src_dict) -> list:
     else:
         gpve1 = f'{gnb3mn1[:-4]}йся'
         gpve2 = f'{gnb3mn2[:-4]}ись'
-        gpve3 = f'{gnb3mn3[:-2]}ись'
+        gpve3 = f'{gnb3mn3[:-4]}ись'
         word_forms = [
             WordForm(gpve1, '.ГПве1'),
             WordForm(gpve2, '.ГПве2'),

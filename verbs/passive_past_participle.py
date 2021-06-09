@@ -756,7 +756,7 @@ def passive_past_participle_pps2_2_prim(src_dict) -> list:
         get_present_future_forms(src_dict)
     ))[0].name
     pps1mi = f'{gnb1e[:-1]}енный'
-    pps2mi = f'{gnb1e[:-2]}о{gnb1e[2:-1]}енный'
+    pps2mi = f'{gnb1e[:2]}о{gnb1e[2:-1]}енный'
     word_forms = [
         WordForm(pps1mi, '.ППС1мИ'),
         WordForm(f'{pps1mi[:-2]}ого', '.ППС1мР'),
