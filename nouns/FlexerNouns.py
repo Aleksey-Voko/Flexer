@@ -68,11 +68,20 @@ def save_groups_to_bs():
     for in_nouns in in_nouns_list:
         src_groups = get_nouns_dicts_from_csv_file(in_nouns)
         for src_dict in src_groups:
-            group_word_form = get_group_word_form(src_dict)
-            add_groups_to_bs_list.append(group_word_form)
-            add_groups_to_bg_list.append(
-                group_word_form.title_word_form.bg_form)
-            count += 1
+
+            try:
+                group_word_form = get_group_word_form(src_dict)
+                add_groups_to_bs_list.append(group_word_form)
+                add_groups_to_bg_list.append(
+                    group_word_form.title_word_form.bg_form)
+                count += 1
+            except KeyError as e:
+                print('В Н И М А Н И Е !')
+                print('Аварийное завершение.')
+                print('Несуществующий шаблон:', e)
+                print('Для выхода нажмите Enter')
+                input()
+                quit()
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_nouns)
     print(f'Создано {count} групп словоформ')
