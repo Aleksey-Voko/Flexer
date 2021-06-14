@@ -15,7 +15,7 @@ def add_groups_to_bs():
 
     print('База словоформ:')
     print(f'"{in_bs}"\n')
-    print(f'... читаем "{in_bs}" ...\n')
+    print(f'... чтение "{in_bs}" ...\n')
     word_forms_bases = list(read_src_bs(in_bs))
 
     print('Файлы с группами:')
