@@ -1,6 +1,7 @@
 from pathlib import Path
 from pprint import pprint
 
+from flexer_errors import get_error_message, InputDataError
 from rem import reminder
 from utils import (get_string_list_from_file, save_bs_dicts_to_txt,
                    get_verbs_dicts_from_csv_file, save_list_to_file)
@@ -18,6 +19,240 @@ from word_form import GroupWordForm, TitleWordForm
 
 
 def get_group_word_form(src_dict: dict) -> GroupWordForm:
+    in_data_string = ' '.join(list(filter(None, [
+        src_dict['name'],
+        src_dict['Inf_0'],
+        src_dict['Inf_1'],
+        src_dict['Inf_2'],
+        src_dict['Inf_3'],
+        src_dict['Inf_4'],
+        src_dict['Inf_5'],
+        src_dict['Inf_6'],
+        src_dict['Inf_7'],
+        src_dict['Inf_8'],
+        src_dict['Inf_9'],
+        src_dict['Inf_10'],
+        src_dict['Inf_11'],
+        src_dict['Inf_12'],
+    ])))
+
+    # Блокировка IV
+    if src_dict['name'].endswith(('ся', 'сь')) and src_dict['Inf_1'] == 'пер':
+        message = ('Блокировка IV\n'
+                   f'"{in_data_string}"\n'
+                   'Возвратный глагол НЕ может быть переходным!')
+        raise InputDataError(message)
+
+    # Блокировка V
+    if (
+            src_dict['name'].endswith(('шел', 'шелся'))
+            and any([
+                src_dict['Inf_3'],
+                src_dict['Inf_5'],
+                src_dict['Inf_6'],
+                src_dict['Inf_7'],
+                src_dict['Inf_8'],
+                src_dict['Inf_10'],
+                src_dict['Inf_11'],
+            ])
+    ):
+        message = ('Блокировка V\n'
+                   f'"{in_data_string}"\n'
+                   'Глаголы на -ШЕЛ(СЯ) НЕ образуют ничего, кроме форм:\n'
+                   'прошедшего времени,\n'
+                   'причастия прошедшего времени действительного,\n'
+                   'деепричастия прошедшего времени.')
+        raise InputDataError(message)
+
+    # Блокировка VI
+    if (
+            src_dict['name'].endswith(('йти', 'йтись'))
+            and any([
+                src_dict['Inf_4'],
+                src_dict['Inf_9'],
+            ])
+    ):
+        message = ('Блокировка VI\n'
+                   f'"{in_data_string}"\n'
+                   'Глаголы на -ЙТИ(СЬ) НЕ образуют формы:\n'
+                   'прошедшего времени,\n'
+                   'причастия прошедшего времени действительного.')
+        raise InputDataError(message)
+
+    # Блокировка VII
+    if (
+            src_dict['Inf_2'] == 'б'
+            and any([
+                src_dict['Inf_6'],
+                src_dict['Inf_7'],
+                src_dict['Inf_8'],
+                src_dict['Inf_9'],
+                src_dict['Inf_10'],
+                src_dict['Inf_11'],
+                src_dict['Inf_12'],
+            ])
+    ):
+        message = ('Блокировка VII\n'
+                   f'"{in_data_string}"\n'
+                   'Безличные глаголы НЕ образуют ничего, кроме форм:\n'
+                   'настоящего / будущего времени,\n'
+                   'прошедшего времени,\n'
+                   'повелительного наклонения.')
+        raise InputDataError(message)
+
+    # Блокировка VIII
+    if src_dict['Inf_0'] == 'нес' and src_dict['Inf_6']:
+        message = ('Блокировка VIII\n'
+                   f'"{in_data_string}"\n'
+                   'Глаголы несовершенного вида\n'
+                   '(за исключением некоторых случаев)\n'
+                   'НЕ образуют форму совместного действия.')
+        raise InputDataError(message)
+
+    # Блокировка IX
+    if (
+            src_dict['Inf_0'] == 'сов'
+            and any([
+                src_dict['Inf_7'],
+                src_dict['Inf_8'],
+                src_dict['Inf_11'],
+            ])
+    ):
+        message = ('Блокировка IX\n'
+                   f'"{in_data_string}"\n'
+                   'Глаголы совершенного вида НЕ образуют формы:\n'
+                   'причастия настоящего времени действительного,\n'
+                   'причастия настоящего времени страдательного,\n'
+                   'деепричастия настоящего времени.')
+        raise InputDataError(message)
+
+    # Блокировка X
+    if (
+            src_dict['name'].endswith(('ся', 'сь'))
+            and any([
+                src_dict['Inf_8'],
+                src_dict['Inf_10'],
+            ])
+    ):
+        message = ('Блокировка X\n'
+                   f'"{in_data_string}"\n'
+                   'Возвратные глаголы НЕ образуют страдательных причастий.')
+        raise InputDataError(message)
+
+    # Блокировка XI
+    if (
+            src_dict['Inf_1'] == 'неп'
+            and any([
+                src_dict['Inf_8'],
+                src_dict['Inf_10'],
+            ])
+    ):
+        message = ('Блокировка XI\n'
+                   f'"{in_data_string}"\n'
+                   'Непереходные глаголы НЕ образуют формы:\n'
+                   'причастия настоящего времени страдательного\n'
+                   '(за исключением некоторых случаев),\n'
+                   'причастия прошедшего времени страдательного.')
+        raise InputDataError(message)
+
+    # Блокировка XII
+    if (
+            src_dict['Inf_0'] == 'нес'
+            and any([
+                src_dict['name'].endswith('оть'),
+
+                src_dict['name'].endswith('сть')
+                and not src_dict['name'].endswith('есть'),
+
+                src_dict['name'].endswith('чь')
+                and not src_dict['name'].endswith('влечь'),
+            ])
+            and src_dict['Inf_8']
+    ):
+        message = ('Блокировка XII\n'
+                   f'"{in_data_string}"\n'
+                   'Глаголы несовершенного вида на -ОТЬ,\n'
+                   '-СТЬ (кроме ЕСТЬ), -ЧЬ (кроме ВЛЕЧЬ)\n'
+                   'НЕ образуют причастие настоящего времени страдательное.')
+        raise InputDataError(message)
+
+    # Блокировка XIV
+    if (
+            any([
+                src_dict['name'].endswith('авать')
+                and src_dict['name'] != 'исплавать'
+                and src_dict['name'] != 'наплавать'
+                and not src_dict['name'].endswith('хавать'),
+
+                src_dict['name'].endswith('евать')
+                and src_dict['name'][-6] in ('в', 'м', 'п', 'р', 'с', 'т', 'щ'),
+
+                src_dict['name'].endswith((
+                        'длевать',
+                        'тлевать',
+                        'одолевать',
+                        'разевать',
+                        'ивать',
+                        'увать',
+                        'ывать',
+                ))
+            ])
+            and src_dict['Inf_10']
+    ):
+        message = ('Блокировка XIV\n'
+                   f'"{in_data_string}"\n'
+                   'Причастие прошедшего времени страдательное\n'
+                   'НЕ образуют глаголы, оканчивающиеся на:\n'
+                   '-АВАТЬ (кроме ИСПЛАВАТЬ, НАПЛАВАТЬ и на -ХАВАТЬ),\n'
+                   '-ЕВАТЬ с предшествующей В, М, П, Р, С, Т, Щ,\n'
+                   '-ДЛЕВАТЬ, -ТЛЕВАТЬ, -ОДОЛЕВАТЬ, -РАЗЕВАТЬ,\n'
+                   '-ИВАТЬ, -УВАТЬ, -ЫВАТЬ.')
+        raise InputDataError(message)
+
+    # Блокировка XV
+    if (
+            src_dict['Inf_0'] == 'нес'
+            and any([
+                src_dict['name'].endswith('водить')
+                and src_dict['name'] != 'водить',
+
+                src_dict['name'].endswith('возить')
+                and src_dict['name'] != 'возить',
+
+                src_dict['name'].endswith('носить')
+                and src_dict['name'] != 'носить',
+
+                src_dict['name'].endswith('ходить'),
+            ])
+            and src_dict['Inf_10']
+    ):
+        message = ('Блокировка XV\n'
+                   f'"{in_data_string}"\n'
+                   'Причастие прошедшего времени страдательное\n'
+                   'НЕ образуют глаголы несовершенного вида на:\n'
+                   '-ВОДИТЬ (кроме ВОДИТЬ),\n'
+                   '-ВОЗИТЬ (кроме ВОЗИТЬ),\n'
+                   '-НОСИТЬ (кроме НОСИТЬ),\n'
+                   '-ХОДИТЬ.')
+        raise InputDataError(message)
+
+    # Блокировка XVI
+    if (
+            any([
+                src_dict['name'].endswith('нуть')
+                and not src_dict['name'].endswith('тянуть'),
+
+                src_dict['name'].endswith('нуться')
+                and not src_dict['name'].endswith('тянуться'),
+            ])
+            and src_dict['Inf_11']
+    ):
+        message = ('Блокировка XVI\n'
+                   f'"{in_data_string}"\n'
+                   'Глаголы на -НУТЬ(СЯ) [кроме на -ТЯНУТЬ(СЯ)]\n'
+                   'НЕ образуют деепричастие настоящего времени.')
+        raise InputDataError(message)
+
     name = src_dict['name']
     inf_0 = src_dict['Inf_0']
     if inf_0:
@@ -120,10 +355,11 @@ def save_groups_to_bs():
                     group_word_form.title_word_form.bg_form)
                 count += 1
             except KeyError as e:
-                print('В Н И М А Н И Е !')
-                print('Аварийное завершение.')
-                print('Несуществующий шаблон:', e)
-                print('Для выхода нажмите Enter')
+                print(get_error_message(f'Несуществующий шаблон: {e}'))
+                input()
+                quit()
+            except InputDataError as e:
+                print(get_error_message(e))
                 input()
                 quit()
 
