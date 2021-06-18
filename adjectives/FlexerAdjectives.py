@@ -5,6 +5,7 @@ from adjectives.comparative_forms import get_comparative_forms
 from adjectives.full_forms import get_full_forms
 from adjectives.short_forms import get_short_forms
 from adjectives.superlative_forms import get_superlative_forms
+from flexer_errors import get_error_message, InputDataError
 from rem import reminder
 from utils import (get_string_list_from_file,
                    get_adjectives_dicts_from_csv_file, save_bs_dicts_to_txt,
@@ -13,6 +14,22 @@ from word_form import GroupWordForm, TitleWordForm
 
 
 def get_group_word_form(src_dict: dict) -> GroupWordForm:
+    in_data_string = ' '.join(list(filter(None, [
+        src_dict['name'],
+        src_dict['Inf_0'],
+        src_dict['Inf_1'],
+        src_dict['Inf_2'],
+        src_dict['Inf_3'],
+        src_dict['Inf_4'],
+        src_dict['Inf_5'],
+    ])))
+
+    if src_dict['name'].startswith('*') and src_dict['Inf_0']:
+        message = ('Блокировка III\n'
+                   f'{in_data_string}\n'
+                   'Адъектированные причастия НЕ образуют полную форму')
+        raise InputDataError(message)
+
     name = src_dict['name']
     src_dict['name'] = src_dict['name'].replace('*', '')
     if any(list(src_dict.values())[1:-2]):
@@ -80,10 +97,11 @@ def save_groups_to_bs():
                     group_word_form.title_word_form.bg_form)
                 count += 1
             except KeyError as e:
-                print('В Н И М А Н И Е !')
-                print('Аварийное завершение.')
-                print('Несуществующий шаблон:', e)
-                print('Для выхода нажмите Enter')
+                print(get_error_message(f'Несуществующий шаблон: {e}'))
+                input()
+                quit()
+            except InputDataError as e:
+                print(get_error_message(e))
                 input()
                 quit()
 
