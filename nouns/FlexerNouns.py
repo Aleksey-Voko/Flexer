@@ -1,6 +1,7 @@
 from pathlib import Path
 from pprint import pprint
 
+from flexer_errors import get_error_message, InputDataError
 from nouns.plural import get_plural_forms
 from nouns.singular import get_singular_forms
 from rem import reminder
@@ -13,6 +14,48 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
     name = src_dict['name']
     inf_0 = src_dict['Inf_0']
     if inf_0:
+        in_data_string = ' '.join(list(filter(None, [
+            src_dict['name'],
+            src_dict['Inf_0'],
+            src_dict['Inf_1'],
+            src_dict['Inf_2'],
+            src_dict['Inf_3'],
+            src_dict['Inf_4'],
+            src_dict['Inf_5'],
+            src_dict['Inf_6'],
+        ])))
+
+        # Блокировка I
+        if not src_dict['Inf_4'] and src_dict['Inf_2'] != '!':
+            message = ('Отсутствие индикатора "!"\n'
+                       f'{in_data_string}\n'
+                       'нет форм мн. ч., однако индикатор "!" '
+                       'после указателя рода отсутствует')
+            raise InputDataError(message)
+
+        # Блокировка I
+        if not src_dict['Inf_1'] and src_dict['Inf_5'] != '!':
+            message = ('Отсутствие индикатора "!"\n'
+                       f'{in_data_string}\n'
+                       'нет форм ед. ч., однако индикатор "!" '
+                       'после индикатора мн. ч. отсутствует')
+            raise InputDataError(message)
+
+        # Блокировка II.
+        if (
+                src_dict['Inf_1'] and src_dict['Inf_4']
+                and
+                (
+                        src_dict['Inf_2'] == '!'
+                        or src_dict['Inf_5'] == '!'
+                )
+        ):
+            message = ('Необоснованное применение индикатора "!"\n'
+                       f'{in_data_string}\n'
+                       'есть формы и ед. ч., и мн. ч., поэтому применение '
+                       'хотя бы одного индикатора "!" необоснованно')
+            raise InputDataError(message)
+
         info = [inf_0]
         if src_dict['Inf_1']:
             info.append(''.join(list(filter(None, [
@@ -76,10 +119,11 @@ def save_groups_to_bs():
                     group_word_form.title_word_form.bg_form)
                 count += 1
             except KeyError as e:
-                print('В Н И М А Н И Е !')
-                print('Аварийное завершение.')
-                print('Несуществующий шаблон:', e)
-                print('Для выхода нажмите Enter')
+                print(get_error_message(f'Несуществующий шаблон: {e}'))
+                input()
+                quit()
+            except InputDataError as e:
+                print(get_error_message(e))
                 input()
                 quit()
 
