@@ -76,13 +76,19 @@ def add_groups_to_bs():
         print('Новые случаи омонимии!!!')
         print('В БС среди ЗС групп и одиночек ОБНАРУЖЕНЫ слова, омонимичные добавляемым ЗС групп и одиночкам')
         print('Добавляемые:')
-        pprint(sorted(list(set(added_homonyms))))
+        pprint(added_homonyms)
+        pprint(sorted(list(set(existing_homonyms))))
         print('Уже имеющиеся в БС:')
         pprint(sorted(list(set(existing_homonyms))))
         print('Для продолжения нажмите Enter')
         input()
 
-    if all([not capital_letters, not invalid_characters, not added_homonyms]):
+    if any([capital_letters, invalid_characters, added_homonyms]):
+        print('Необходимо исправить ошибки входных данных')
+        print('Для выхода нажмите Enter')
+        input()
+        quit()
+    else:
         print('В Н И М А Н И Е !')
         print('В добавляемых ЗС групп и одиночках НЕТ заглавных букв')
         print('Для продолжения нажмите Enter')
@@ -99,12 +105,6 @@ def add_groups_to_bs():
         print('Для продолжения нажмите Enter')
         input()
 
-    if any([capital_letters, invalid_characters, added_homonyms]):
-        print('Необходимо исправить ошибки входных данных')
-        print('Для выхода нажмите Enter')
-        input()
-        quit()
-    else:
         print('Добавлены данные из файлов:')
         print(f'{add_groups_list}')
         print()
