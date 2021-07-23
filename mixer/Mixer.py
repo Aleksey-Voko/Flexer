@@ -19,11 +19,17 @@ def add_groups_to_bs():
     word_forms_bases = list(read_src_bs(in_bs))
     word_form_names = [x.title_word_form.name for x in word_forms_bases]
 
-    print('Файлы с группами:')
+    print('Файлы с добавляемыми группами словоформ:')
     pprint(add_groups_list)
     print()
 
     count = 0
+
+    capital_letters = []
+    invalid_characters = []
+
+    added_homonyms = []
+    existing_homonyms = []
 
     for add_groups in add_groups_list:
         verbs = list(read_src_bs(add_groups))
@@ -33,30 +39,75 @@ def add_groups_to_bs():
             name_title = title_form.name
 
             if not name_title.islower():
-                print('В Н И М А Н И Е !')
-                print('В добавляемых ЗС групп или одиночках найдены заглавные буквы:')
-                print(title_form)
-                print('Для продолжения нажмите Enter')
-                input()
+                capital_letters.append(title_form.bg_form)
 
-            if 'ё' in name_title:
-                print('В Н И М А Н И Е !')
-                print('В добавляемых ЗС групп или одиночках найдены буквы "Ёё":')
-                print(title_form)
-                print('Для продолжения нажмите Enter')
-                input()
+            if 'ё' in name_title.lower():
+                invalid_characters.append(title_form.bg_form)
 
             if name_title in word_form_names:
-                print('В Н И М А Н И Е !')
-                print('Новые случаи омонимии!!!')
-                print(title_form)
-                print('Для продолжения нажмите Enter')
-                input()
+                added_homonyms.append(title_form.bg_form)
+                existing_homonyms += [
+                    x.title_word_form.bg_form for x in word_forms_bases
+                    if name_title == x.title_word_form.name
+                ]
 
         word_forms_bases += verbs
-        print(f'Дабавлены данные из файла "{add_groups}"')
         count += len(verbs)
-    print()
+
+    if any([capital_letters, invalid_characters, added_homonyms]):
+        print(f'{"* " * 38}*\n')
+
+    if capital_letters:
+        print('В Н И М А Н И Е !')
+        print('В добавляемых ЗС групп и одиночках найдены заглавные буквы:\n')
+        pprint(capital_letters)
+        print('\nДля продолжения нажмите Enter')
+        input()
+
+    if invalid_characters:
+        print('В Н И М А Н И Е !')
+        print('В добавляемых ЗС групп и одиночках найдена буква Ёё:\n')
+        pprint(invalid_characters)
+        print('\nДля продолжения нажмите Enter')
+        input()
+
+    if added_homonyms:
+        print('В Н И М А Н И Е !')
+        print('Новые случаи омонимии!!!')
+        print('В БС среди ЗС групп и одиночек ОБНАРУЖЕНЫ слова, омонимичные добавляемым ЗС групп и одиночкам')
+        print('Добавляемые:')
+        pprint(sorted(list(set(added_homonyms))))
+        print('Уже имеющиеся в БС:')
+        pprint(sorted(list(set(existing_homonyms))))
+        print('Для продолжения нажмите Enter')
+        input()
+
+    if all([not capital_letters, not invalid_characters, not added_homonyms]):
+        print('В Н И М А Н И Е !')
+        print('В добавляемых ЗС групп и одиночках НЕТ заглавных букв')
+        print('Для продолжения нажмите Enter')
+        input()
+
+        print('В Н И М А Н И Е !')
+        print('В добавляемых ЗС групп и одиночках НЕТ буквы Ёё')
+        print('Для продолжения нажмите Enter')
+        input()
+
+        print('В Н И М А Н И Е !')
+        print('Новых случаев омонимии НЕТ')
+        print('В БС среди ЗС групп и одиночек НЕ обнаружено слов, омонимичных добавляемым ЗС групп и одиночкам')
+        print('Для продолжения нажмите Enter')
+        input()
+
+    if any([capital_letters, invalid_characters, added_homonyms]):
+        print('Необходимо исправить ошибки входных данных')
+        print('Для выхода нажмите Enter')
+        input()
+        quit()
+    else:
+        print('Добавлены данные из файлов:')
+        print(f'{add_groups_list}')
+        print()
 
     print('... сортировка ...\n')
     save_bs_dicts_to_txt(sorted(word_forms_bases), out_bs)
