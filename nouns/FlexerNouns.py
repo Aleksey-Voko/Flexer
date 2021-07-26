@@ -13,16 +13,20 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
     name = src_dict['name']
     inf_0 = src_dict['Inf_0']
     if inf_0:
-        in_data_string = ' '.join(list(filter(None, [
-            src_dict['name'],
-            src_dict['Inf_0'],
-            src_dict['Inf_1'],
-            src_dict['Inf_2'],
-            src_dict['Inf_3'],
-            src_dict['Inf_4'],
-            src_dict['Inf_5'],
-            src_dict['Inf_6'],
-        ])))
+        in_data_list = [name, inf_0]
+        if src_dict['Inf_1']:
+            in_data_list.append(''.join(list(filter(None, [
+                src_dict['Inf_1'],
+                src_dict['Inf_2'],
+                src_dict['Inf_3'],
+            ]))))
+        if src_dict['Inf_4']:
+            in_data_list.append(''.join(list(filter(None, [
+                src_dict['Inf_4'],
+                src_dict['Inf_5'],
+                src_dict['Inf_6'],
+            ]))))
+        in_data_string = ' '.join(in_data_list)
 
         # Блокировка I
         if not src_dict['Inf_4'] and src_dict['Inf_2'] != '!':
