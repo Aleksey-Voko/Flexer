@@ -1,5 +1,4 @@
 from pathlib import Path
-from pprint import pprint
 
 from adjectives.comparative_forms import get_comparative_forms
 from adjectives.full_forms import get_full_forms
@@ -76,7 +75,8 @@ def save_groups_to_bs():
     in_adjectives_list = in_adjectives_list[:-1]
 
     print(f'Файлы с исходными данными:')
-    pprint(in_adjectives_list)
+    for line in in_adjectives_list:
+        print(line)
     print()
 
     print('Для продолжения нажмите Enter')
