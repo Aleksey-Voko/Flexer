@@ -38,8 +38,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 
     # Блокировка IV
     if src_dict['name'].endswith(('ся', 'сь')) and src_dict['Inf_1'] == 'пер':
-        message = ('Блокировка IV\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка IV.\n'
                    'Возвратный глагол НЕ может быть переходным!')
         raise InputDataError(message)
 
@@ -56,8 +56,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                 src_dict['Inf_11'],
             ])
     ):
-        message = ('Блокировка V\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка V.\n'
                    'Глаголы на -ШЕЛ(СЯ) НЕ образуют ничего, кроме форм:\n'
                    'прошедшего времени,\n'
                    'причастия прошедшего времени действительного,\n'
@@ -72,8 +72,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                 src_dict['Inf_9'],
             ])
     ):
-        message = ('Блокировка VI\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка VI.\n'
                    'Глаголы на -ЙТИ(СЬ) НЕ образуют формы:\n'
                    'прошедшего времени,\n'
                    'причастия прошедшего времени действительного.')
@@ -92,8 +92,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                 src_dict['Inf_12'],
             ])
     ):
-        message = ('Блокировка VII\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка VII.\n'
                    'Безличные глаголы НЕ образуют ничего, кроме форм:\n'
                    'настоящего / будущего времени,\n'
                    'прошедшего времени,\n'
@@ -102,8 +102,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 
     # Блокировка VIII
     if src_dict['Inf_0'] == 'нес' and src_dict['Inf_6']:
-        message = ('Блокировка VIII\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка VIII.\n'
                    'Глаголы несовершенного вида\n'
                    '(за исключением некоторых случаев)\n'
                    'НЕ образуют форму совместного действия.')
@@ -118,8 +118,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                 src_dict['Inf_11'],
             ])
     ):
-        message = ('Блокировка IX\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка IX.\n'
                    'Глаголы совершенного вида НЕ образуют формы:\n'
                    'причастия настоящего времени действительного,\n'
                    'причастия настоящего времени страдательного,\n'
@@ -134,8 +134,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                 src_dict['Inf_10'],
             ])
     ):
-        message = ('Блокировка X\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка X.\n'
                    'Возвратные глаголы НЕ образуют страдательных причастий.')
         raise InputDataError(message)
 
@@ -147,8 +147,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                 src_dict['Inf_10'],
             ])
     ):
-        message = ('Блокировка XI\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка XI.\n'
                    'Непереходные глаголы НЕ образуют формы:\n'
                    'причастия настоящего времени страдательного\n'
                    '(за исключением некоторых случаев),\n'
@@ -169,14 +169,14 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
             ])
             and src_dict['Inf_8']
     ):
-        message = ('Блокировка XII\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка XII.\n'
                    'Глаголы несовершенного вида на -ОТЬ,\n'
                    '-СТЬ (кроме ЕСТЬ), -ЧЬ (кроме ВЛЕЧЬ)\n'
                    'НЕ образуют причастие настоящего времени страдательное.')
         raise InputDataError(message)
 
-    # Блокировка XIV
+    # Блокировка XIII
     if (
             any([
                 src_dict['name'].endswith('авать')
@@ -199,8 +199,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
             ])
             and src_dict['Inf_10']
     ):
-        message = ('Блокировка XIV\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка XIII.\n'
                    'Причастие прошедшего времени страдательное\n'
                    'НЕ образуют глаголы, оканчивающиеся на:\n'
                    '-АВАТЬ (кроме ИСПЛАВАТЬ, НАПЛАВАТЬ и на -ХАВАТЬ),\n'
@@ -209,7 +209,7 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                    '-ИВАТЬ, -УВАТЬ, -ЫВАТЬ.')
         raise InputDataError(message)
 
-    # Блокировка XV
+    # Блокировка XIV
     if (
             src_dict['Inf_0'] == 'нес'
             and any([
@@ -226,8 +226,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
             ])
             and src_dict['Inf_10']
     ):
-        message = ('Блокировка XV\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка XIV.\n'
                    'Причастие прошедшего времени страдательное\n'
                    'НЕ образуют глаголы несовершенного вида на:\n'
                    '-ВОДИТЬ (кроме ВОДИТЬ),\n'
@@ -236,7 +236,7 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                    '-ХОДИТЬ.')
         raise InputDataError(message)
 
-    # Блокировка XVI
+    # Блокировка XV
     if (
             any([
                 src_dict['name'].endswith('нуть')
@@ -247,8 +247,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
             ])
             and src_dict['Inf_11']
     ):
-        message = ('Блокировка XVI\n'
-                   f'"{in_data_string}"\n'
+        message = (f'{in_data_string}\n'
+                   'Блокировка XV.\n'
                    'Глаголы на -НУТЬ(СЯ) [кроме на -ТЯНУТЬ(СЯ)]\n'
                    'НЕ образуют деепричастие настоящего времени.')
         raise InputDataError(message)
