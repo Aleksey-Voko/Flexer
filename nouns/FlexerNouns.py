@@ -1,5 +1,4 @@
 from pathlib import Path
-from pprint import pprint
 
 from flexer_errors import get_error_message, InputDataError
 from nouns.plural import get_plural_forms
@@ -27,16 +26,18 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 
         # Блокировка I
         if not src_dict['Inf_4'] and src_dict['Inf_2'] != '!':
-            message = ('Отсутствие индикатора "!"\n'
-                       f'{in_data_string}\n'
+            message = (f'{in_data_string}\n'
+                       'Блокировка I.\n'
+                       'Отсутствие индикатора "!"\n'
                        'нет форм мн. ч., однако индикатор "!" '
                        'после указателя рода отсутствует')
             raise InputDataError(message)
 
         # Блокировка I
         if not src_dict['Inf_1'] and src_dict['Inf_5'] != '!':
-            message = ('Отсутствие индикатора "!"\n'
-                       f'{in_data_string}\n'
+            message = (f'{in_data_string}\n'
+                       'Блокировка I.\n'
+                       'Отсутствие индикатора "!"\n'
                        'нет форм ед. ч., однако индикатор "!" '
                        'после индикатора мн. ч. отсутствует')
             raise InputDataError(message)
@@ -50,8 +51,9 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                         or src_dict['Inf_5'] == '!'
                 )
         ):
-            message = ('Необоснованное применение индикатора "!"\n'
-                       f'{in_data_string}\n'
+            message = (f'{in_data_string}\n'
+                       'Блокировка II.\n'
+                       'Необоснованное применение индикатора "!"\n'
                        'есть формы и ед. ч., и мн. ч., поэтому применение '
                        'хотя бы одного индикатора "!" необоснованно')
             raise InputDataError(message)
@@ -97,7 +99,8 @@ def save_groups_to_bs():
     in_nouns_list = in_nouns_list[:-1]
 
     print(f'Файлы с исходными данными:')
-    pprint(in_nouns_list)
+    for line in in_nouns_list:
+        print(line)
     print()
 
     print('Для продолжения нажмите Enter')
