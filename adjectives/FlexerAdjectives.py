@@ -33,8 +33,7 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
     name = src_dict['name']
     src_dict['name'] = src_dict['name'].replace('*', '')
     if any(list(src_dict.values())[1:-2]):
-        info = [src_dict['Inf_0'],
-                ' '.join(list(filter(None, list(src_dict.values())[2:])))]
+        info = list(filter(None, list(src_dict.values())[1:]))
 
         word_forms = []
 
