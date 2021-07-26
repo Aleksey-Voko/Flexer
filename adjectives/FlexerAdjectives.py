@@ -24,10 +24,11 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
         src_dict['Inf_5'],
     ])))
 
+    # Блокировка III
     if src_dict['name'].startswith('*') and src_dict['Inf_0']:
-        message = ('Блокировка III\n'
-                   f'{in_data_string}\n'
-                   'Адъектированные причастия НЕ образуют полную форму')
+        message = (f'{in_data_string}\n'
+                   'Блокировка III.\n'
+                   'Адъектированные причастия НЕ образуют полную форму.')
         raise InputDataError(message)
 
     name = src_dict['name']
