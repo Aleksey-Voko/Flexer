@@ -86,10 +86,10 @@ def add_groups_to_bs():
         print('В Н И М А Н И Е !')
         print('Новые случаи омонимии!!!')
         print('В БС среди ЗС групп и одиночек ОБНАРУЖЕНЫ слова, омонимичные добавляемым ЗС групп и одиночкам.')
-        print('\nДобавляемые:')
+        print('Добавляемые:')
         for line in sorted(list(set(added_homonyms))):
             print(line)
-        print('\nУже имеющиеся в БС:')
+        print('Уже имеющиеся в БС:')
         for line in sorted(list(set(existing_homonyms))):
             print(line)
         print('Для продолжения нажмите Enter')
@@ -100,6 +100,8 @@ def add_groups_to_bs():
         print('В БС среди ЗС групп и одиночек НЕ обнаружено слов, омонимичных добавляемым ЗС групп и одиночкам.')
         print('Для продолжения нажмите Enter')
         input()
+
+    print(f'{"* " * 38}*\n')
 
     print('Добавлены данные из файлов:')
     for line in add_groups_list:
