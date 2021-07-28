@@ -115,6 +115,8 @@ def save_groups_to_bs():
     add_groups_to_bs_list = []
     add_groups_to_bg_list = []
 
+    error_list = []
+
     for in_nouns in in_nouns_list:
         src_groups = get_nouns_dicts_from_csv_file(in_nouns)
         for src_dict in src_groups:
@@ -126,13 +128,16 @@ def save_groups_to_bs():
                     group_word_form.title_word_form.bg_form)
                 count += 1
             except KeyError as e:
-                print(get_error_message(f'Несуществующий шаблон: {e}'))
-                input()
-                quit()
+                error_list.append(get_error_message(
+                    f'Несуществующий шаблон: {e}'))
             except InputDataError as e:
-                print(get_error_message(e))
-                input()
-                quit()
+                error_list.append(get_error_message(e))
+
+    if error_list:
+        for line in error_list:
+            print(line)
+            input()
+        quit()
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_nouns)
     print(f'Создано {count} групп словоформ')
