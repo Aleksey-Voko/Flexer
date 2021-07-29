@@ -128,8 +128,12 @@ def save_groups_to_bs():
                     group_word_form.title_word_form.bg_form)
                 count += 1
             except KeyError as e:
-                error_list.append(get_error_message(
-                    f'Несуществующий шаблон: {e}'))
+                error_list.append(
+                    'В Н И М А Н И Е !\n'
+                    'Аварийное завершение.\n'
+                    f'Несуществующий шаблон: {str(e)[1:-1]}\n'
+                    'Для продолжения нажмите Enter'
+                )
             except InputDataError as e:
                 error_list.append(get_error_message(e))
 
@@ -137,6 +141,9 @@ def save_groups_to_bs():
         for line in error_list:
             print(line)
             input()
+        print(f'Количество ошибок: {len(error_list)}')
+        print('Для выхода нажмите Enter')
+        input()
         quit()
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_nouns)
