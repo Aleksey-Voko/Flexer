@@ -86,6 +86,8 @@ def save_groups_to_bs():
     add_groups_to_bs_list = []
     add_groups_to_bg_list = []
 
+    error_list = []
+
     for in_adjectives in in_adjectives_list:
         src_groups = get_word_dicts_from_csv_file(in_adjectives, num_fields=7)
         for src_dict in src_groups:
@@ -97,13 +99,23 @@ def save_groups_to_bs():
                     group_word_form.title_word_form.bg_form)
                 count += 1
             except KeyError as e:
-                print(get_error_message(f'Несуществующий шаблон: {e}'))
-                input()
-                quit()
+                error_list.append(
+                    'В Н И М А Н И Е !\n'
+                    'Аварийное завершение.\n'
+                    f'Несуществующий шаблон: {str(e)[1:-1]}\n'
+                    'Для продолжения нажмите Enter'
+                )
             except InputDataError as e:
-                print(get_error_message(e))
-                input()
-                quit()
+                error_list.append(get_error_message(e))
+
+    if error_list:
+        for line in error_list:
+            print(line)
+            input()
+        print(f'Количество ошибок: {len(error_list)}')
+        print('Для выхода нажмите Enter')
+        input()
+        quit()
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_adjectives)
     print(f'Создано {count} групп словоформ')
