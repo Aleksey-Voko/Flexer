@@ -4,7 +4,7 @@ from pprint import pprint
 from flexer_errors import get_error_message, InputDataError
 from rem import reminder
 from utils import (get_string_list_from_file, save_bs_dicts_to_txt,
-                   get_verbs_dicts_from_csv_file, save_list_to_file)
+                   get_word_dicts_from_csv_file, save_list_to_file)
 from verbs.imperative_mood import get_imperative_mood_forms
 from verbs.joint_action import get_joint_action_forms
 from verbs.passive_past_participle import get_passive_past_participle
@@ -345,7 +345,7 @@ def save_groups_to_bs():
     add_groups_to_bg_list = []
 
     for in_verbs in in_verbs_list:
-        src_groups = get_verbs_dicts_from_csv_file(in_verbs)
+        src_groups = get_word_dicts_from_csv_file(in_verbs)
         for src_dict in src_groups:
 
             try:

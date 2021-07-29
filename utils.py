@@ -1,4 +1,5 @@
 import csv
+from itertools import zip_longest
 from pathlib import Path
 
 from word_form import TitleWordForm, WordForm, GroupWordForm
@@ -25,45 +26,8 @@ def get_dicts_from_csv_file(f_name, encoding='cp1251',
             yield row
 
 
-def get_nouns_dicts_from_csv_file(f_name, encoding='cp1251',
-                                  newline='', delimiter=';'):
-    with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
-        csv_reader = csv.reader(f_in, delimiter=delimiter)
-        fieldnames = [
-            'name',
-            'Inf_0',
-            'Inf_1',
-            'Inf_2',
-            'Inf_3',
-            'Inf_4',
-            'Inf_5',
-            'Inf_6',
-        ]
-        for row in csv_reader:
-            if row[0]:
-                yield dict(zip(fieldnames, row))
-
-
-def get_adjectives_dicts_from_csv_file(f_name, encoding='cp1251',
-                                       newline='', delimiter=';'):
-    with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
-        csv_reader = csv.reader(f_in, delimiter=delimiter)
-        fieldnames = [
-            'name',
-            'Inf_0',
-            'Inf_1',
-            'Inf_2',
-            'Inf_3',
-            'Inf_4',
-            'Inf_5',
-        ]
-        for row in csv_reader:
-            if row[0]:
-                yield dict(zip(fieldnames, row))
-
-
-def get_verbs_dicts_from_csv_file(f_name, encoding='cp1251',
-                                  newline='', delimiter=';'):
+def get_word_dicts_from_csv_file(f_name, num_fields=14, encoding='cp1251',
+                                 newline='', delimiter=';'):
     with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
         csv_reader = csv.reader(f_in, delimiter=delimiter)
         fieldnames = [
@@ -84,7 +48,8 @@ def get_verbs_dicts_from_csv_file(f_name, encoding='cp1251',
         ]
         for row in csv_reader:
             if row[0]:
-                yield dict(zip(fieldnames, row))
+                yield dict(zip_longest(fieldnames[:num_fields],
+                                       row, fillvalue=''))
 
 
 def save_bs_dicts_to_txt(in_dicts: list, f_name, encoding='cp1251'):

@@ -4,8 +4,8 @@ from flexer_errors import get_error_message, InputDataError
 from nouns.plural import get_plural_forms
 from nouns.singular import get_singular_forms
 from rem import reminder
-from utils import (get_string_list_from_file, get_nouns_dicts_from_csv_file,
-                   save_bs_dicts_to_txt, save_list_to_file)
+from utils import (get_string_list_from_file, save_bs_dicts_to_txt,
+                   save_list_to_file, get_word_dicts_from_csv_file)
 from word_form import GroupWordForm, TitleWordForm
 
 
@@ -118,7 +118,7 @@ def save_groups_to_bs():
     error_list = []
 
     for in_nouns in in_nouns_list:
-        src_groups = get_nouns_dicts_from_csv_file(in_nouns)
+        src_groups = get_word_dicts_from_csv_file(in_nouns, num_fields=8)
         for src_dict in src_groups:
 
             try:

@@ -7,8 +7,8 @@ from adjectives.superlative_forms import get_superlative_forms
 from flexer_errors import get_error_message, InputDataError
 from rem import reminder
 from utils import (get_string_list_from_file,
-                   get_adjectives_dicts_from_csv_file, save_bs_dicts_to_txt,
-                   save_list_to_file)
+                   save_bs_dicts_to_txt,
+                   save_list_to_file, get_word_dicts_from_csv_file)
 from word_form import GroupWordForm, TitleWordForm
 
 
@@ -87,7 +87,7 @@ def save_groups_to_bs():
     add_groups_to_bg_list = []
 
     for in_adjectives in in_adjectives_list:
-        src_groups = get_adjectives_dicts_from_csv_file(in_adjectives)
+        src_groups = get_word_dicts_from_csv_file(in_adjectives, num_fields=7)
         for src_dict in src_groups:
 
             try:
