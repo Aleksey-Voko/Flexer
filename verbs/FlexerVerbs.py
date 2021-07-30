@@ -18,6 +18,77 @@ from word_form import GroupWordForm, TitleWordForm
 
 
 def get_group_word_form(src_dict: dict) -> GroupWordForm:
+    name = src_dict['name']
+    inf_0 = src_dict['Inf_0']
+    if inf_0:
+        info = [src_dict['Inf_0'], src_dict['Inf_1']]
+        info += list(filter(None, [
+            src_dict['Inf_2'],
+            src_dict['Inf_3'],
+            src_dict['Inf_4'],
+            src_dict['Inf_5'],
+            src_dict['Inf_6'],
+            src_dict['Inf_7'],
+            src_dict['Inf_8'],
+            src_dict['Inf_9'],
+            src_dict['Inf_10'],
+            src_dict['Inf_11'],
+            src_dict['Inf_12'],
+        ]))
+
+        word_forms = []
+        if src_dict['Inf_3']:
+            present_future_forms = get_present_future_forms(src_dict)
+            word_forms += present_future_forms
+
+        if src_dict['Inf_4']:
+            past_tense_forms = get_past_tense_forms(src_dict)
+            word_forms += past_tense_forms
+
+        if src_dict['Inf_5']:
+            imperative_mood_forms = get_imperative_mood_forms(src_dict)
+            word_forms += imperative_mood_forms
+
+        if src_dict['Inf_6']:
+            joint_action_forms = get_joint_action_forms(src_dict)
+            word_forms += joint_action_forms
+
+        if src_dict['Inf_7']:
+            present_participle_is_valid_forms = get_present_participle_is_valid(src_dict)
+            word_forms += present_participle_is_valid_forms
+
+        if src_dict['Inf_8']:
+            passive_present_participle_forms = get_passive_present_participle(src_dict)
+            word_forms += passive_present_participle_forms
+
+        if src_dict['Inf_9']:
+            past_participle_is_valid_forms = get_past_participle_is_valid(src_dict)
+            word_forms += past_participle_is_valid_forms
+
+        if src_dict['Inf_10']:
+            passive_past_participle_forms = get_passive_past_participle(src_dict)
+            word_forms += passive_past_participle_forms
+
+        if src_dict['Inf_11']:
+            present_participle_forms = get_present_participle(src_dict)
+            word_forms += present_participle_forms
+
+        if src_dict['Inf_12']:
+            past_participle_forms = get_past_participle(src_dict)
+            word_forms += past_participle_forms
+
+        if name.endswith(('шел', 'шелся')):
+            title_word_form = TitleWordForm(name, word_forms[0].idf, info, '')
+            return GroupWordForm(title_word_form, word_forms[1:])
+        else:
+            title_word_form = TitleWordForm(name, '.ГИ', info, '')
+            return GroupWordForm(title_word_form, word_forms)
+    else:
+        title_word_form = TitleWordForm(name, '', [], '')
+        return GroupWordForm(title_word_form, [])
+
+
+def check_input_data(src_dict: dict):
     in_data_string = ' '.join(list(filter(None, [
         src_dict['name'],
         src_dict['Inf_0'],
@@ -256,75 +327,6 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
                    'НЕ образуют деепричастие настоящего времени.')
         raise InputDataError(message)
 
-    name = src_dict['name']
-    inf_0 = src_dict['Inf_0']
-    if inf_0:
-        info = [src_dict['Inf_0'], src_dict['Inf_1']]
-        info += list(filter(None, [
-            src_dict['Inf_2'],
-            src_dict['Inf_3'],
-            src_dict['Inf_4'],
-            src_dict['Inf_5'],
-            src_dict['Inf_6'],
-            src_dict['Inf_7'],
-            src_dict['Inf_8'],
-            src_dict['Inf_9'],
-            src_dict['Inf_10'],
-            src_dict['Inf_11'],
-            src_dict['Inf_12'],
-        ]))
-
-        word_forms = []
-        if src_dict['Inf_3']:
-            present_future_forms = get_present_future_forms(src_dict)
-            word_forms += present_future_forms
-
-        if src_dict['Inf_4']:
-            past_tense_forms = get_past_tense_forms(src_dict)
-            word_forms += past_tense_forms
-
-        if src_dict['Inf_5']:
-            imperative_mood_forms = get_imperative_mood_forms(src_dict)
-            word_forms += imperative_mood_forms
-
-        if src_dict['Inf_6']:
-            joint_action_forms = get_joint_action_forms(src_dict)
-            word_forms += joint_action_forms
-
-        if src_dict['Inf_7']:
-            present_participle_is_valid_forms = get_present_participle_is_valid(src_dict)
-            word_forms += present_participle_is_valid_forms
-
-        if src_dict['Inf_8']:
-            passive_present_participle_forms = get_passive_present_participle(src_dict)
-            word_forms += passive_present_participle_forms
-
-        if src_dict['Inf_9']:
-            past_participle_is_valid_forms = get_past_participle_is_valid(src_dict)
-            word_forms += past_participle_is_valid_forms
-
-        if src_dict['Inf_10']:
-            passive_past_participle_forms = get_passive_past_participle(src_dict)
-            word_forms += passive_past_participle_forms
-
-        if src_dict['Inf_11']:
-            present_participle_forms = get_present_participle(src_dict)
-            word_forms += present_participle_forms
-
-        if src_dict['Inf_12']:
-            past_participle_forms = get_past_participle(src_dict)
-            word_forms += past_participle_forms
-
-        if name.endswith(('шел', 'шелся')):
-            title_word_form = TitleWordForm(name, word_forms[0].idf, info, '')
-            return GroupWordForm(title_word_form, word_forms[1:])
-        else:
-            title_word_form = TitleWordForm(name, '.ГИ', info, '')
-            return GroupWordForm(title_word_form, word_forms)
-    else:
-        title_word_form = TitleWordForm(name, '', [], '')
-        return GroupWordForm(title_word_form, [])
-
 
 def save_groups_to_bs():
     definitions = 'WordFormGen. Глаголы.txt'
@@ -355,6 +357,11 @@ def save_groups_to_bs():
         for src_dict in src_groups:
 
             try:
+                check_input_data(src_dict)
+            except InputDataError as e:
+                error_list.append(get_error_message(e))
+
+            try:
                 group_word_form = get_group_word_form(src_dict)
                 add_groups_to_bs_list.append(group_word_form)
                 add_groups_to_bg_list.append(
@@ -367,8 +374,6 @@ def save_groups_to_bs():
                     f'Несуществующий шаблон: {str(e)[1:-1]}\n'
                     'Для продолжения нажмите Enter'
                 )
-            except InputDataError as e:
-                error_list.append(get_error_message(e))
 
     if error_list:
         for line in error_list:
