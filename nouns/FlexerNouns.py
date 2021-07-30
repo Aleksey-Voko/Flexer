@@ -5,7 +5,7 @@ from nouns.plural import get_plural_forms
 from nouns.singular import get_singular_forms
 from rem import reminder
 from utils import (get_string_list_from_file, save_bs_dicts_to_txt,
-                   save_list_to_file, get_word_dicts_from_csv_file)
+                   save_list_to_file, get_long_dicts_from_csv_file)
 from word_form import GroupWordForm, TitleWordForm
 
 
@@ -96,7 +96,7 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 def save_groups_to_bs():
     definitions = 'WordFormGen. Существительные.txt'
     print(f'Настройки:')
-    print(f'"{definitions}"\n')
+    print(f'{definitions}\n')
 
     *in_nouns_list, out_nouns = get_string_list_from_file(
         definitions, encoding='cp1251')
@@ -118,7 +118,7 @@ def save_groups_to_bs():
     error_list = []
 
     for in_nouns in in_nouns_list:
-        src_groups = get_word_dicts_from_csv_file(in_nouns, num_fields=8)
+        src_groups = get_long_dicts_from_csv_file(in_nouns, num_fields=8)
         for src_dict in src_groups:
 
             try:

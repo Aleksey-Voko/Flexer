@@ -3,7 +3,7 @@ def get_error_message(message):
             'Аварийное завершение.\n'
             'Невозможные данные в строке:\n'
             f'{message}\n'
-            'Для выхода нажмите Enter')
+            'Для продолжения нажмите Enter')
 
 
 class InputDataError(Exception):

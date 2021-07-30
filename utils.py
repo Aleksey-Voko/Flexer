@@ -26,7 +26,7 @@ def get_dicts_from_csv_file(f_name, encoding='cp1251',
             yield row
 
 
-def get_word_dicts_from_csv_file(f_name, num_fields=14, encoding='cp1251',
+def get_long_dicts_from_csv_file(f_name, num_fields=14, encoding='cp1251',
                                  newline='', delimiter=';'):
     with open(Path(f_name), encoding=encoding, newline=newline) as f_in:
         csv_reader = csv.reader(f_in, delimiter=delimiter)
