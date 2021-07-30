@@ -1,5 +1,4 @@
 from pathlib import Path
-from pprint import pprint
 
 from flexer_errors import get_error_message, InputDataError
 from rem import reminder
@@ -104,8 +103,8 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
     if src_dict['Inf_0'] == 'нес' and src_dict['Inf_6']:
         message = (f'{in_data_string}\n'
                    'Блокировка VIII.\n'
-                   'Глаголы несовершенного вида\n'
-                   '(за исключением некоторых случаев)\n'
+                   'Глаголы несовершенного вида '
+                   '(за исключением некоторых случаев) '
                    'НЕ образуют форму совместного действия.')
         raise InputDataError(message)
 
@@ -150,7 +149,7 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
         message = (f'{in_data_string}\n'
                    'Блокировка XI.\n'
                    'Непереходные глаголы НЕ образуют формы:\n'
-                   'причастия настоящего времени страдательного\n'
+                   'причастия настоящего времени страдательного '
                    '(за исключением некоторых случаев),\n'
                    'причастия прошедшего времени страдательного.')
         raise InputDataError(message)
@@ -171,9 +170,11 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
     ):
         message = (f'{in_data_string}\n'
                    'Блокировка XII.\n'
-                   'Глаголы несовершенного вида на -ОТЬ,\n'
-                   '-СТЬ (кроме ЕСТЬ), -ЧЬ (кроме ВЛЕЧЬ)\n'
-                   'НЕ образуют причастие настоящего времени страдательное.')
+                   'Причастие настоящего времени страдательное '
+                   'НЕ образуют глаголы несовершенного вида на:\n'
+                   '-ОТЬ,\n'
+                   '-СТЬ (кроме ЕСТЬ),\n'
+                   '-ЧЬ (кроме ВЛЕЧЬ).')
         raise InputDataError(message)
 
     # Блокировка XIII
@@ -201,12 +202,14 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
     ):
         message = (f'{in_data_string}\n'
                    'Блокировка XIII.\n'
-                   'Причастие прошедшего времени страдательное\n'
-                   'НЕ образуют глаголы, оканчивающиеся на:\n'
+                   'Причастие прошедшего времени страдательное '
+                   'НЕ образуют глаголы на:\n'
                    '-АВАТЬ (кроме ИСПЛАВАТЬ, НАПЛАВАТЬ и на -ХАВАТЬ),\n'
                    '-ЕВАТЬ с предшествующей В, М, П, Р, С, Т, Щ,\n'
-                   '-ДЛЕВАТЬ, -ТЛЕВАТЬ, -ОДОЛЕВАТЬ, -РАЗЕВАТЬ,\n'
-                   '-ИВАТЬ, -УВАТЬ, -ЫВАТЬ.')
+                   'ДЛЕВАТЬ, -ТЛЕВАТЬ, -ОДОЛЕВАТЬ, -РАЗЕВАТЬ,\n'
+                   '-ИВАТЬ,\n'
+                   '-УВАТЬ,\n'
+                   '-ЫВАТЬ.')
         raise InputDataError(message)
 
     # Блокировка XIV
@@ -228,7 +231,7 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
     ):
         message = (f'{in_data_string}\n'
                    'Блокировка XIV.\n'
-                   'Причастие прошедшего времени страдательное\n'
+                   'Причастие прошедшего времени страдательное '
                    'НЕ образуют глаголы несовершенного вида на:\n'
                    '-ВОДИТЬ (кроме ВОДИТЬ),\n'
                    '-ВОЗИТЬ (кроме ВОЗИТЬ),\n'
@@ -326,14 +329,15 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 def save_groups_to_bs():
     definitions = 'WordFormGen. Глаголы.txt'
     print(f'Настройки:')
-    print(f'"{definitions}"\n')
+    print(f'{definitions}\n')
 
     *in_verbs_list, out_verbs = get_string_list_from_file(
         definitions, encoding='cp1251')
     in_verbs_list = in_verbs_list[:-1]
 
     print(f'Файлы с исходными данными:')
-    pprint(in_verbs_list)
+    for line in in_verbs_list:
+        print(line)
     print()
 
     print('Для продолжения нажмите Enter')
