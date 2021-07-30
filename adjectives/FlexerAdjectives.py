@@ -67,7 +67,7 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
 def save_groups_to_bs():
     definitions = 'WordFormGen. Прилагательные.txt'
     print(f'Настройки:')
-    print(f'"{definitions}"\n')
+    print(f'{definitions}\n')
 
     *in_adjectives_list, out_adjectives = get_string_list_from_file(
         definitions, encoding='cp1251')
