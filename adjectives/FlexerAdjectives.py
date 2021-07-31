@@ -13,23 +13,6 @@ from word_form import GroupWordForm, TitleWordForm
 
 
 def get_group_word_form(src_dict: dict) -> GroupWordForm:
-    in_data_string = ' '.join(list(filter(None, [
-        src_dict['name'],
-        src_dict['Inf_0'],
-        src_dict['Inf_1'],
-        src_dict['Inf_2'],
-        src_dict['Inf_3'],
-        src_dict['Inf_4'],
-        src_dict['Inf_5'],
-    ])))
-
-    # Блокировка III
-    if src_dict['name'].startswith('*') and src_dict['Inf_0']:
-        message = (f'{in_data_string}\n'
-                   'Блокировка III.\n'
-                   'Адъектированные причастия НЕ образуют полную форму.')
-        raise InputDataError(message)
-
     name = src_dict['name']
     src_dict['name'] = src_dict['name'].replace('*', '')
     if any(list(src_dict.values())[1:-2]):
@@ -64,6 +47,25 @@ def get_group_word_form(src_dict: dict) -> GroupWordForm:
         return GroupWordForm(title_word_form, [])
 
 
+def check_input_data(src_dict: dict):
+    in_data_string = ' '.join(list(filter(None, [
+        src_dict['name'],
+        src_dict['Inf_0'],
+        src_dict['Inf_1'],
+        src_dict['Inf_2'],
+        src_dict['Inf_3'],
+        src_dict['Inf_4'],
+        src_dict['Inf_5'],
+    ])))
+
+    # Блокировка III
+    if src_dict['name'].startswith('*') and src_dict['Inf_0']:
+        message = (f'{in_data_string}\n'
+                   'Блокировка III.\n'
+                   'Адъектированные причастия НЕ образуют полную форму.')
+        raise InputDataError(message)
+
+
 def save_groups_to_bs():
     definitions = 'WordFormGen. Прилагательные.txt'
     print(f'Настройки:')
@@ -93,11 +95,14 @@ def save_groups_to_bs():
         for src_dict in src_groups:
 
             try:
+                check_input_data(src_dict)
                 group_word_form = get_group_word_form(src_dict)
                 add_groups_to_bs_list.append(group_word_form)
                 add_groups_to_bg_list.append(
                     group_word_form.title_word_form.bg_form)
                 count += 1
+            except InputDataError as e:
+                error_list.append(get_error_message(e))
             except KeyError as e:
                 error_list.append(
                     'В Н И М А Н И Е !\n'
@@ -105,8 +110,6 @@ def save_groups_to_bs():
                     f'Несуществующий шаблон: {str(e)[1:-1]}\n'
                     'Для продолжения нажмите Enter'
                 )
-            except InputDataError as e:
-                error_list.append(get_error_message(e))
 
     if error_list:
         for line in error_list:
