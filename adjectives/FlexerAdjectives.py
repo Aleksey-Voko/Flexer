@@ -60,8 +60,11 @@ def check_input_data(src_dict: dict):
 
     # Блокировка III
     if (
-            (src_dict['name'].startswith('*') and src_dict['Inf_0'])
-            or src_dict['name'] in ('горазд', 'рад', 'полным-полон')
+            (
+                    src_dict['name'].startswith('*')
+                    or src_dict['name'] in ('горазд', 'рад', 'полным-полон')
+            )
+            and src_dict['Inf_0']
     ):
         message = (f'{in_data_string}\n'
                    'Блокировка III.\n'
