@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from flexer_errors import get_error_message, InputDataError
-from rem import reminder
+from rem import reminder, reminder_verbs
 from utils import (get_string_list_from_file, save_bs_dicts_to_txt,
                    get_long_dicts_from_csv_file, save_list_to_file)
 from verbs.imperative_mood import get_imperative_mood_forms
@@ -136,7 +136,10 @@ def check_input_data(src_dict: dict):
 
     # Блокировка VI
     if (
-            src_dict['name'].endswith(('йти', 'йтись'))
+            (
+                    src_dict['name'].endswith(('йти', 'йтись'))
+                    or src_dict['name'] in ('грясти', 'идти', 'изыти')
+            )
             and any([
                 src_dict['Inf_4'],
                 src_dict['Inf_9'],
@@ -144,7 +147,8 @@ def check_input_data(src_dict: dict):
     ):
         message = (f'{in_data_string}\n'
                    'Блокировка VI.\n'
-                   'Глаголы на -ЙТИ(СЬ) НЕ образуют формы:\n'
+                   'Глаголы на -ЙТИ(СЬ) и глаголы ГРЯСТИ, ИДТИ, ИЗЫТИ '
+                   'НЕ образуют формы:\n'
                    'прошедшего времени,\n'
                    'причастия прошедшего времени действительного.')
         raise InputDataError(message)
@@ -171,11 +175,18 @@ def check_input_data(src_dict: dict):
         raise InputDataError(message)
 
     # Блокировка VIII
-    if src_dict['Inf_0'] == 'нес' and src_dict['Inf_6']:
+    if (
+            (
+                    src_dict['Inf_0'] == 'нес'
+                    or src_dict['name'] in ('заклать', 'попрать', 'услыхать')
+            )
+            and src_dict['Inf_6']
+    ):
         message = (f'{in_data_string}\n'
                    'Блокировка VIII.\n'
                    'Глаголы несовершенного вида '
                    '(за исключением некоторых случаев) '
+                   'и глаголы ЗАКЛАТЬ, ПОПРАТЬ, УСЛЫХАТЬ\n'
                    'НЕ образуют форму совместного действия.')
         raise InputDataError(message)
 
@@ -267,7 +278,9 @@ def check_input_data(src_dict: dict):
                         'ивать',
                         'увать',
                         'ывать',
-                ))
+                )),
+
+                src_dict['name'] == 'гневать',
             ])
             and src_dict['Inf_10']
     ):
@@ -280,7 +293,8 @@ def check_input_data(src_dict: dict):
                    'ДЛЕВАТЬ, -ТЛЕВАТЬ, -ОДОЛЕВАТЬ, -РАЗЕВАТЬ,\n'
                    '-ИВАТЬ,\n'
                    '-УВАТЬ,\n'
-                   '-ЫВАТЬ.')
+                   '-ЫВАТЬ,\n'
+                   'ГНЕВАТЬ.')
         raise InputDataError(message)
 
     # Блокировка XIV
@@ -354,6 +368,10 @@ def save_groups_to_bs():
 
     for in_verbs in in_verbs_list:
         src_groups = get_long_dicts_from_csv_file(in_verbs)
+
+        print(reminder_verbs)
+        input()
+
         for src_dict in src_groups:
             try:
                 check_input_data(src_dict)
