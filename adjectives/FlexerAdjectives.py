@@ -66,7 +66,7 @@ def check_input_data(src_dict: dict):
         message = (f'{in_data_string}\n'
                    'Блокировка III.\n'
                    'Прилагательные ГОРАЗД, РАД, ПОЛНЫМ-ПОЛОН '
-                   'и адъектированные причастия'
+                   'и адъектированные причастия\n'
                    'НЕ образуют полную форму.')
         raise InputDataError(message)
 
