@@ -59,10 +59,15 @@ def check_input_data(src_dict: dict):
     ])))
 
     # Блокировка III
-    if src_dict['name'].startswith('*') and src_dict['Inf_0']:
+    if (
+            (src_dict['name'].startswith('*') and src_dict['Inf_0'])
+            or src_dict['name'] in ('горазд', 'рад', 'полным-полон')
+    ):
         message = (f'{in_data_string}\n'
                    'Блокировка III.\n'
-                   'Адъектированные причастия НЕ образуют полную форму.')
+                   'Прилагательные ГОРАЗД, РАД, ПОЛНЫМ-ПОЛОН '
+                   'и адъектированные причастия'
+                   'НЕ образуют полную форму.')
         raise InputDataError(message)
 
 
