@@ -16,7 +16,7 @@ def add_groups_to_bs():
     print(f'{in_bs}\n')
     print(f'... чтение {in_bs} ...\n')
     word_forms_bases = list(read_src_bs(in_bs))
-    word_form_names = [x.title_word_form.name for x in word_forms_bases]
+    word_form_names = set([x.title_word_form.name for x in word_forms_bases])
 
     print('Файлы с добавляемыми группами словоформ:')
     for line in add_groups_list:
