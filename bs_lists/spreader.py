@@ -1,5 +1,5 @@
 from bs_lists.nouns import get_nouns
-from bs_lists.numerals import get_numerals
+from bs_lists.numerals import get_numerals, get_numerals_implicit_pattern
 from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_no_singular,
                                get_pronouns_singular_and_plural,
@@ -26,6 +26,7 @@ EXPLICIT_TASKS = {
 
 IMPLICIT_TASK = {
     'Местоимения': get_pronouns_implicit_pattern,
+    'Числительные': get_numerals_implicit_pattern,
 }
 
 
