@@ -1,6 +1,7 @@
 from bs_lists.nouns import get_nouns
 from bs_lists.numerals import (get_numerals, get_numerals_implicit_pattern,
-                               get_numerals_hyphenated)
+                               get_numerals_hyphenated,
+                               get_numerals_hyphenated_ch_first_part)
 from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_no_singular,
                                get_pronouns_singular_and_plural,
@@ -24,6 +25,7 @@ EXPLICIT_TASKS = {
 
     'Числительные.txt': get_numerals,
     'Числительные с дефисом.txt': get_numerals_hyphenated,
+    'Числ-ные с дефисом. Изм. первая часть.txt': get_numerals_hyphenated_ch_first_part,
 }
 
 IMPLICIT_TASK = {
