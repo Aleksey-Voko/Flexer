@@ -30,10 +30,10 @@ def main():
     print(f'... чтение {in_bg} ...')
     socket_group_list = list(read_src_socket_bs(in_bg))
     print()
-    print(f'{"* " * 38}*\n')
 
     # Выполнение задач
     for task in out_tasks:
+        print(f'{"* " * 38}*\n')
         print(f'... Задача: {task} ...')
 
         out_task = get_filtered_list(word_forms_bases, socket_group_list, task)
@@ -43,9 +43,11 @@ def main():
             print(f'Создан файл {task}\n')
         else:
             print('Задача не определена, или список пустой')
-        print(f'{"* " * 38}*\n')
+        print('Для продолжения нажмите Enter')
+        input()
 
     # End task
+    print(f'{"* " * 38}*\n')
     print(f'Результатаы сохранены в текущей директории:')
     print(Path().resolve())
     print()
