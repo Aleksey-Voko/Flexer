@@ -26,8 +26,9 @@ def get_pronouns_no_plural(word_forms_bases, _) -> list:
         str(group.title_word_form) for group in word_forms_bases
         if (
                 group.title_word_form.idf.startswith('.М')
-                and not any(map(lambda x: x in group.title_word_form.info, ('I3', 'I4', 'I7')))
-                and '.МР' in [word_form.idf for word_form in group.word_forms]
+                and not any(map(lambda x: x in group.title_word_form.info,
+                                ('I3', 'I4', 'I7')))
+                and '.МР' in group.idf_list
         )
     ]
     return word_forms
@@ -44,7 +45,27 @@ def get_pronouns_no_singular(word_forms_bases, _) -> list:
         str(group.title_word_form) for group in word_forms_bases
         if (
                 group.title_word_form.idf.startswith('.М')
-                and any(map(lambda x: x in group.title_word_form.info, ('I3', 'I4', 'I7')))
+                and any(map(lambda x: x in group.title_word_form.info,
+                            ('I3', 'I4', 'I7')))
+        )
+    ]
+    return word_forms
+
+
+# Местоимения ед. и мн. ч.txt
+def get_pronouns_singular_and_plural(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .М,
+    и в группе имеются словоформа с идентификатором .МмИ
+    и словоформа с идентификатором .МмнИ .
+    """
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if (
+                group.title_word_form.idf.startswith('.М')
+                and '.МмИ' in group.idf_list
+                and '.МмнИ' in group.idf_list
         )
     ]
     return word_forms

@@ -177,3 +177,7 @@ class GroupWordForm:
             self.title_word_form.list_form,
             [x.list_form for x in self.word_forms]
         ]
+
+    @property
+    def idf_list(self):
+        return [self.title_word_form.idf] + [x.idf for x in self.word_forms]

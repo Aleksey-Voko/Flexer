@@ -1,6 +1,7 @@
 from bs_lists.nouns import get_nouns
 from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
-                               get_pronouns_no_singular)
+                               get_pronouns_no_singular,
+                               get_pronouns_singular_and_plural)
 
 
 def get_filtered_list(word_forms_bases, socket_group_list, out_bs: str) -> list:
@@ -10,6 +11,7 @@ def get_filtered_list(word_forms_bases, socket_group_list, out_bs: str) -> list:
         'Местоимения.txt': get_pronouns,
         'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
         'Местоимения. Нет ед. ч.txt': get_pronouns_no_singular,
+        'Местоимения ед. и мн. ч.txt': get_pronouns_singular_and_plural,
     }
 
     # Explicit tasks:
