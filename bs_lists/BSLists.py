@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from bs_lists.filtered import get_filtered_list
+from bs_lists.spreader import get_filtered_list
 from utils import read_src_bs, save_list_to_file, get_string_list_from_file, read_src_socket_bs
 
 
@@ -42,7 +42,7 @@ def main():
             save_list_to_file(sorted(out_task), task, encoding='cp1251')
             print(f'Создан файл {task}\n')
         else:
-            print('Задача не определена')
+            print('Задача не определена, или список пустой')
         print(f'{"* " * 38}*\n')
 
     # End task
