@@ -2,7 +2,7 @@
 
 
 # Существительные.txt
-def get_nouns(word_forms_bases) -> list:
+def get_nouns(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .С"""
 
     word_forms = [

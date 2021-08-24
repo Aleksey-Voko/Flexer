@@ -36,7 +36,7 @@ def main():
     for task in out_tasks:
         print(f'... Задача: {task} ...')
 
-        out_task = get_filtered_list(word_forms_bases, task)
+        out_task = get_filtered_list(word_forms_bases, socket_group_list, task)
         if out_task:
             print(f'... сортировка ...')
             save_list_to_file(sorted(out_task), task, encoding='cp1251')
