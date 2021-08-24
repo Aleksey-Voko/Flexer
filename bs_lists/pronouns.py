@@ -91,3 +91,20 @@ def get_pronouns_singular_and_plural(word_forms_bases, _) -> list:
         )
     ]
     return word_forms
+
+
+# Местоимения с дефисом.txt
+def get_pronouns_hyphenated(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .М,
+    и в ЗС имеется хотя бы 1 дефис.
+    """
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if (
+                group.title_word_form.idf.startswith('.М')
+                and '-' in group.title_word_form.name
+        )
+    ]
+    return word_forms
