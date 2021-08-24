@@ -1,4 +1,5 @@
 from bs_lists.nouns import get_nouns
+from bs_lists.numerals import get_numerals
 from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_no_singular,
                                get_pronouns_singular_and_plural,
@@ -19,6 +20,8 @@ EXPLICIT_TASKS = {
     'Мест-ния с дефисом. Изм. первая часть.txt': get_pronouns_hyphenated_ch_first_part,
     'Мест-ния с дефисом. Изм. последняя часть.txt': get_pronouns_hyphenated_ch_last_part,
     'Мест-ния с дефисом. Изм. обе части.txt': get_pronouns_hyphenated_ch_both_parts,
+
+    'Числительные.txt': get_numerals,
 }
 
 IMPLICIT_TASK = {
