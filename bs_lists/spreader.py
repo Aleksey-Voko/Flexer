@@ -3,7 +3,8 @@ from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_no_singular,
                                get_pronouns_singular_and_plural,
                                get_pronouns_implicit_pattern,
-                               get_pronouns_hyphenated)
+                               get_pronouns_hyphenated,
+                               get_pronouns_hyphenated_ch_first_part)
 
 EXPLICIT_TASKS = {
     'Существительные.txt': get_nouns,
@@ -13,6 +14,7 @@ EXPLICIT_TASKS = {
     'Местоимения. Нет ед. ч.txt': get_pronouns_no_singular,
     'Местоимения ед. и мн. ч.txt': get_pronouns_singular_and_plural,
     'Местоимения с дефисом.txt': get_pronouns_hyphenated,
+    'Мест-ния с дефисом. Изм. первая часть.txt': get_pronouns_hyphenated_ch_first_part,
 }
 
 IMPLICIT_TASK = {
