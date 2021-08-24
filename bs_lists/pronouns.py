@@ -188,3 +188,39 @@ def get_pronouns_hyphenated_ch_last_part(word_forms_bases, _) -> list:
             word_forms.append(str(group.title_word_form))
 
     return word_forms
+
+
+# Мест-ния с дефисом. Изм. обе части.txt
+def get_pronouns_hyphenated_ch_both_parts(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп, отвечающих следующим требованиям:
+    идентификатор ЗС группы содержит .М;
+    в ЗС имеется хотя бы 1 дефис;
+
+    часть слова до первого дефиса в строке ЗС и часть слова до первого дефиса
+    в следующей после строки ЗС строке разные;
+
+    часть слова после последнего дефиса в строке ЗС
+    и часть слова после последнего дефиса в
+    следующей после строки ЗС строке разные.
+    """
+
+    word_forms = []
+
+    groups = [
+        group for group in word_forms_bases
+        if (group.title_word_form.idf.startswith('.М')
+            and '-' in group.title_word_form.name)
+    ]
+
+    for group in groups:
+        if (
+                group.title_word_form.name.split('-')[0]
+                != group.word_forms[0].name.split('-')[0]
+                and
+                group.title_word_form.name.split('-')[-1]
+                != group.word_forms[0].name.split('-')[-1]
+        ):
+            word_forms.append(str(group.title_word_form))
+
+    return word_forms
