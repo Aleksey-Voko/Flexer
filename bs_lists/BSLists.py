@@ -1,25 +1,51 @@
 from pathlib import Path
 
 from bs_lists.filtered import get_filtered_list
-from utils import read_src_bs, save_list_to_file
+from utils import read_src_bs, save_list_to_file, get_string_list_from_file, read_src_socket_bs
 
 
 def main():
-    in_bs = input('Имя файла БС:\n')
+    definitions = 'Definitions. Списки.txt'
+    print('Настройки:')
+    print(f'{definitions}\n')
+
+    in_bs, in_bg, *out_tasks = [
+        x for x in list(
+            get_string_list_from_file(definitions, encoding='cp1251')
+        ) if x
+    ]
+
+    print(f'БС файл: {in_bs}')
+    print(f'БГ файл: {in_bg}')
     print()
 
-    print(f'... чтение {in_bs} ...\n')
+    print('Запланированные задачи:')
+    for task in out_tasks:
+        print(task)
+    print()
+
+    print(f'... чтение {in_bs} ...')
     word_forms_bases = list(read_src_bs(in_bs))
 
-    out_bs = input("Имя списка БС:\n")
+    print(f'... чтение {in_bg} ...')
+    socket_group_list = list(read_src_socket_bs(in_bg))
     print()
+    print(f'{"* " * 38}*\n')
 
-    out_list = get_filtered_list(word_forms_bases, out_bs)
+    # Выполнение задач
+    for task in out_tasks:
+        print(f'... Задача: {task} ...')
 
-    print('... сортировка ...\n')
-    save_list_to_file(sorted(out_list), out_bs, encoding='cp1251')
+        out_task = get_filtered_list(word_forms_bases, task)
+        if out_task:
+            print(f'... сортировка ...')
+            save_list_to_file(sorted(out_task), task, encoding='cp1251')
+            print(f'Создан файл {task}\n')
+        else:
+            print('Задача не определена')
+        print(f'{"* " * 38}*\n')
 
-    print(f'Создан файл {out_bs}\n')
+    # End task
     print(f'Результатаы сохранены в текущей директории:')
     print(Path().resolve())
     print()
