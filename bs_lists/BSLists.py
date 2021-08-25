@@ -42,10 +42,6 @@ def main():
             out_task = get_filtered_list(word_forms_bases, socket_group_list,
                                          task)
             if out_task:
-                out_task = sorted(
-                    out_task,
-                    key=lambda x: x.replace('*', '').lower().strip()
-                )
                 save_list_to_file(out_task, task.replace('*', '+'),
                                   encoding='cp1251')
                 print(f'Создан документ: {task}\n')

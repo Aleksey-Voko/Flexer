@@ -153,6 +153,11 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
         if src_title_form in multi_root_bg_forms:
             word_forms.append(str(title_form))
 
+    word_forms = sorted(
+        word_forms,
+        key=lambda x: x.replace('*', '').lower().strip()
+    )
+
     return word_forms
 
 

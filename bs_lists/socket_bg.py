@@ -82,3 +82,50 @@ def save_multi_root_words(_, socket_group_list):
               .pivot_table(index="idx", columns="root_index",
                            values="word_form", aggfunc="first"))
     res_df.to_csv('Многокорневые слова БГ.csv', sep=';', encoding='cp1251')
+
+
+# Повторы в пределах гнезда.txt
+def get_repeats_within_a_socket(_, socket_group_list) -> list:
+    """
+    Найти строки со словами, повторяющимися в пределах одной и той же
+    группы (кроме невидимок).
+    Создать документ Повторы в пределах гнезда.txt
+    и вставить в него строки (полностью),
+    в которых обнаружились повторяющиеся слова, указывая строки
+    с ЗС группы и ЗС подгруппы и соблюдая следующие правила:
+        1. Перед строкой с ЗС подгруппы ставится "!".
+    2. Строка с ЗС подгруппы и строка с ЗС группы могут совпадать.
+        Строка с повторяющимся словом и строка с ЗС подгруппы могут совпадать.
+        Строка с повторяющимся словом, строка с ЗС подгруппы и строка
+        с ЗС группы могут совпадать.
+    3. ЗС групп располагаются в алфавитном порядке,
+        ЗС подгрупп - в том порядке, в котором они находятся в базе.
+    """
+
+    replays_in_groups = []
+
+    for socket_group in socket_group_list:
+        socket_word_forms = socket_group.socket_word_forms
+        socket_word_forms = [x for x in socket_word_forms if not x.invisible]
+        socket_names = [x.name for x in socket_word_forms]
+        replays_names = sorted(list(set(
+            [x for x in socket_names if socket_names.count(x) > 1]
+        )))
+
+        if replays_names:
+            replays_in_groups.append(str(socket_group.socket_word_forms[0]))
+            for sub_group in socket_group.sub_groups:
+                flag = True
+                for word_form in sub_group.socket_word_forms:
+                    if word_form.name in replays_names:
+                        if flag:
+                            replays_in_groups.append(' '.join([
+                                '!',
+                                str(sub_group.title_word_form),
+                            ]))
+                            flag = False
+                        replays_in_groups.append(str(word_form))
+
+            replays_in_groups.append('')
+
+    return replays_in_groups

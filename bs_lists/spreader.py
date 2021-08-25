@@ -16,7 +16,8 @@ from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_exp_notes, get_homonyms,
                            get_words_with_exp_notes_no_homonyms,
                            get_words_with_spec_notes, get_multi_root_words)
-from bs_lists.socket_bg import save_multi_root_words
+from bs_lists.socket_bg import (save_multi_root_words,
+                                get_repeats_within_a_socket)
 
 EXPLICIT_TASKS = {
     'Существительные.txt': get_nouns,
@@ -45,6 +46,9 @@ EXPLICIT_TASKS = {
     'Многокорневые слова БС.txt': get_multi_root_words,
 
     'Омонимы БС (ЗС групп и одиночки).txt': get_homonyms,
+
+    # БГ
+    'Повторы в пределах гнезда.txt': get_repeats_within_a_socket,
 }
 
 IMPLICIT_TASK = {
