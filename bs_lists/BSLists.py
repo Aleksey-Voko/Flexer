@@ -35,10 +35,10 @@ def main():
     for task in out_tasks:
         print(f'{"* " * 38}*\n')
         print(f'Список: {task}')
+        print(f'... сортировка ...')
 
         out_task = get_filtered_list(word_forms_bases, socket_group_list, task)
         if out_task:
-            print(f'... сортировка ...')
             save_list_to_file(sorted(out_task), task.replace('*', '+'),
                               encoding='cp1251')
             print(f'Создан документ {task}\n')
