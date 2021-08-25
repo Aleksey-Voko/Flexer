@@ -41,7 +41,7 @@ def main():
         if out_task:
             save_list_to_file(sorted(out_task), task.replace('*', '+'),
                               encoding='cp1251')
-            print(f'Создан документ {task}\n')
+            print(f'Создан документ: {task}\n')
             print('Для продолжения нажмите Enter')
             input()
         else:

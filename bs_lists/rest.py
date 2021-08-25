@@ -1,5 +1,7 @@
 """Обобщённо все части речи"""
 
+from utils import save_list_to_file
+
 
 # Одиночки.txt
 def get_loners(word_forms_bases, _) -> list:
@@ -55,6 +57,35 @@ def get_words_with_exp_notes(word_forms_bases, _) -> list:
         if '.*' in group.title_word_form.note
            and '.* <' not in group.title_word_form.note
     ]
+    return word_forms
+
+
+# Пояснительные примечания (без омонимов).txt
+def get_words_with_exp_notes_no_homonyms(word_forms_bases, _) -> list:
+    """
+    Создать документы Слова с пояснительными примечаниями БС.txt
+    и Омонимы БС (ЗС групп и одиночки).txt .
+    Найти в документе Слова с пояснительными примечаниями БС.txt строки,
+    отсутствующие в документе Омонимы БС (ЗС групп и одиночки).txt .
+    """
+
+    # Слова с пояснительными примечаниями БС
+    words_with_exp_notes = get_words_with_exp_notes(word_forms_bases, _)
+    save_list_to_file(sorted(words_with_exp_notes),
+                      'Слова с пояснительными примечаниями БС.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Слова с пояснительными примечаниями БС.txt')
+    print(f'... сортировка ...')
+
+    # Омонимы БС (ЗС групп и одиночки)
+    homonyms = get_homonyms(word_forms_bases, _)
+    save_list_to_file(sorted(homonyms),
+                      'Омонимы БС (ЗС групп и одиночки).txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Омонимы БС (ЗС групп и одиночки).txt')
+    print(f'... сортировка ...')
+
+    word_forms = [x for x in words_with_exp_notes if x not in homonyms]
     return word_forms
 
 
