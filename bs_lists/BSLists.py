@@ -1,7 +1,8 @@
 from pathlib import Path
 
-from bs_lists.spreader import get_filtered_list
-from utils import read_src_bs, save_list_to_file, get_string_list_from_file, read_src_socket_bs
+from bs_lists.spreader import get_filtered_list, run_csv_task
+from utils import (read_src_bs, save_list_to_file, get_string_list_from_file,
+                   read_src_socket_bs)
 
 
 def main():
@@ -35,16 +36,38 @@ def main():
     for task in out_tasks:
         print(f'{"* " * 38}*\n')
         print(f'Список: {task}')
-        print(f'... сортировка ...')
 
-        out_task = get_filtered_list(word_forms_bases, socket_group_list, task)
-        if out_task:
-            save_list_to_file(sorted(out_task), task.replace('*', '+'),
-                              encoding='cp1251')
-            print(f'Создан документ: {task}\n')
-            print('Для продолжения нажмите Enter')
-            input()
-        else:
+        if Path(task).suffix == '.txt':
+            print(f'... сортировка ...')
+            out_task = get_filtered_list(word_forms_bases, socket_group_list,
+                                         task)
+            if out_task:
+                save_list_to_file(sorted(out_task), task.replace('*', '+'),
+                                  encoding='cp1251')
+                print(f'Создан документ: {task}\n')
+                print('Для продолжения нажмите Enter')
+                input()
+            else:  # TODO: ???
+                print('В Н И М А Н И Е !\n'
+                      'Задача не определена или список пустой.')
+                print('Для выхода нажмите Enter')
+                input()
+
+        elif Path(task).suffix == '.csv':
+            print(f'... сортировка ...')
+            out_task = run_csv_task(word_forms_bases, socket_group_list,
+                                    task)
+            if out_task:
+                print(f'Создан документ: {task}\n')
+                print('Для продолжения нажмите Enter')
+                input()
+            else:  # TODO: ???
+                print('В Н И М А Н И Е !\n'
+                      'Задача не определена или список пустой.')
+                print('Для выхода нажмите Enter')
+                input()
+
+        else:  # TODO: ???
             print('В Н И М А Н И Е !\nЗадача не определена или список пустой.')
             print('Для выхода нажмите Enter')
             input()

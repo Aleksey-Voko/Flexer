@@ -16,6 +16,7 @@ from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_exp_notes, get_homonyms,
                            get_words_with_exp_notes_no_homonyms,
                            get_words_with_spec_notes)
+from bs_lists.socket_bg import save_multi_root_words
 
 EXPLICIT_TASKS = {
     'Существительные.txt': get_nouns,
@@ -64,3 +65,17 @@ def get_filtered_list(word_forms_bases, socket_group_list, task: str) -> list:
     # Missing tasks:
     else:
         return []
+
+
+SCV_TASK = {
+    'Многокорневые слова БГ.csv': save_multi_root_words,
+}
+
+
+def run_csv_task(word_forms_bases, socket_group_list, task: str):
+    if task in SCV_TASK.keys():
+        SCV_TASK[task](word_forms_bases, socket_group_list)
+        return True
+
+    else:
+        return False
