@@ -35,14 +35,18 @@ def main():
     # Выполнение задач
     for task in out_tasks:
         print(f'{"* " * 38}*\n')
-        print(f'Список: {task}')
+        print(f'Список: {task}\n')
 
         if Path(task).suffix == '.txt':
             print(f'... сортировка ...')
             out_task = get_filtered_list(word_forms_bases, socket_group_list,
                                          task)
             if out_task:
-                save_list_to_file(sorted(out_task), task.replace('*', '+'),
+                out_task = sorted(
+                    out_task,
+                    key=lambda x: x.replace('*', '').lower().strip()
+                )
+                save_list_to_file(out_task, task.replace('*', '+'),
                                   encoding='cp1251')
                 print(f'Создан документ: {task}\n')
                 print('Для продолжения нажмите Enter')
