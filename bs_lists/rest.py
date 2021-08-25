@@ -1,8 +1,9 @@
 """Обобщённо все части речи"""
 
-from bs_lists.socket_bg import save_multi_root_words
+from bs_lists.socket_bg import (save_multi_root_words,
+                                get_repeats_within_a_socket_duplicate)
 from utils import (save_list_to_file, get_dicts_from_csv_file,
-                   get_socket_word_form)
+                   get_socket_word_form, get_bs_title_word_form)
 
 
 # Одиночки.txt
@@ -161,7 +162,91 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
     return word_forms
 
 
-# ========================
+# Повторы в пределах гнезда. 1 раз в БС.txt
+def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
+    """
+    Создать документы Повторы в гнезде. Повторяющиеся строки.txt
+    и Омонимы БС (ЗС групп и одиночки).txt .
+    Найти в БС строки, соответствующие строкам из документа
+    Повторы в гнезде. Повторяющиеся строки.txt .
+    Убедиться, что найденные строки отсутствуют в документе
+    Омонимы БС (ЗС групп и одиночки).txt .
+    Создать документ Повторы в пределах гнезда. 1 раз в БС.txt
+    и вставить в него найденные строки.
+    """
+
+    # Повторы в гнезде. Повторяющиеся строки.txt
+    socket_duplicate = get_repeats_within_a_socket_duplicate(
+        word_forms_bases, socket_group_list)
+
+    sorted_socket_duplicate = sorted(
+        socket_duplicate,
+        key=lambda x: x.replace('*', '').lower().strip()
+    )
+
+    save_list_to_file(
+        sorted_socket_duplicate, 'Повторы в гнезде. Повторяющиеся строки.txt',
+        encoding='cp1251')
+
+    print(f'Создан документ: Повторы в гнезде. Повторяющиеся строки.txt')
+    print(f'... сортировка ...')
+
+    socket_word_forms = [get_socket_word_form(x) for x in socket_duplicate]
+    socket_str_forms = [
+        ' '.join(filter(
+            None,
+            [
+                x.name,
+                x.idf,
+                ' '.join(x.info),
+                x.note.replace('.*', '').strip()
+            ]))
+        for x in socket_word_forms
+    ]
+
+    # Омонимы БС (ЗС групп и одиночки).txt
+    homonyms = get_homonyms(word_forms_bases, socket_group_list)
+
+    save_list_to_file(
+        homonyms, 'Омонимы БС (ЗС групп и одиночки).txt', encoding='cp1251')
+
+    print(f'Создан документ: Омонимы БС (ЗС групп и одиночки).txt')
+    print(f'... сортировка ...')
+
+    title_word_forms = [get_bs_title_word_form(x) for x in homonyms]
+    title_str_forms = [
+        ' '.join(filter(
+            None,
+            [
+                x.name,
+                x.idf,
+                ' '.join(x.info),
+                x.note.replace('.*', '').strip()
+            ]))
+        for x in title_word_forms
+    ]
+
+    word_forms = []
+
+    for group in word_forms_bases:
+        title_form = group.title_word_form
+        title_str_form = ' '.join(filter(
+            None, [
+                title_form.name,
+                title_form.idf,
+                ' '.join(title_form.info),
+                title_form.note.replace('.*', '').strip()
+            ]))
+
+        if (
+                title_str_form in socket_str_forms
+                and title_str_form not in title_str_forms
+        ):
+            word_forms.append(str(title_form))
+
+    return word_forms
+
+
 # Омонимы БС (ЗС групп и одиночки).txt
 def get_homonyms(word_forms_bases, _) -> list:
     """

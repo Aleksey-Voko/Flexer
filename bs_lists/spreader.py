@@ -15,7 +15,8 @@ from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
 from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_exp_notes, get_homonyms,
                            get_words_with_exp_notes_no_homonyms,
-                           get_words_with_spec_notes, get_multi_root_words)
+                           get_words_with_spec_notes, get_multi_root_words,
+                           get_repeats_w_socket_1_in_bs)
 from bs_lists.socket_bg import (save_multi_root_words,
                                 get_repeats_within_a_socket,
                                 get_repeats_within_a_socket_duplicate)
@@ -45,7 +46,7 @@ EXPLICIT_TASKS = {
     'Пояснительные примечания (без омонимов).txt': get_words_with_exp_notes_no_homonyms,
     'Слова со специальными примечаниями.txt': get_words_with_spec_notes,
     'Многокорневые слова БС.txt': get_multi_root_words,
-
+    'Повторы в пределах гнезда. 1 раз в БС.txt': get_repeats_w_socket_1_in_bs,
     'Омонимы БС (ЗС групп и одиночки).txt': get_homonyms,
 
     # БГ
