@@ -56,3 +56,23 @@ def get_words_with_exp_notes(word_forms_bases, _) -> list:
            and '.* <' not in group.title_word_form.note
     ]
     return word_forms
+
+
+# ========================
+# Омонимы БС (ЗС групп и одиночки).txt
+def get_homonyms(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп / одиночками,
+    в которых имеются одинаковые слова.
+    """
+
+    from collections import Counter
+    title_form_names = [group.title_word_form.name
+                        for group in word_forms_bases]
+    homonyms = [k for k, v in Counter(title_form_names).items() if v > 1]
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.name in homonyms
+    ]
+    return word_forms
