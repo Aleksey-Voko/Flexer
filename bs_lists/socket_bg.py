@@ -2,6 +2,8 @@
 
 import pandas as pd
 
+from utils import save_list_to_file
+
 
 # Многокорневые слова БГ.csv
 def save_multi_root_words(_, socket_group_list):
@@ -129,3 +131,35 @@ def get_repeats_within_a_socket(_, socket_group_list) -> list:
             replays_in_groups.append('')
 
     return replays_in_groups
+
+
+# Повторы в гнезде. Повторяющиеся строки.txt
+def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
+    """
+    Создать документ Повторы в пределах гнезда.txt .
+    Удалить из него строки с ЗС групп и строки с ЗС подгрупп.
+    Найти среди оставшихся строк одинаковые строки.
+    Создать документ Повторы в гнезде. Повторяющиеся строки.txt ,
+    вставить в него найденные одинаковые строки. Удалить повторы строк.
+    Сохранить документ Повторы в гнезде. Повторяющиеся строки.txt .
+    """
+
+    replays_in_groups = get_repeats_within_a_socket(_, socket_group_list)
+    save_list_to_file(replays_in_groups, 'Повторы в пределах гнезда.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Повторы в пределах гнезда.txt')
+    print(f'... сортировка ...')
+
+    socket_duplicate = [
+        x for x in replays_in_groups
+        if x and not x.startswith(('*', '!'))
+    ]
+
+    word_forms = list(set(socket_duplicate))
+
+    word_forms = sorted(
+        word_forms,
+        key=lambda x: x.replace('*', '').lower().strip()
+    )
+
+    return word_forms
