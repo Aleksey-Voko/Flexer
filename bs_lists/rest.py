@@ -41,3 +41,18 @@ def get_latin_words(word_forms_bases, _) -> list:
         if any(map(lambda x: x in ascii_letters, group.title_word_form.name))
     ]
     return word_forms
+
+
+# Слова с пояснительными примечаниями БС.txt
+def get_words_with_exp_notes(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с пояснительными примечаниями, т.е. строки,
+    в которых имеется комбинация символов .* (но не .* <)
+    """
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if '.*' in group.title_word_form.note
+           and '.* <' not in group.title_word_form.note
+    ]
+    return word_forms

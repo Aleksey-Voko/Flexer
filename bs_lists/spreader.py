@@ -12,7 +12,8 @@ from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_hyphenated_ch_first_part,
                                get_pronouns_hyphenated_ch_last_part,
                                get_pronouns_hyphenated_ch_both_parts)
-from bs_lists.rest import get_loners, get_words_hyphenated, get_latin_words
+from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
+                           get_words_with_exp_notes)
 
 EXPLICIT_TASKS = {
     'Существительные.txt': get_nouns,
@@ -35,6 +36,7 @@ EXPLICIT_TASKS = {
     'Одиночки.txt': get_loners,
     'Слова с дефисом.txt': get_words_hyphenated,
     'Слова с латиницей.txt': get_latin_words,
+    'Слова с пояснительными примечаниями БС.txt': get_words_with_exp_notes,
 }
 
 IMPLICIT_TASK = {
