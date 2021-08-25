@@ -14,7 +14,8 @@ from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_hyphenated_ch_both_parts)
 from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_exp_notes, get_homonyms,
-                           get_words_with_exp_notes_no_homonyms)
+                           get_words_with_exp_notes_no_homonyms,
+                           get_words_with_spec_notes)
 
 EXPLICIT_TASKS = {
     'Существительные.txt': get_nouns,
@@ -39,6 +40,7 @@ EXPLICIT_TASKS = {
     'Слова с латиницей.txt': get_latin_words,
     'Слова с пояснительными примечаниями БС.txt': get_words_with_exp_notes,
     'Пояснительные примечания (без омонимов).txt': get_words_with_exp_notes_no_homonyms,
+    'Слова со специальными примечаниями.txt': get_words_with_spec_notes,
 
     'Омонимы БС (ЗС групп и одиночки).txt': get_homonyms,
 }

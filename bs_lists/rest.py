@@ -89,6 +89,20 @@ def get_words_with_exp_notes_no_homonyms(word_forms_bases, _) -> list:
     return word_forms
 
 
+# Слова со специальными примечаниями.txt
+def get_words_with_spec_notes(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки со специальными примечаниями, т.е. строки,
+    в которых имеется комбинация символов .* <
+    """
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if '.* <' in group.title_word_form.note
+    ]
+    return word_forms
+
+
 # ========================
 # Омонимы БС (ЗС групп и одиночки).txt
 def get_homonyms(word_forms_bases, _) -> list:
