@@ -5,7 +5,7 @@ from utils import read_src_bs, save_list_to_file, get_string_list_from_file, rea
 
 
 def main():
-    definitions = 'Definitions. Списки.txt'
+    definitions = 'lists.txt'
     print('Настройки:')
     print(f'{definitions}\n')
 
@@ -19,7 +19,7 @@ def main():
     print(f'БГ файл: {in_bg}')
     print()
 
-    print('Запланированные задачи:')
+    print('Создать списки:')
     for task in out_tasks:
         print(task)
     print()
@@ -34,17 +34,20 @@ def main():
     # Выполнение задач
     for task in out_tasks:
         print(f'{"* " * 38}*\n')
-        print(f'... Задача: {task} ...')
+        print(f'Список: {task}')
 
         out_task = get_filtered_list(word_forms_bases, socket_group_list, task)
         if out_task:
             print(f'... сортировка ...')
-            save_list_to_file(sorted(out_task), task, encoding='cp1251')
-            print(f'Создан файл {task}\n')
+            save_list_to_file(sorted(out_task), task.replace('*', '+'),
+                              encoding='cp1251')
+            print(f'Создан документ {task}\n')
+            print('Для продолжения нажмите Enter')
+            input()
         else:
-            print('Задача не определена, или список пустой')
-        print('Для продолжения нажмите Enter')
-        input()
+            print('В Н И М А Н И Е !\nЗадача не определена или список пустой.')
+            print('Для выхода нажмите Enter')
+            input()
 
     # End task
     print(f'{"* " * 38}*\n')

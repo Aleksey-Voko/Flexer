@@ -39,17 +39,17 @@ def get_pronouns(word_forms_bases, _) -> list:
 # Местоимения. Нет мн. ч.txt
 def get_pronouns_no_plural(word_forms_bases, _) -> list:
     """
-    Найти в БС строки с ЗС групп, идентификатор которых содержит .М,
-    и в группе имеется словоформа с идентификатором .МР
-    (кроме ЗС с шаблонами I3, I4, I7).
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .М ,
+    и в группе имеется словоформа с идентификатором .МР / .МР-
+    (кроме ЗС с шаблонами I3, I4, I7, I7-).
     """
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if (
-                group.title_word_form.idf.startswith('.М')
+                group.title_word_form.idf.startswith(('.М', '.МР-'))
                 and not any(map(lambda x: x in group.title_word_form.info,
-                                ('I3', 'I4', 'I7')))
+                                ('I3', 'I4', 'I7', 'I7-')))
                 and '.МР' in group.idf_list
         )
     ]
@@ -59,8 +59,8 @@ def get_pronouns_no_plural(word_forms_bases, _) -> list:
 # Местоимения. Нет ед. ч.txt
 def get_pronouns_no_singular(word_forms_bases, _) -> list:
     """
-    Найти в БС строки с ЗС групп, идентификатор которых содержит .М,
-    и в спец. информации указан шаблон I3 / I4 / I7 .
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .М ,
+    и в спец. информации указан шаблон I3 / I4 / I7 / I7- .
     """
 
     word_forms = [
@@ -68,7 +68,7 @@ def get_pronouns_no_singular(word_forms_bases, _) -> list:
         if (
                 group.title_word_form.idf.startswith('.М')
                 and any(map(lambda x: x in group.title_word_form.info,
-                            ('I3', 'I4', 'I7')))
+                            ('I3', 'I4', 'I7', 'I7-')))
         )
     ]
     return word_forms
@@ -77,17 +77,18 @@ def get_pronouns_no_singular(word_forms_bases, _) -> list:
 # Местоимения ед. и мн. ч.txt
 def get_pronouns_singular_and_plural(word_forms_bases, _) -> list:
     """
-    Найти в БС строки с ЗС групп, идентификатор которых содержит .М,
-    и в группе имеются словоформа с идентификатором .МмИ
-    и словоформа с идентификатором .МмнИ .
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .М ,
+    и в группе имеются словоформа с идентификатором .МмИ / .МмИ-
+    и словоформа с идентификатором .МмнИ / .МмнИ- .
     """
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if (
                 group.title_word_form.idf.startswith('.М')
-                and '.МмИ' in group.idf_list
-                and '.МмнИ' in group.idf_list
+                and any(map(lambda x: x in group.idf_list, ('.МмИ', '.МмИ-')))
+                and any(map(lambda x: x in group.idf_list,
+                            ('.МмнИ', '.МмнИ-')))
         )
     ]
     return word_forms
