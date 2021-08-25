@@ -12,7 +12,7 @@ from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_hyphenated_ch_first_part,
                                get_pronouns_hyphenated_ch_last_part,
                                get_pronouns_hyphenated_ch_both_parts)
-from bs_lists.rest import get_loners
+from bs_lists.rest import get_loners, get_words_hyphenated
 
 EXPLICIT_TASKS = {
     'Существительные.txt': get_nouns,
@@ -33,6 +33,7 @@ EXPLICIT_TASKS = {
     'Числ-ные с дефисом. Изм. обе части.txt': get_numerals_hyphenated_ch_both_parts,
 
     'Одиночки.txt': get_loners,
+    'Слова с дефисом.txt': get_words_hyphenated,
 }
 
 IMPLICIT_TASK = {
