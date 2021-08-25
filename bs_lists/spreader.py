@@ -12,6 +12,7 @@ from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_hyphenated_ch_first_part,
                                get_pronouns_hyphenated_ch_last_part,
                                get_pronouns_hyphenated_ch_both_parts)
+from bs_lists.rest import get_loners
 
 EXPLICIT_TASKS = {
     'Существительные.txt': get_nouns,
@@ -30,6 +31,8 @@ EXPLICIT_TASKS = {
     'Числ-ные с дефисом. Изм. первая часть.txt': get_numerals_hyphenated_ch_first_part,
     'Числ-ные с дефисом. Изм. последняя часть.txt': get_numerals_hyphenated_ch_last_part,
     'Числ-ные с дефисом. Изм. обе части.txt': get_numerals_hyphenated_ch_both_parts,
+
+    'Одиночки.txt': get_loners,
 }
 
 IMPLICIT_TASK = {
