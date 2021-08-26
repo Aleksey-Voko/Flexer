@@ -20,7 +20,8 @@ from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_bs_snapshot, get_common_words_bs)
 from bs_lists.socket_bg import (save_multi_root_words,
                                 get_repeats_within_a_socket,
-                                get_repeats_within_a_socket_duplicate)
+                                get_repeats_within_a_socket_duplicate,
+                                get_invisible)
 
 EXPLICIT_TASKS = {
     # БС
@@ -55,6 +56,8 @@ EXPLICIT_TASKS = {
     'Снимок БС.txt': get_bs_snapshot,
 
     # БГ
+    'Невидимки.txt': get_invisible,
+
     'Повторы в пределах гнезда.txt': get_repeats_within_a_socket,
     'Повторы в гнезде. Повторяющиеся строки.txt': get_repeats_within_a_socket_duplicate,
 }

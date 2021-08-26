@@ -5,6 +5,28 @@ import pandas as pd
 from utils import save_list_to_file
 
 
+# Невидимки.txt
+def get_invisible(_, socket_group_list) -> list:
+    """
+    Найти в БГ строки с невидимками, т.е. строки, начинающиеся с символа * ,
+    после которого ЧЕРЕЗ ПРОБЕЛ указано слово.
+    Напр.
+    * аван
+    * arm
+    * 5 * <= five
+    """
+
+    word_forms = []
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            for word_form in sub_group.socket_word_forms:
+                if word_form.invisible:
+                    word_forms.append(str(word_form))
+
+    return word_forms
+
+
 # Многокорневые слова БГ.csv
 def save_multi_root_words(_, socket_group_list):
     """

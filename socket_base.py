@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 
 class SocketWordForm:
-    def __init__(self, invisible,  name, root_index, idf, info: list,
+    def __init__(self, invisible, name, root_index, idf, info: list,
                  note, etml_note, spec_note):
         self.__invisible = invisible
         self.__name = name
