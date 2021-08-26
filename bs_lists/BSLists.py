@@ -56,6 +56,7 @@ def main():
             else:
                 print(TASK_IS_NOT_DEFINED)
                 input()
+                quit()
 
         elif Path(task).suffix == '.csv':
             print(f'... сортировка ...')
@@ -68,10 +69,12 @@ def main():
             else:
                 print(TASK_IS_NOT_DEFINED)
                 input()
+                quit()
 
         else:
             print(TASK_IS_NOT_DEFINED)
             input()
+            quit()
 
     # End task
     print(f'{"* " * 38}*\n')
@@ -81,6 +84,7 @@ def main():
 
     print('Для выхода нажмите Enter')
     input()
+    quit()
 
 
 if __name__ == '__main__':
