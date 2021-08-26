@@ -17,7 +17,7 @@ from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_exp_notes_no_homonyms,
                            get_words_with_spec_notes, get_multi_root_words,
                            get_repeats_w_socket_1_in_bs, get_homonymous_forms,
-                           get_bs_snapshot)
+                           get_bs_snapshot, get_common_words_bs)
 from bs_lists.socket_bg import (save_multi_root_words,
                                 get_repeats_within_a_socket,
                                 get_repeats_within_a_socket_duplicate)
@@ -51,7 +51,7 @@ EXPLICIT_TASKS = {
     'Повторы в пределах гнезда. 1 раз в БС.txt': get_repeats_w_socket_1_in_bs,
     'Омонимы БС (ЗС групп и одиночки).txt': get_homonyms,
     'Омонимичные формы БС.txt': get_homonymous_forms,
-
+    'Обычные слова БС.txt': get_common_words_bs,
     'Снимок БС.txt': get_bs_snapshot,
 
     # БГ

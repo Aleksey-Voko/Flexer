@@ -309,6 +309,64 @@ def get_homonymous_forms(word_forms_bases, _) -> list:
     return word_forms
 
 
+# Обычные слова БС.txt
+def get_common_words_bs(word_forms_bases, socket_group_list) -> list:
+    """
+    Создать документ Снимок БС.txt .
+    Удалить из него строки из документов:
+        Многокорневые слова БС.txt ;
+        Повторы в пределах гнезда. 1 раз в БС.txt ;
+        Омонимы БС (ЗС групп и одиночки).txt .
+
+    Сохранить получившийся документ и переименовать его в Обычные слова БС.txt .
+    Примечание. В 3 указанных документах могут быть одинаковые строки.
+    """
+
+    # Снимок БС.txt
+    bs_snapshot = get_bs_snapshot(word_forms_bases, socket_group_list)
+
+    save_list_to_file(
+        bs_snapshot, 'Снимок БС.txt', encoding='cp1251')
+
+    print(f'Создан документ: Снимок БС.txt')
+    print(f'... сортировка ...')
+
+    # Многокорневые слова БС.txt
+    multi_root_words = get_multi_root_words(
+        word_forms_bases, socket_group_list)
+
+    save_list_to_file(
+        multi_root_words, 'Многокорневые слова БС.txt', encoding='cp1251')
+
+    print(f'Создан документ: Многокорневые слова БС.txt')
+    print(f'... сортировка ...')
+
+    # Повторы в пределах гнезда. 1 раз в БС.txt
+    repeats_w_socket_1_in_bs = get_repeats_w_socket_1_in_bs(
+        word_forms_bases, socket_group_list)
+
+    save_list_to_file(
+        repeats_w_socket_1_in_bs, 'Повторы в пределах гнезда. 1 раз в БС.txt',
+        encoding='cp1251')
+
+    print(f'Создан документ: Повторы в пределах гнезда. 1 раз в БС.txt')
+    print(f'... сортировка ...')
+
+    # Омонимы БС (ЗС групп и одиночки).txt
+    homonyms = get_homonyms(word_forms_bases, socket_group_list)
+
+    save_list_to_file(
+        homonyms, 'Омонимы БС (ЗС групп и одиночки).txt', encoding='cp1251')
+
+    print(f'Создан документ: Омонимы БС (ЗС групп и одиночки).txt')
+    print(f'... сортировка ...')
+
+    not_ordinary = multi_root_words + repeats_w_socket_1_in_bs + homonyms
+    word_forms = [x for x in bs_snapshot if x not in not_ordinary]
+
+    return word_forms
+
+
 # Снимок БС.txt
 def get_bs_snapshot(word_forms_bases, _) -> list:
     """
