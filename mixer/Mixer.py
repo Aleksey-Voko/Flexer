@@ -8,9 +8,12 @@ def add_groups_to_bs():
     print('Настройки:')
     print(f'{definitions}\n')
 
-    in_bs, *add_groups_list, out_bs = get_string_list_from_file(
-        definitions, encoding='cp1251')
-    add_groups_list = add_groups_list[1:-1]
+    in_bs, *add_groups_list, out_bs = [
+        x for x in list(
+            get_string_list_from_file(definitions, encoding='cp1251')
+        )
+        if x
+    ]
 
     print('База словоформ:')
     print(f'{in_bs}\n')

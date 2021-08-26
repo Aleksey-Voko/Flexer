@@ -79,9 +79,12 @@ def save_groups_to_bs():
     print(f'Настройки:')
     print(f'{definitions}\n')
 
-    *in_adjectives_list, out_adjectives = get_string_list_from_file(
-        definitions, encoding='cp1251')
-    in_adjectives_list = in_adjectives_list[:-1]
+    *in_adjectives_list, out_adjectives = [
+        x for x in list(
+            get_string_list_from_file(definitions, encoding='cp1251')
+        )
+        if x
+    ]
 
     print(f'Файлы с исходными данными:')
     for line in in_adjectives_list:

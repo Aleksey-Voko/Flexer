@@ -347,9 +347,12 @@ def save_groups_to_bs():
     print(f'Настройки:')
     print(f'{definitions}\n')
 
-    *in_verbs_list, out_verbs = get_string_list_from_file(
-        definitions, encoding='cp1251')
-    in_verbs_list = in_verbs_list[:-1]
+    *in_verbs_list, out_verbs = [
+        x for x in list(
+            get_string_list_from_file(definitions, encoding='cp1251')
+        )
+        if x
+    ]
 
     print(f'Файлы с исходными данными:')
     for line in in_verbs_list:

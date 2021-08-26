@@ -4,6 +4,12 @@ from bs_lists.spreader import get_filtered_list, run_csv_task
 from utils import (read_src_bs, save_list_to_file, get_string_list_from_file,
                    read_src_socket_bs)
 
+TASK_IS_NOT_DEFINED = (
+    'В Н И М А Н И Е !\n'
+    'Задача не определена или список пустой.\n'
+    'Для выхода нажмите Enter'
+)
+
 
 def main():
     definitions = 'lists.txt'
@@ -47,10 +53,8 @@ def main():
                 print(f'Создан документ: {task}\n')
                 print('Для продолжения нажмите Enter')
                 input()
-            else:  # TODO: ???
-                print('В Н И М А Н И Е !\n'
-                      'Задача не определена или список пустой.')
-                print('Для выхода нажмите Enter')
+            else:
+                print(TASK_IS_NOT_DEFINED)
                 input()
 
         elif Path(task).suffix == '.csv':
@@ -61,15 +65,12 @@ def main():
                 print(f'Создан документ: {task}\n')
                 print('Для продолжения нажмите Enter')
                 input()
-            else:  # TODO: ???
-                print('В Н И М А Н И Е !\n'
-                      'Задача не определена или список пустой.')
-                print('Для выхода нажмите Enter')
+            else:
+                print(TASK_IS_NOT_DEFINED)
                 input()
 
-        else:  # TODO: ???
-            print('В Н И М А Н И Е !\nЗадача не определена или список пустой.')
-            print('Для выхода нажмите Enter')
+        else:
+            print(TASK_IS_NOT_DEFINED)
             input()
 
     # End task

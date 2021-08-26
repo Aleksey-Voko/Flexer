@@ -98,9 +98,12 @@ def save_groups_to_bs():
     print(f'Настройки:')
     print(f'{definitions}\n')
 
-    *in_nouns_list, out_nouns = get_string_list_from_file(
-        definitions, encoding='cp1251')
-    in_nouns_list = in_nouns_list[:-1]
+    *in_nouns_list, out_nouns = [
+        x for x in list(
+            get_string_list_from_file(definitions, encoding='cp1251')
+        )
+        if x
+    ]
 
     print(f'Файлы с исходными данными:')
     for line in in_nouns_list:
