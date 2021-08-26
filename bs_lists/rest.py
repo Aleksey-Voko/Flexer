@@ -264,3 +264,46 @@ def get_homonyms(word_forms_bases, _) -> list:
         if group.title_word_form.name in homonyms
     ]
     return word_forms
+
+
+# Омонимичные формы БС.txt
+def get_homonymous_forms(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с одинаковыми словами, находящимися в разных группах
+    (с указанием строки с ЗС группы, в которой находится каждая такая строка).
+    Примечание 1. Омонимичной формой может быть любая словоформа,
+        в том числе ЗС группы или одиночка.
+    Примечание 2. Количество омонимичных форм не ограничено.
+    Примечание 3. Перед строкой с ЗС группы ставится "!".
+    Примечание 4. "Абзацы" со строками с омонимичными формами с указанием
+    строк с ЗС групп, в которых они находятся, располагаются в соответствии
+    с алфавитным порядком омонимичных форм.
+    """
+
+    print('... подождите, долгий алгоритм ...')
+
+    index = {}
+
+    for group in word_forms_bases:
+        title_form = group.title_word_form
+        index.setdefault(title_form.name, {})
+        index[title_form.name].setdefault(
+            str(title_form), []).append(str(title_form))
+
+        for word_form in group.word_forms:
+            index.setdefault(word_form.name, {})
+            index[word_form.name].setdefault(
+                str(title_form), []).append(str(word_form))
+
+    index = {k: v for k, v in index.items() if len(v) > 1}
+
+    word_forms = []
+
+    for index_key in sorted(index.keys()):
+        for title_word, homo_lst in index[index_key].items():
+            word_forms.append(f'!{title_word}')
+            for homo in homo_lst:
+                word_forms.append(homo)
+        word_forms.append('')
+
+    return word_forms

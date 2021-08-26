@@ -16,12 +16,13 @@ from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_exp_notes, get_homonyms,
                            get_words_with_exp_notes_no_homonyms,
                            get_words_with_spec_notes, get_multi_root_words,
-                           get_repeats_w_socket_1_in_bs)
+                           get_repeats_w_socket_1_in_bs, get_homonymous_forms)
 from bs_lists.socket_bg import (save_multi_root_words,
                                 get_repeats_within_a_socket,
                                 get_repeats_within_a_socket_duplicate)
 
 EXPLICIT_TASKS = {
+    # БС
     'Существительные.txt': get_nouns,
 
     'Местоимения.txt': get_pronouns,
@@ -48,6 +49,7 @@ EXPLICIT_TASKS = {
     'Многокорневые слова БС.txt': get_multi_root_words,
     'Повторы в пределах гнезда. 1 раз в БС.txt': get_repeats_w_socket_1_in_bs,
     'Омонимы БС (ЗС групп и одиночки).txt': get_homonyms,
+    'Омонимичные формы БС.txt': get_homonymous_forms,
 
     # БГ
     'Повторы в пределах гнезда.txt': get_repeats_within_a_socket,
