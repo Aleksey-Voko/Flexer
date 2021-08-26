@@ -50,6 +50,30 @@ def get_socket_with_exp_notes(_, socket_group_list) -> list:
     return word_forms
 
 
+# Слова с этимологическими примечаниями.txt
+def get_socket_with_etml_notes(_, socket_group_list) -> list:
+    """
+    Найти в БГ строки с этимологическими примечаниями, т.е. строки,
+    в которых имеются следующие комбинации символов: <= / *? ,
+    а также строки, оканчивающиеся комбинацией символов *!
+    Примечание. Одинаковые строки с многокорневыми словами
+    (т.е. в строке имеется также корневой индекс),
+    в которых имеются следующие комбинации символов: <= / *? ,
+    а также одинаковые строки с многокорневыми словами,
+    оканчивающиеся комбинацией символов *! , вставляются в документ 1 раз.
+    """
+
+    word_forms = []
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            for word_form in sub_group.socket_word_forms:
+                if word_form.etml_note and str(word_form) not in word_forms:
+                    word_forms.append(str(word_form))
+
+    return word_forms
+
+
 # Многокорневые слова БГ.csv
 def save_multi_root_words(_, socket_group_list):
     """
