@@ -47,10 +47,10 @@ def get_pronouns_no_plural(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if (
-                group.title_word_form.idf.startswith(('.М', '.МР-'))
+                group.title_word_form.idf.startswith('.М')
                 and not any(map(lambda x: x in group.title_word_form.info,
                                 ('I3', 'I4', 'I7', 'I7-')))
-                and '.МР' in group.idf_list
+                and any(map(lambda x: x in group.idf_list, ('.МР', '.МР-')))
         )
     ]
     return word_forms
