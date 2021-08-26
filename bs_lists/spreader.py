@@ -22,7 +22,8 @@ from bs_lists.socket_bg import (save_multi_root_words,
                                 get_repeats_within_a_socket,
                                 get_repeats_within_a_socket_duplicate,
                                 get_invisible, get_socket_with_exp_notes,
-                                get_socket_with_etml_notes)
+                                get_socket_with_etml_notes,
+                                get_unknown_etymology)
 
 EXPLICIT_TASKS = {
     # БС
@@ -60,6 +61,7 @@ EXPLICIT_TASKS = {
     'Невидимки.txt': get_invisible,
     'Слова с пояснительными примечаниями БГ.txt': get_socket_with_exp_notes,
     'Слова с этимологическими примечаниями.txt': get_socket_with_etml_notes,
+    'Этимология неизвестна.txt': get_unknown_etymology,
 
     'Повторы в пределах гнезда.txt': get_repeats_within_a_socket,
     'Повторы в гнезде. Повторяющиеся строки.txt': get_repeats_within_a_socket_duplicate,
