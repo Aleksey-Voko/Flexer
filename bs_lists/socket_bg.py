@@ -120,6 +120,30 @@ def get_no_accepted_etymology(_, socket_group_list) -> list:
     return word_forms
 
 
+# Образовано от.txt
+def get_formed_from(_, socket_group_list) -> list:
+    """
+    Создать документ Слова с этимологическими примечаниями.txt
+    и найти в нём строки, в которых имеется символ * ,
+    после которого через пробел указана комбинация символов <= (* <=)
+    """
+
+    # Слова с этимологическими примечаниями.txt
+    socket_with_etml_notes = get_socket_with_etml_notes(_, socket_group_list)
+    save_list_to_file(socket_with_etml_notes,
+                      'Слова с этимологическими примечаниями.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Слова с этимологическими примечаниями.txt')
+    print(f'... сортировка ...')
+
+    word_forms = [
+        x for x in socket_with_etml_notes
+        if x.find('* <=') != -1
+    ]
+
+    return word_forms
+
+
 # Многокорневые слова БГ.csv
 def save_multi_root_words(_, socket_group_list):
     """
