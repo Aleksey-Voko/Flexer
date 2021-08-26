@@ -27,6 +27,29 @@ def get_invisible(_, socket_group_list) -> list:
     return word_forms
 
 
+# Слова с пояснительными примечаниями БГ.txt
+def get_socket_with_exp_notes(_, socket_group_list) -> list:
+    """
+    Найти в БГ строки с пояснительными примечаниями, т.е. строки, в которых
+    после спец. информации (если это не строка с одиночкой или невидимкой) или
+    после слова (если это строка с одиночкой или невидимкой) или
+    после корневого индекса (если это строка с одиночкой, являющимся
+    многокорневым словом, или невидимкой, являющимся многокорневым словом)
+    указан символ * , после которого идут буквы
+    (непосредственно само пояснительное примечание).                                                                                                                                                                                 Примечание. Строки с многокорневыми словами (т.е. слово имеет корневой индекс) вставляются в документ 1 раз.
+    """
+
+    word_forms = []
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            for word_form in sub_group.socket_word_forms:
+                if word_form.note:
+                    word_forms.append(str(word_form))
+
+    return word_forms
+
+
 # Многокорневые слова БГ.csv
 def save_multi_root_words(_, socket_group_list):
     """
