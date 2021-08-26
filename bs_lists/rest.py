@@ -167,10 +167,13 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
     """
     Создать документы Повторы в гнезде. Повторяющиеся строки.txt
     и Омонимы БС (ЗС групп и одиночки).txt .
+
     Найти в БС строки, соответствующие строкам из документа
     Повторы в гнезде. Повторяющиеся строки.txt .
+
     Убедиться, что найденные строки отсутствуют в документе
     Омонимы БС (ЗС групп и одиночки).txt .
+
     Создать документ Повторы в пределах гнезда. 1 раз в БС.txt
     и вставить в него найденные строки.
     """
@@ -238,10 +241,15 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
                 title_form.note.replace('.*', '').strip()
             ]))
 
-        if (
-                title_str_form in socket_str_forms
-                and title_str_form not in title_str_forms
-        ):
+        if title_str_form in title_str_forms:
+            print(
+                'В документе Омонимы БС (ЗС групп и одиночки).txt\n'
+                f"обнаружена строка: '{title_str_form}'"
+            )
+            print('Для выхода нажмите Enter')
+            input()
+            quit()
+        elif title_str_form in socket_str_forms:
             word_forms.append(str(title_form))
 
     return word_forms
