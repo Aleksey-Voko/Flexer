@@ -122,7 +122,6 @@ def add_groups_to_bs():
 
     print('Для выхода нажмите Enter')
     input()
-    quit()
 
 
 if __name__ == '__main__':

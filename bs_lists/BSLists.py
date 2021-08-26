@@ -84,7 +84,6 @@ def main():
 
     print('Для выхода нажмите Enter')
     input()
-    quit()
 
 
 if __name__ == '__main__':
