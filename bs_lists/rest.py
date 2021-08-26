@@ -307,3 +307,17 @@ def get_homonymous_forms(word_forms_bases, _) -> list:
         word_forms.append('')
 
     return word_forms
+
+
+# Снимок БС.txt
+def get_bs_snapshot(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп / одиночками.
+    Создать документ Снимок БС.txt и вставить в него найденные строки,
+    располагая их друг за другом, без пробелов между строками.
+    """
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+    ]
+    return word_forms
