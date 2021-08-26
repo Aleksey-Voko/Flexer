@@ -6,7 +6,7 @@ from utils import (read_src_bs, save_list_to_file, get_string_list_from_file,
 
 TASK_IS_NOT_DEFINED = (
     'В Н И М А Н И Е !\n'
-    'Задача не определена или список пустой.\n'
+    'Ошибка в названии списка или список пустой.\n'
     'Для выхода нажмите Enter'
 )
 
