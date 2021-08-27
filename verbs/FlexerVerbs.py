@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 
 from flexer_errors import get_error_message, InputDataError
@@ -400,7 +401,7 @@ def save_groups_to_bs():
         print(f'Количество ошибок: {len(error_list)}')
         print('Для выхода нажмите Enter')
         input()
-        quit()
+        sys.exit()
 
     save_bs_dicts_to_txt(sorted(add_groups_to_bs_list), out_verbs)
     print(f'Создано {count} групп словоформ')

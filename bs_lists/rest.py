@@ -1,5 +1,8 @@
 """Обобщённо все части речи"""
 
+
+import sys
+
 from bs_lists.socket_bg import (save_multi_root_words,
                                 get_repeats_within_a_socket_duplicate)
 from utils import (save_list_to_file, get_dicts_from_csv_file,
@@ -248,7 +251,7 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
             )
             print('Для выхода нажмите Enter')
             input()
-            quit()
+            sys.exit()
         elif title_str_form in socket_str_forms:
             word_forms.append(str(title_form))
 

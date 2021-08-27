@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 
 from bs_lists.spreader import get_filtered_list, run_csv_task
@@ -56,7 +57,7 @@ def main():
             else:
                 print(TASK_IS_NOT_DEFINED)
                 input()
-                quit()
+                sys.exit()
 
         elif Path(task).suffix == '.csv':
             print(f'... сортировка ...')
@@ -69,12 +70,12 @@ def main():
             else:
                 print(TASK_IS_NOT_DEFINED)
                 input()
-                quit()
+                sys.exit()
 
         else:
             print(TASK_IS_NOT_DEFINED)
             input()
-            quit()
+            sys.exit()
 
     # End task
     print(f'{"* " * 38}*\n')
