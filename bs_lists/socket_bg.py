@@ -1,6 +1,8 @@
 """База гнёзд БГ"""
 
 
+from collections import Counter
+
 import pandas as pd
 
 from utils import (save_list_to_file, get_dicts_from_csv_file,
@@ -528,3 +530,71 @@ def get_repeats_within_a_socket_unique(_, socket_group_list) -> list:
     )
 
     return replays_in_groups_unique
+
+
+# Повторы в пределах гнезда. Строки.txt
+
+
+# Омонимы БГ.txt
+def get_homonyms_bg(_, socket_group_list) -> list:
+    """
+    Найти в БГ строки с омонимами, т.е. с одинаковыми словами,
+    находящимися в разных группах (кроме невидимок и кроме многокорневых слов).
+    Создать документ Омонимы БГ.txt и вставить в него найденные строки с
+    соблюдением алфавитного порядка слов и с соблюдением следующего правила:
+        если омоним является ЗС подгруппы, то просто полностью указывается
+            строка с омонимом;
+        если же омоним не является ЗС подгруппы, то после строки с омонимом
+            ставится символ < и затем указывается строка с ЗС подгруппы,
+            в которой находится данный омоним.
+    """
+
+    socket_names = []
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            for word_form in sub_group.socket_word_forms:
+                if (
+                        not word_form.invisible
+                        and not word_form.root_index
+                ):
+                    socket_names.append(
+                        word_form.name.replace('*', '').strip()
+                    )
+
+    socket_names = [x for x, y in Counter(socket_names).items() if y > 1]
+    socket_names = sorted(list(set(socket_names)))
+
+    homonyms = []
+
+    for socket_group in socket_group_list:
+        group_names = [
+            x.name.replace('*', '').strip()
+            for x in socket_group.socket_word_forms if not x.invisible
+        ]
+
+        for sub_group in socket_group.sub_groups:
+            title_word_form = sub_group.title_word_form
+            for word_form in sub_group.socket_word_forms:
+                if (
+                        not word_form.invisible
+                        and not word_form.root_index
+                ):
+                    raw_name = word_form.name.replace('*', '').strip()
+                    if (
+                            group_names.count(raw_name) == 1
+                            and raw_name in socket_names):
+                        if str(word_form) == str(title_word_form):
+                            homonyms.append(str(word_form))
+                        else:
+                            homonyms.append(' < '.join([
+                                str(word_form),
+                                str(title_word_form),
+                            ]))
+
+    sort_homonyms = sorted(
+        homonyms,
+        key=lambda x: x.replace('*', '').strip().lower()
+    )
+
+    return sort_homonyms
