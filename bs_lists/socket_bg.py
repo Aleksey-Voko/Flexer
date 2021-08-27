@@ -1,8 +1,10 @@
 """База гнёзд БГ"""
 
+
 import pandas as pd
 
-from utils import save_list_to_file
+from utils import (save_list_to_file, get_dicts_from_csv_file,
+                   get_socket_word_form)
 
 
 # Невидимки.txt
@@ -222,6 +224,46 @@ def get_a_noteworthy_etymology(_, socket_group_list) -> list:
         for word_form in index[key]:
             word_forms.append(word_form)
         word_forms.append('')
+
+    return word_forms
+
+
+# Многокорневые слова БГ - омонимы.txt
+def get_multi_root_words_homonyms(word_forms_bases, socket_group_list) -> list:
+    """
+    Создать документ Многокорневые слова БГ.csv
+    и найти в нём строки с одинаковыми словами.
+    """
+
+    save_multi_root_words(word_forms_bases, socket_group_list)
+    print(f'Создан документ: Многокорневые слова БГ.csv')
+    print(f'... сортировка ...')
+
+    multi_root_words = get_dicts_from_csv_file('Многокорневые слова БГ.csv')
+
+    index = {}
+
+    for multi_root_word in multi_root_words:
+        for root_index_key in list(multi_root_word)[1:]:
+            if multi_root_word[root_index_key]:
+                socket_form = get_socket_word_form(
+                    multi_root_word[root_index_key]
+                )
+                index.setdefault(socket_form.name, [])
+                index[socket_form.name].append(str(socket_form))
+
+    index = {k: v for k, v in index.items() if len(v) > 1}
+
+    word_forms = []
+
+    for key in sorted(index.keys()):
+        for socket_form in index[key]:
+            word_forms.append(socket_form)
+
+    word_forms = sorted(
+        word_forms,
+        key=lambda x: x.replace('*', '').lower().strip()
+    )
 
     return word_forms
 
