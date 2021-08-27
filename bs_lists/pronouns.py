@@ -78,17 +78,18 @@ def get_pronouns_no_singular(word_forms_bases, _) -> list:
 def get_pronouns_singular_and_plural(word_forms_bases, _) -> list:
     """
     Найти в БС строки с ЗС групп, идентификатор которых содержит .М ,
-    и в группе имеются словоформа с идентификатором .МмИ / .МмИ-
-    и словоформа с идентификатором .МмнИ / .МмнИ- .
+    и в группе имеются словоформа с идентификатором .МмИ / .МмИ- / .МмИ-МмИ
+    и словоформа с идентификатором .МмнИ / .МмнИ- / .МмнИ-МмнИ .
     """
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if (
                 group.title_word_form.idf.startswith('.М')
-                and any(map(lambda x: x in group.idf_list, ('.МмИ', '.МмИ-')))
                 and any(map(lambda x: x in group.idf_list,
-                            ('.МмнИ', '.МмнИ-')))
+                            ('.МмИ', '.МмИ-', '.МмИ-МмИ')))
+                and any(map(lambda x: x in group.idf_list,
+                            ('.МмнИ', '.МмнИ-', '.МмнИ-МмнИ')))
         )
     ]
     return word_forms
