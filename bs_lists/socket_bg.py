@@ -190,6 +190,42 @@ def get_under_the_influence(_, socket_group_list) -> list:
     return word_forms
 
 
+# Этимология примечательна.txt
+def get_a_noteworthy_etymology(_, socket_group_list) -> list:
+    """
+    Найти в БГ строки, оканчивающиеся комбинацией символов *!
+    Создать документ Этимология примечательна.txt и вставить в него найденные
+    строки с указанием строк с ЗС группы, в которой находится такая строка,
+    и с соблюдением алфавитного порядка ЗС групп.
+    Напр.
+
+        блуза .СеИ неод жII1 мнII6
+        луза .СеИ неод жII1 мнII6 *!
+
+        вино .СеИ неод сI5 мнIV6
+        винил .СеИ неод мI1 мнII1 *!
+    """
+
+    index = {}
+
+    for socket_group in socket_group_list:
+        title_word_form = socket_group.title_word_form
+        for word_form in socket_group.socket_word_forms:
+            if str(word_form).endswith('*!'):
+                index.setdefault(str(title_word_form), [])
+                index[str(title_word_form)].append(str(word_form))
+
+    word_forms = []
+
+    for key in sorted(index.keys()):
+        word_forms.append(key)
+        for word_form in index[key]:
+            word_forms.append(word_form)
+        word_forms.append('')
+
+    return word_forms
+
+
 # Многокорневые слова БГ.csv
 def save_multi_root_words(_, socket_group_list):
     """

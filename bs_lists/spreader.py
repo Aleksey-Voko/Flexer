@@ -25,7 +25,8 @@ from bs_lists.socket_bg import (save_multi_root_words,
                                 get_socket_with_etml_notes,
                                 get_unknown_etymology,
                                 get_no_accepted_etymology, get_formed_from,
-                                get_etymology_ignored, get_under_the_influence)
+                                get_etymology_ignored, get_under_the_influence,
+                                get_a_noteworthy_etymology)
 
 EXPLICIT_TASKS = {
     # БС
@@ -68,6 +69,7 @@ EXPLICIT_TASKS = {
     'Образовано от.txt': get_formed_from,
     'Этимология игнорируется.txt': get_etymology_ignored,
     'Образовано под влиянием.txt': get_under_the_influence,
+    'Этимология примечательна.txt': get_a_noteworthy_etymology,
 
     'Повторы в пределах гнезда.txt': get_repeats_within_a_socket,
     'Повторы в гнезде. Повторяющиеся строки.txt': get_repeats_within_a_socket_duplicate,
