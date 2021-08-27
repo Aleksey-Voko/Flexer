@@ -598,3 +598,61 @@ def get_homonyms_bg(_, socket_group_list) -> list:
     )
 
     return sort_homonyms
+
+
+# Слова, омонимичные многокорневым словам.txt
+def get_homonymous_multi_rooted(word_forms_bases, socket_group_list) -> list:
+    """
+    Создать документ Многокорневые слова БГ.csv .
+    Найти в БГ строки с НЕ многокорневыми словами (кроме невидимок),
+    совпадающими по написанию с многокорневыми словами из документа
+    Многокорневые слова.csv .
+    Создать документ Слова, омонимичные многокорневым словам.txt
+    и вставить в него найденные строки с соблюдением алфавитного порядка слов
+    и с соблюдением следующего правила:
+        если омоним является ЗС подгруппы, то просто полностью указывается
+            строка с омонимом;
+        если же омоним не является ЗС подгруппы, то после строки с омонимом
+            ставится символ < и затем указывается строка с ЗС подгруппы,
+            в которой находится данный омоним.
+    """
+
+    save_multi_root_words(word_forms_bases, socket_group_list)
+    print(f'Создан документ: Многокорневые слова БГ.csv')
+    print(f'... сортировка ...')
+
+    multi_root_words = get_dicts_from_csv_file('Многокорневые слова БГ.csv')
+
+    multi_root_names = []
+    for multi_root_word in multi_root_words:
+        for root_index_key in list(multi_root_word):
+            if multi_root_word[root_index_key]:
+                multi_root_names.append(
+                    get_socket_word_form(multi_root_word[root_index_key]).name
+                )
+
+    homonymous_multi_rooted = []
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            title_word_form = sub_group.title_word_form
+            for word_form in sub_group.socket_word_forms:
+                if (
+                        not word_form.invisible
+                        and not word_form.root_index
+                ):
+                    if word_form.name in multi_root_names:
+                        if str(word_form) == str(title_word_form):
+                            homonymous_multi_rooted.append(str(word_form))
+                        else:
+                            homonymous_multi_rooted.append(' < '.join([
+                                str(word_form),
+                                str(title_word_form),
+                            ]))
+
+    homonymous_multi_rooted = sorted(
+        homonymous_multi_rooted,
+        key=lambda x: x.replace('*', '').strip().lower()
+    )
+
+    return homonymous_multi_rooted

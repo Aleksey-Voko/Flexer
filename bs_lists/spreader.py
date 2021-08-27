@@ -30,7 +30,7 @@ from bs_lists.socket_bg import (save_multi_root_words,
                                 get_multi_root_words_homonyms,
                                 get_replays_in_groups,
                                 get_repeats_within_a_socket_unique,
-                                get_homonyms_bg)
+                                get_homonyms_bg, get_homonymous_multi_rooted)
 
 EXPLICIT_TASKS = {
     # БС
@@ -81,6 +81,7 @@ EXPLICIT_TASKS = {
     'Повторы в гнезде. Уникальные строки.txt': get_repeats_within_a_socket_unique,
 
     'Омонимы БГ.txt': get_homonyms_bg,
+    'Слова, омонимичные многокорневым словам.txt': get_homonymous_multi_rooted,
 }
 
 IMPLICIT_TASK = {
