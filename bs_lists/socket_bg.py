@@ -228,46 +228,6 @@ def get_a_noteworthy_etymology(_, socket_group_list) -> list:
     return word_forms
 
 
-# Многокорневые слова БГ - омонимы.txt
-def get_multi_root_words_homonyms(word_forms_bases, socket_group_list) -> list:
-    """
-    Создать документ Многокорневые слова БГ.csv
-    и найти в нём строки с одинаковыми словами.
-    """
-
-    save_multi_root_words(word_forms_bases, socket_group_list)
-    print(f'Создан документ: Многокорневые слова БГ.csv')
-    print(f'... сортировка ...')
-
-    multi_root_words = get_dicts_from_csv_file('Многокорневые слова БГ.csv')
-
-    index = {}
-
-    for multi_root_word in multi_root_words:
-        for root_index_key in list(multi_root_word)[1:]:
-            if multi_root_word[root_index_key]:
-                socket_form = get_socket_word_form(
-                    multi_root_word[root_index_key]
-                )
-                index.setdefault(socket_form.name, [])
-                index[socket_form.name].append(str(socket_form))
-
-    index = {k: v for k, v in index.items() if len(v) > 1}
-
-    word_forms = []
-
-    for key in sorted(index.keys()):
-        for socket_form in index[key]:
-            word_forms.append(socket_form)
-
-    word_forms = sorted(
-        word_forms,
-        key=lambda x: x.replace('*', '').lower().strip()
-    )
-
-    return word_forms
-
-
 # Многокорневые слова БГ.csv
 def save_multi_root_words(_, socket_group_list):
     """
@@ -350,6 +310,46 @@ def save_multi_root_words(_, socket_group_list):
     res_df.to_csv('Многокорневые слова БГ.csv', sep=';', encoding='cp1251')
 
 
+# Многокорневые слова БГ - омонимы.txt
+def get_multi_root_words_homonyms(word_forms_bases, socket_group_list) -> list:
+    """
+    Создать документ Многокорневые слова БГ.csv
+    и найти в нём строки с одинаковыми словами.
+    """
+
+    save_multi_root_words(word_forms_bases, socket_group_list)
+    print(f'Создан документ: Многокорневые слова БГ.csv')
+    print(f'... сортировка ...')
+
+    multi_root_words = get_dicts_from_csv_file('Многокорневые слова БГ.csv')
+
+    index = {}
+
+    for multi_root_word in multi_root_words:
+        for root_index_key in list(multi_root_word)[1:]:
+            if multi_root_word[root_index_key]:
+                socket_form = get_socket_word_form(
+                    multi_root_word[root_index_key]
+                )
+                index.setdefault(socket_form.name, [])
+                index[socket_form.name].append(str(socket_form))
+
+    index = {k: v for k, v in index.items() if len(v) > 1}
+
+    word_forms = []
+
+    for key in sorted(index.keys()):
+        for socket_form in index[key]:
+            word_forms.append(socket_form)
+
+    word_forms = sorted(
+        word_forms,
+        key=lambda x: x.replace('*', '').lower().strip()
+    )
+
+    return word_forms
+
+
 # Повторы в пределах гнезда.txt
 def get_repeats_within_a_socket(_, socket_group_list) -> list:
     """
@@ -374,6 +374,58 @@ def get_repeats_within_a_socket(_, socket_group_list) -> list:
         socket_word_forms = socket_group.socket_word_forms
         socket_word_forms = [x for x in socket_word_forms if not x.invisible]
         socket_names = [x.name for x in socket_word_forms]
+        replays_names = sorted(list(set(
+            [x for x in socket_names if socket_names.count(x) > 1]
+        )))
+
+        if replays_names:
+            replays_in_groups.append(str(socket_group.socket_word_forms[0]))
+            for sub_group in socket_group.sub_groups:
+                flag = True
+                for word_form in sub_group.socket_word_forms:
+                    if word_form.name in replays_names:
+                        if flag:
+                            replays_in_groups.append(' '.join([
+                                '!',
+                                str(sub_group.title_word_form),
+                            ]))
+                            flag = False
+                        replays_in_groups.append(str(word_form))
+
+            replays_in_groups.append('')
+
+    return replays_in_groups
+
+
+# Повторы в гнезде - многокорневые слова.txt
+def get_replays_in_groups(_, socket_group_list) -> list:
+    """
+    Найти в БГ строки со словами, имеющими корневой индекс и повторяющимися
+    в пределах одной и той же группы (кроме невидимок).
+    Создать документ Повторы в гнезде - многокорневые слова.txt
+    и вставить в него строки (полностью), в которых обнаружились повторяющиеся
+    слова, указывая строки с ЗС группы и ЗС подгруппы и
+    соблюдая следующие правила:
+        1. Перед строкой с ЗС подгруппы ставится "!".
+        2. Строка с ЗС подгруппы и строка с ЗС группы могут совпадать.
+            Строка с повторяющимся словом и строка с ЗС подгруппы
+            могут совпадать.
+            Строка с повторяющимся словом, строка с ЗС подгруппы и
+            строка с ЗС группы могут совпадать.
+        3. ЗС групп располагаются в алфавитном порядке,
+            ЗС подгрупп - в том порядке, в котором они находятся в базе.
+    """
+
+    replays_in_groups = []
+
+    for socket_group in socket_group_list:
+        socket_word_forms = socket_group.socket_word_forms
+        socket_word_forms = [
+            x for x in socket_word_forms
+            if not x.invisible and x.root_index
+        ]
+        socket_names = [x.name for x in socket_word_forms]
+
         replays_names = sorted(list(set(
             [x for x in socket_names if socket_names.count(x) > 1]
         )))
