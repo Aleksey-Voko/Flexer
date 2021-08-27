@@ -77,7 +77,7 @@ def get_words_with_exp_notes_no_homonyms(word_forms_bases, _) -> list:
 
     # Слова с пояснительными примечаниями БС
     words_with_exp_notes = get_words_with_exp_notes(word_forms_bases, _)
-    save_list_to_file(sorted(words_with_exp_notes),
+    save_list_to_file(words_with_exp_notes,
                       'Слова с пояснительными примечаниями БС.txt',
                       encoding='cp1251')
     print(f'Создан документ: Слова с пояснительными примечаниями БС.txt')
@@ -85,8 +85,7 @@ def get_words_with_exp_notes_no_homonyms(word_forms_bases, _) -> list:
 
     # Омонимы БС (ЗС групп и одиночки)
     homonyms = get_homonyms(word_forms_bases, _)
-    save_list_to_file(sorted(homonyms),
-                      'Омонимы БС (ЗС групп и одиночки).txt',
+    save_list_to_file(homonyms, 'Омонимы БС (ЗС групп и одиночки).txt',
                       encoding='cp1251')
     print(f'Создан документ: Омонимы БС (ЗС групп и одиночки).txt')
     print(f'... сортировка ...')
