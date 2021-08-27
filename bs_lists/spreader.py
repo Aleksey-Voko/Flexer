@@ -28,7 +28,8 @@ from bs_lists.socket_bg import (save_multi_root_words,
                                 get_etymology_ignored, get_under_the_influence,
                                 get_a_noteworthy_etymology,
                                 get_multi_root_words_homonyms,
-                                get_replays_in_groups)
+                                get_replays_in_groups,
+                                get_repeats_within_a_socket_unique)
 
 EXPLICIT_TASKS = {
     # БС
@@ -75,8 +76,8 @@ EXPLICIT_TASKS = {
     'Многокорневые слова БГ - омонимы.txt': get_multi_root_words_homonyms,
     'Повторы в пределах гнезда.txt': get_repeats_within_a_socket,
     'Повторы в гнезде - многокорневые слова.txt': get_replays_in_groups,
-
     'Повторы в гнезде. Повторяющиеся строки.txt': get_repeats_within_a_socket_duplicate,
+    'Повторы в гнезде. Уникальные строки.txt': get_repeats_within_a_socket_unique,
 }
 
 IMPLICIT_TASK = {
