@@ -40,7 +40,9 @@ def get_socket_with_exp_notes(_, socket_group_list) -> list:
     после корневого индекса (если это строка с одиночкой, являющимся
     многокорневым словом, или невидимкой, являющимся многокорневым словом)
     указан символ * , после которого идут буквы
-    (непосредственно само пояснительное примечание).                                                                                                                                                                                 Примечание. Строки с многокорневыми словами (т.е. слово имеет корневой индекс) вставляются в документ 1 раз.
+    (непосредственно само пояснительное примечание).
+    Примечание. Строки с многокорневыми словами
+    (т.е. слово имеет корневой индекс) вставляются в документ 1 раз.
     """
 
     word_forms = []
@@ -48,7 +50,7 @@ def get_socket_with_exp_notes(_, socket_group_list) -> list:
     for socket_group in socket_group_list:
         for sub_group in socket_group.sub_groups:
             for word_form in sub_group.socket_word_forms:
-                if word_form.note:
+                if word_form.note and str(word_form) not in word_forms:
                     word_forms.append(str(word_form))
 
     return word_forms
