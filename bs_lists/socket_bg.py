@@ -463,25 +463,23 @@ def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
     Сохранить документ Повторы в гнезде. Повторяющиеся строки.txt .
     """
 
-    replays_in_groups = get_repeats_within_a_socket(_, socket_group_list)
-    save_list_to_file(replays_in_groups, 'Повторы в пределах гнезда.txt',
+    replays_in_socket = get_repeats_within_a_socket(_, socket_group_list)
+    save_list_to_file(replays_in_socket, 'Повторы в пределах гнезда.txt',
                       encoding='cp1251')
     print(f'Создан документ: Повторы в пределах гнезда.txt')
     print(f'... сортировка ...')
 
     socket_duplicate = [
-        x for x in replays_in_groups
-        if x and not x.startswith(('*', '!'))
+        x for x, count in Counter(replays_in_socket).items()
+        if count > 1 and x and not x.startswith(('*', '!'))
     ]
 
-    word_forms = list(set(socket_duplicate))
-
-    word_forms = sorted(
-        word_forms,
+    socket_duplicate = sorted(
+        list(set(socket_duplicate)),
         key=lambda x: x.replace('*', '').lower().strip()
     )
 
-    return word_forms
+    return socket_duplicate
 
 
 # Повторы в гнезде. Уникальные строки.txt
