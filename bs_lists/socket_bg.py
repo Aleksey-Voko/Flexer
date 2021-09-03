@@ -4,6 +4,7 @@
 from collections import Counter
 
 import pandas as pd
+import numpy as np
 
 from utils import (save_list_to_file, get_dicts_from_csv_file,
                    get_socket_word_form)
@@ -292,6 +293,7 @@ def save_multi_root_words(_, socket_group_list):
                 root_index_ds[root_index].append(str(socket_word_form))
 
     for k in root_index_ds:
+        # noinspection PyUnresolvedReferences
         root_index_ds[k] = sorted(list(
             set(root_index_ds[k])),
             key=lambda x: x.replace('*', '').lower().strip()
@@ -310,6 +312,12 @@ def save_multi_root_words(_, socket_group_list):
               .assign(idx=df.groupby("root_index").cumcount())
               .pivot_table(index="idx", columns="root_index",
                            values="word_form", aggfunc="first"))
+
+    for col in res_df.columns:
+        res_df[col] = res_df[col].replace(np.nan, '\uFFFC')
+        res_df[col] = sorted(res_df[col],
+                             key=lambda x: x.replace('*', '').lower())
+        res_df[col] = res_df[col].replace('\uFFFC', np.nan)
 
     # noinspection PyTypeChecker
     res_df.to_csv('Многокорневые слова БГ.csv', index=False, sep=';',
