@@ -125,7 +125,7 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
     multi_root_bg_forms = []
 
     for multi_root_word in multi_root_words:
-        for root_index_key in list(multi_root_word)[1:]:
+        for root_index_key in multi_root_word:
             if multi_root_word[root_index_key]:
                 socket_form = get_socket_word_form(
                     multi_root_word[root_index_key]

@@ -310,8 +310,10 @@ def save_multi_root_words(_, socket_group_list):
               .assign(idx=df.groupby("root_index").cumcount())
               .pivot_table(index="idx", columns="root_index",
                            values="word_form", aggfunc="first"))
+
     # noinspection PyTypeChecker
-    res_df.to_csv('Многокорневые слова БГ.csv', sep=';', encoding='cp1251')
+    res_df.to_csv('Многокорневые слова БГ.csv', index=False, sep=';',
+                  encoding='cp1251')
 
 
 # Многокорневые слова БГ - омонимы.txt
@@ -330,7 +332,7 @@ def get_multi_root_words_homonyms(word_forms_bases, socket_group_list) -> list:
     index = {}
 
     for multi_root_word in multi_root_words:
-        for root_index_key in list(multi_root_word)[1:]:
+        for root_index_key in multi_root_word:
             if multi_root_word[root_index_key]:
                 socket_form = get_socket_word_form(
                     multi_root_word[root_index_key]
