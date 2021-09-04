@@ -559,6 +559,37 @@ def get_repeats_within_a_socket_unique(_, socket_group_list) -> list:
 
 
 # Повторы в пределах гнезда. Строки.txt
+def get_repeats_within_a_socket_strings(_, socket_group_list) -> list:
+    """
+    Создать документ Повторы в пределах гнезда.txt .
+    Удалить из него строки с ЗС групп, строки с ЗС подгрупп и повторы строк.
+    Расположить оставшиеся строки в соответствии с алфавитным порядком слов.
+    """
+
+    # Повторы в пределах гнезда.txt
+    replays_in_socket = get_repeats_within_a_socket(_, socket_group_list)
+    save_list_to_file(replays_in_socket, 'Повторы в пределах гнезда.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Повторы в пределах гнезда.txt')
+    print(f'... сортировка ...')
+
+    flag = False
+    out_list = [
+        x for x in replays_in_socket
+        if (
+                (flag, flag := x)[0]
+                and x
+                and not x.startswith('!')
+                and not get_socket_word_form(x).root_index
+        )
+    ]
+
+    word_forms = sorted(
+        list(set(out_list)),
+        key=lambda x: x.replace('*', '').lower().strip()
+    )
+
+    return word_forms
 
 
 # Омонимы БГ.txt
