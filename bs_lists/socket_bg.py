@@ -467,14 +467,17 @@ def get_replays_in_groups(_, socket_group_list) -> list:
 def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
     """
     Создать документ Повторы в пределах гнезда.txt .
-    Удалить из него строки с ЗС групп и строки с ЗС подгрупп.
+    Удалить из него строки с ЗС групп, с ЗС подгрупп
+    и с многокорневыми словами.
     Найти среди оставшихся строк одинаковые строки.
     Создать документ Повторы в гнезде. Повторяющиеся строки.txt ,
     вставить в него найденные одинаковые строки
-    с соблюдением алфавитного порядка слов. Удалить повторы строк.
+    с соблюдением алфавитного порядка слов.
+    Удалить повторы строк.
     Сохранить документ Повторы в гнезде. Повторяющиеся строки.txt .
     """
 
+    # Повторы в пределах гнезда.txt
     replays_in_socket = get_repeats_within_a_socket(_, socket_group_list)
     save_list_to_file(replays_in_socket, 'Повторы в пределах гнезда.txt',
                       encoding='cp1251')
@@ -483,7 +486,12 @@ def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
 
     socket_duplicate = [
         x for x, count in Counter(replays_in_socket).items()
-        if count > 1 and x and not x.startswith(('*', '!'))
+        if (
+                count > 1
+                and x
+                and not x.startswith(('*', '!'))
+                and not get_socket_word_form(x).root_index
+        )
     ]
 
     socket_duplicate = sorted(
