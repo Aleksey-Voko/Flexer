@@ -3,8 +3,8 @@
 
 from collections import Counter
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from utils import (save_list_to_file, get_dicts_from_csv_file,
                    get_socket_word_form)
@@ -484,22 +484,28 @@ def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
     print(f'Создан документ: Повторы в пределах гнезда.txt')
     print(f'... сортировка ...')
 
-    socket_duplicate = [
-        x for x, count in Counter(replays_in_socket).items()
+    flag = False
+    out_list = [
+        x for x in replays_in_socket
         if (
-                count > 1
+                (flag, flag := x)[0]
                 and x
-                and not x.startswith(('*', '!'))
+                and not x.startswith('!')
                 and not get_socket_word_form(x).root_index
         )
     ]
 
-    socket_duplicate = sorted(
+    socket_duplicate = [
+        x for x, count in Counter(out_list).items()
+        if count > 1
+    ]
+
+    word_forms = sorted(
         list(set(socket_duplicate)),
         key=lambda x: x.replace('*', '').lower().strip()
     )
 
-    return socket_duplicate
+    return word_forms
 
 
 # Повторы в гнезде. Уникальные строки.txt
