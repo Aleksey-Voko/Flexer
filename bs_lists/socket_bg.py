@@ -774,3 +774,110 @@ def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
                             )
 
     return word_forms
+
+
+# Обычные слова БГ.txt
+def get_ordinary_words_bg(word_forms_bases, socket_group_list) -> list:
+    """
+    Удалить из БГ строки из документов:
+    Невидимки.txt ;
+    Многокорневые слова БГ.csv ;
+    Повторы в гнезде. Повторяющиеся строки.txt ;
+    Повторы в гнезде. Уникальные строки.txt ;
+    Омонимы БГ.txt ;
+    Слова, омонимичные многокорневым словам.txt ;
+    Слова, омонимичные повторам в гнезде.txt .
+
+    Расположить оставшиеся строки в соответствии с алфавитным порядком слов,
+    без пробелов между строками.
+    Сохранить получившийся документ и
+    переименовать его в Обычные слова БГ.txt .                                                                                                                                                                                                                        Примечание. В 7 указанных документах могут быть одинаковые строки.
+    """
+
+    # Невидимки.txt
+    invisible = get_invisible(word_forms_bases, socket_group_list)
+    save_list_to_file(invisible, 'Невидимки.txt', encoding='cp1251')
+    print(f'Создан документ: Невидимки.txt')
+    print(f'... сортировка ...')
+
+    # Многокорневые слова БГ.csv
+    save_multi_root_words(word_forms_bases, socket_group_list)
+    print(f'Создан документ: Многокорневые слова БГ.csv')
+    print(f'... сортировка ...')
+
+    multi_root_words = get_dicts_from_csv_file('Многокорневые слова БГ.csv')
+
+    multi_root_names = []
+    for multi_root_word in multi_root_words:
+        for root_index_key in list(multi_root_word):
+            if multi_root_word[root_index_key]:
+                multi_root_names.append(
+                    multi_root_word[root_index_key]
+                )
+
+    # Повторы в гнезде. Повторяющиеся строки.txt
+    replays_in_socket_duplicate = get_replays_in_socket_duplicate(
+        word_forms_bases, socket_group_list)
+    save_list_to_file(replays_in_socket_duplicate,
+                      'Повторы в гнезде. Повторяющиеся строки.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Повторы в гнезде. Повторяющиеся строки.txt')
+    print(f'... сортировка ...')
+
+    # Повторы в гнезде. Уникальные строки.txt
+    replays_in_socket_unique = get_replays_in_socket_unique(
+        word_forms_bases, socket_group_list)
+    save_list_to_file(replays_in_socket_unique,
+                      'Повторы в гнезде. Уникальные строки.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Повторы в гнезде. Уникальные строки.txt')
+    print(f'... сортировка ...')
+
+    # Омонимы БГ.txt
+    homonyms_bg = get_homonyms_bg(word_forms_bases, socket_group_list)
+    save_list_to_file(homonyms_bg, 'Омонимы БГ.txt', encoding='cp1251')
+    print(f'Создан документ: Омонимы БГ.txt')
+    print(f'... сортировка ...')
+
+    # Слова, омонимичные многокорневым словам.txt
+    homonymous_multi_rooted = get_homonymous_multi_rooted(
+        word_forms_bases, socket_group_list)
+    save_list_to_file(homonymous_multi_rooted,
+                      'Слова, омонимичные многокорневым словам.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Слова, омонимичные многокорневым словам.txt')
+    print(f'... сортировка ...')
+
+    # Слова, омонимичные повторам в гнезде.txt
+    homonymous_replays_in_socket = get_homonymous_replays_in_socket(
+        word_forms_bases, socket_group_list)
+    save_list_to_file(homonymous_replays_in_socket,
+                      'Слова, омонимичные повторам в гнезде.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Слова, омонимичные повторам в гнезде.txt')
+    print(f'... сортировка ...')
+
+    homonymous_replays_in_socket = [
+        x.split(' < ')[0] for x in homonymous_replays_in_socket
+    ]
+
+    # Обычные слова БГ.txt
+    unusual_words = (invisible + multi_root_names
+                     + replays_in_socket_duplicate + replays_in_socket_unique
+                     + homonyms_bg + homonymous_multi_rooted
+                     + homonymous_replays_in_socket)
+
+    word_forms = []
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            for word_form in sub_group.socket_word_forms:
+                if str(word_form) not in unusual_words:
+                    word_forms.append(str(word_form))
+
+    word_forms = sorted(
+        word_forms,
+        key=lambda x: x.replace('*', '').lower().strip()
+    )
+
+    return word_forms
