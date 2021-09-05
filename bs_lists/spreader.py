@@ -19,8 +19,8 @@ from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_repeats_w_socket_1_in_bs, get_homonymous_forms,
                            get_bs_snapshot, get_common_words_bs)
 from bs_lists.socket_bg import (save_multi_root_words,
-                                get_repeats_within_a_socket,
-                                get_repeats_within_a_socket_duplicate,
+                                get_replays_in_socket,
+                                get_replays_in_socket_duplicate,
                                 get_invisible, get_socket_with_exp_notes,
                                 get_socket_with_etml_notes,
                                 get_unknown_etymology,
@@ -29,9 +29,10 @@ from bs_lists.socket_bg import (save_multi_root_words,
                                 get_a_noteworthy_etymology,
                                 get_multi_root_words_homonyms,
                                 get_replays_in_groups,
-                                get_repeats_within_a_socket_unique,
+                                get_replays_in_socket_unique,
                                 get_homonyms_bg, get_homonymous_multi_rooted,
-                                get_repeats_within_a_socket_strings)
+                                get_replays_in_socket_strings,
+                                get_homonymous_replays_in_socket)
 
 EXPLICIT_TASKS = {
     # БС
@@ -76,14 +77,14 @@ EXPLICIT_TASKS = {
     'Образовано под влиянием.txt': get_under_the_influence,
     'Этимология примечательна.txt': get_a_noteworthy_etymology,
     'Многокорневые слова БГ - омонимы.txt': get_multi_root_words_homonyms,
-    'Повторы в пределах гнезда.txt': get_repeats_within_a_socket,
+    'Повторы в пределах гнезда.txt': get_replays_in_socket,
     'Повторы в гнезде - многокорневые слова.txt': get_replays_in_groups,
-    'Повторы в гнезде. Повторяющиеся строки.txt': get_repeats_within_a_socket_duplicate,
-    'Повторы в гнезде. Уникальные строки.txt': get_repeats_within_a_socket_unique,
-    'Повторы в пределах гнезда. Строки.txt': get_repeats_within_a_socket_strings,
-
+    'Повторы в гнезде. Повторяющиеся строки.txt': get_replays_in_socket_duplicate,
+    'Повторы в гнезде. Уникальные строки.txt': get_replays_in_socket_unique,
+    'Повторы в пределах гнезда. Строки.txt': get_replays_in_socket_strings,
     'Омонимы БГ.txt': get_homonyms_bg,
     'Слова, омонимичные многокорневым словам.txt': get_homonymous_multi_rooted,
+    'Слова, омонимичные повторам в гнезде.txt': get_homonymous_replays_in_socket,
 }
 
 IMPLICIT_TASK = {

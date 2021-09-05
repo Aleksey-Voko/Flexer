@@ -4,7 +4,7 @@
 import sys
 
 from bs_lists.socket_bg import (save_multi_root_words,
-                                get_repeats_within_a_socket_duplicate)
+                                get_replays_in_socket_duplicate)
 from utils import (save_list_to_file, get_dicts_from_csv_file,
                    get_socket_word_form, get_bs_title_word_form)
 
@@ -181,7 +181,7 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
     """
 
     # Повторы в гнезде. Повторяющиеся строки.txt
-    socket_duplicate = get_repeats_within_a_socket_duplicate(
+    socket_duplicate = get_replays_in_socket_duplicate(
         word_forms_bases, socket_group_list)
 
     save_list_to_file(

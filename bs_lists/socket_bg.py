@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from utils import (save_list_to_file, get_dicts_from_csv_file,
-                   get_socket_word_form)
+                   get_socket_word_form, get_string_list_from_file)
 
 
 # Невидимки.txt
@@ -365,7 +365,7 @@ def get_multi_root_words_homonyms(word_forms_bases, socket_group_list) -> list:
 
 
 # Повторы в пределах гнезда.txt
-def get_repeats_within_a_socket(_, socket_group_list) -> list:
+def get_replays_in_socket(_, socket_group_list) -> list:
     """
     Найти строки со словами, повторяющимися в пределах одной и той же
     группы (кроме невидимок).
@@ -464,7 +464,7 @@ def get_replays_in_groups(_, socket_group_list) -> list:
 
 
 # Повторы в гнезде. Повторяющиеся строки.txt
-def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
+def get_replays_in_socket_duplicate(_, socket_group_list) -> list:
     """
     Создать документ Повторы в пределах гнезда.txt .
     Удалить из него строки с ЗС групп, с ЗС подгрупп
@@ -478,7 +478,7 @@ def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
     """
 
     # Повторы в пределах гнезда.txt
-    replays_in_socket = get_repeats_within_a_socket(_, socket_group_list)
+    replays_in_socket = get_replays_in_socket(_, socket_group_list)
     save_list_to_file(replays_in_socket, 'Повторы в пределах гнезда.txt',
                       encoding='cp1251')
     print(f'Создан документ: Повторы в пределах гнезда.txt')
@@ -509,7 +509,7 @@ def get_repeats_within_a_socket_duplicate(_, socket_group_list) -> list:
 
 
 # Повторы в гнезде. Уникальные строки.txt
-def get_repeats_within_a_socket_unique(_, socket_group_list) -> list:
+def get_replays_in_socket_unique(_, socket_group_list) -> list:
     """
     Создать документ Повторы в пределах гнезда.txt .
     Удалить из него строки с ЗС групп, с ЗС подгрупп
@@ -519,7 +519,7 @@ def get_repeats_within_a_socket_unique(_, socket_group_list) -> list:
     """
 
     # Повторы в пределах гнезда.txt
-    replays_in_socket = get_repeats_within_a_socket(_, socket_group_list)
+    replays_in_socket = get_replays_in_socket(_, socket_group_list)
     save_list_to_file(replays_in_socket, 'Повторы в пределах гнезда.txt',
                       encoding='cp1251')
     print(f'Создан документ: Повторы в пределах гнезда.txt')
@@ -550,7 +550,7 @@ def get_repeats_within_a_socket_unique(_, socket_group_list) -> list:
 
 
 # Повторы в пределах гнезда. Строки.txt
-def get_repeats_within_a_socket_strings(_, socket_group_list) -> list:
+def get_replays_in_socket_strings(_, socket_group_list) -> list:
     """
     Создать документ Повторы в пределах гнезда.txt .
     Удалить из него строки с ЗС групп, с ЗС подгрупп
@@ -559,7 +559,7 @@ def get_repeats_within_a_socket_strings(_, socket_group_list) -> list:
     """
 
     # Повторы в пределах гнезда.txt
-    replays_in_socket = get_repeats_within_a_socket(_, socket_group_list)
+    replays_in_socket = get_replays_in_socket(_, socket_group_list)
     save_list_to_file(replays_in_socket, 'Повторы в пределах гнезда.txt',
                       encoding='cp1251')
     print(f'Создан документ: Повторы в пределах гнезда.txt')
@@ -705,3 +705,72 @@ def get_homonymous_multi_rooted(word_forms_bases, socket_group_list) -> list:
     )
 
     return homonymous_multi_rooted
+
+
+# Слова, омонимичные повторам в гнезде.txt
+def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
+    """
+    Создать документы Повторы в пределах гнезда.txt
+    и Повторы в пределах гнезда. Строки.txt .
+
+    Найти в БГ в группах, НЕ указанных в документе
+    Повторы в пределах гнезда.txt ,
+    строки со словами (кроме невидимок),
+    совпадающими по написанию со словами из документа
+    Повторы в пределах гнезда. Строки.txt .
+
+    Создать документ Слова, омонимичные повторам в гнезде.txt
+    и вставить в него найденные строки с соблюдением алфавитного порядка слов
+    и с соблюдением следующего правила:
+        если омоним является ЗС подгруппы,
+        то просто полностью указывается строка с омонимом;
+        если же омоним не является ЗС подгруппы,
+        то после строки с омонимом ставится символ <
+        и затем указывается строка с ЗС подгруппы,
+        в которой находится данный омоним.
+    """
+
+    # Повторы в пределах гнезда. Строки.txt
+    replays_in_socket_strings = get_replays_in_socket_strings(
+        _, socket_group_list)
+    save_list_to_file(replays_in_socket_strings,
+                      'Повторы в пределах гнезда. Строки.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Повторы в пределах гнезда. Строки.txt')
+    print(f'... сортировка ...')
+
+    # Повторы в пределах гнезда.txt
+    replays_in_socket = get_string_list_from_file(
+        'Повторы в пределах гнезда.txt', encoding='cp1251')
+
+    flag = True
+    replays_in_socket_group = [
+        x for x in replays_in_socket
+        if (
+                (flag, flag := not bool(x))[0]
+        )
+    ]
+
+    # Слова, омонимичные повторам в гнезде.txt
+    word_forms = []
+
+    for socket_group in socket_group_list:
+        title_word_form = socket_group.title_word_form
+        if str(title_word_form) not in replays_in_socket_group:
+            for sub_group in socket_group.sub_groups:
+                sub_title_word_form = sub_group.title_word_form
+                for cnt, word_form in enumerate(sub_group.socket_word_forms):
+                    if (
+                            not word_form.invisible
+                            and str(word_form) in replays_in_socket_strings
+                    ):
+                        if not cnt:
+                            word_forms.append(str(word_form))
+                        else:
+                            word_forms.append(
+                                f'{str(word_form)}'
+                                ' < '
+                                f'{str(sub_title_word_form)}'
+                            )
+
+    return word_forms
