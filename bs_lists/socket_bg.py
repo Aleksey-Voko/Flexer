@@ -881,3 +881,25 @@ def get_ordinary_words_bg(word_forms_bases, socket_group_list) -> list:
     )
 
     return word_forms
+
+
+# Снимок БГ.txt
+def get_bg_snapshot(_, socket_group_list) -> list:
+    """
+    Найти в БГ строки с ЗС групп и строки с ЗС подгрупп.
+    Создать документ Снимок БГ.txt
+    и вставить в него найденные строки, соблюдая следующие правила:
+        1. Между строками из одной группы и строками из другой группы
+            должен быть пробел.
+        2. Строки из одной и той же группы вставляются друг за другом,
+            без пробела между строками.
+    """
+    word_forms = []
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            sub_title_word_form = sub_group.title_word_form
+            word_forms.append(str(sub_title_word_form))
+        word_forms.append('')
+
+    return word_forms
