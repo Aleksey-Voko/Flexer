@@ -153,7 +153,7 @@ def get_socket_word_form(src_socket_form):
         invisible = ''
 
     # root_index
-    pattern = re.compile(r'^.+ (\d(\**|!))$')
+    pattern = re.compile(r'^.+ (\d{1,2}(\**|!))$')
     result = re.search(pattern, src_socket_form)
     if result:
         root_index = result.group(1).strip()

@@ -259,6 +259,7 @@ def save_multi_root_words(_, socket_group_list):
     с алфавитным порядком слов,
     а сами столбцы - в следующем порядке:
     2 2! 2* 3 3! 3* 3** 4 4! 4* 4** 5 5! 5* 5** 6 6! 6* 6** 7 7! 7* 7**
+    8 8! 8* 8** 9 9! 9* 9** 10 10! 10* 10**
     """
     root_index_ds = {
         '2': [],
@@ -284,6 +285,18 @@ def save_multi_root_words(_, socket_group_list):
         '7!': [],
         '7*': [],
         '7**': [],
+        '8': [],
+        '8!': [],
+        '8*': [],
+        '8**': [],
+        '9': [],
+        '9!': [],
+        '9*': [],
+        '9**': [],
+        '10': [],
+        '10!': [],
+        '10*': [],
+        '10**': [],
     }
 
     for socket_group in socket_group_list:
@@ -312,6 +325,8 @@ def save_multi_root_words(_, socket_group_list):
               .assign(idx=df.groupby("root_index").cumcount())
               .pivot_table(index="idx", columns="root_index",
                            values="word_form", aggfunc="first"))
+
+    res_df = res_df[sorted(res_df.columns, key=lambda x: int(x.strip('!*')))]
 
     for col in res_df.columns:
         res_df[col] = res_df[col].replace(np.nan, '\uFFFC')
