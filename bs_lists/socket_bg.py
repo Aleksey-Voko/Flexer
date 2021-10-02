@@ -1,6 +1,5 @@
 """База гнёзд БГ"""
-
-
+import sys
 from collections import Counter
 
 import numpy as np
@@ -261,6 +260,9 @@ def save_multi_root_words(_, socket_group_list):
     2 2! 2* 3 3! 3* 3** 4 4! 4* 4** 5 5! 5* 5** 6 6! 6* 6** 7 7! 7* 7**
     8 8! 8* 8** 9 9! 9* 9** 10 10! 10* 10**
     """
+
+    print('... подождите, долгий алгоритм ...')
+
     root_index_ds = {
         '2': [],
         '2!': [],
@@ -304,6 +306,75 @@ def save_multi_root_words(_, socket_group_list):
             root_index = socket_word_form.root_index
             if root_index and not socket_word_form.invisible:
                 root_index_ds[root_index].append(str(socket_word_form))
+
+    wrong_lines = []
+
+    for k, word_form_list, in root_index_ds.items():
+        if word_form_list:
+            if k in ('2*', '3**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 1:
+                        wrong_lines.append(word_form)
+            elif k in ('2', '2!', '3*', '4**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 2:
+                        wrong_lines.append(word_form)
+            elif k in ('3', '3!', '4*', '5**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 3:
+                        wrong_lines.append(word_form)
+            elif k in ('4', '4!', '5*', '6**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 4:
+                        wrong_lines.append(word_form)
+            elif k in ('5', '5!', '6*', '7**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 5:
+                        wrong_lines.append(word_form)
+            elif k in ('6', '6!', '7*', '8**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 6:
+                        wrong_lines.append(word_form)
+            elif k in ('7', '7!', '8*', '9**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 7:
+                        wrong_lines.append(word_form)
+            elif k in ('8', '8!', '9*', '10**'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 8:
+                        wrong_lines.append(word_form)
+            elif k in ('9', '9!', '10*'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 9:
+                        wrong_lines.append(word_form)
+            elif k in ('10', '10!'):
+                for word_form in word_form_list:
+                    if word_form_list.count(word_form) != 10:
+                        wrong_lines.append(word_form)
+
+    if wrong_lines:
+        print()
+        print('Строки с многокорневыми словами НЕ прошли проверку',
+              'на соответствие корневого индекса количеству повторов в БГ:',
+              sep='\n')
+        print()
+
+        for line in sorted(list(set(wrong_lines))):
+            print(line)
+        print()
+
+        print('Для выхода нажмите Enter')
+        input()
+        sys.exit()
+
+    else:
+        print()
+        print('Все строки с многокорневыми словами успешно прошли проверку',
+              'на соответствие корневого индекса количеству повторов в БГ',
+              sep='\n')
+        print()
+        print('Для продолжения нажмите Enter')
+        input()
 
     for k in root_index_ds:
         # noinspection PyUnresolvedReferences
