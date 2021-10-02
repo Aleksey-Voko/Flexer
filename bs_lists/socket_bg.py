@@ -597,12 +597,15 @@ def get_homonyms_bg(_, socket_group_list) -> list:
 
     socket_names = []
 
+    replays_in_groups = get_replays_in_socket(_, socket_group_list)
+
     for socket_group in socket_group_list:
         for sub_group in socket_group.sub_groups:
             for word_form in sub_group.socket_word_forms:
                 if (
                         not word_form.invisible
                         and not word_form.root_index
+                        and str(word_form) not in replays_in_groups
                 ):
                     socket_names.append(
                         word_form.name.replace('*', '').strip()
