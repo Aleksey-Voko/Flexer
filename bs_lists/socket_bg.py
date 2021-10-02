@@ -512,8 +512,7 @@ def get_replays_in_socket_duplicate(_, socket_group_list) -> list:
 def get_replays_in_socket_unique(_, socket_group_list) -> list:
     """
     Создать документ Повторы в пределах гнезда.txt .
-    Удалить из него строки с ЗС групп, с ЗС подгрупп
-    и с многокорневыми словами.
+    Удалить из него строки с ЗС групп, с ЗС подгрупп.
     Найти среди оставшихся строк уникальные строки.
     Расположить их в соответствии с алфавитным порядком слов.
     """
@@ -532,7 +531,6 @@ def get_replays_in_socket_unique(_, socket_group_list) -> list:
                 (flag, flag := x)[0]
                 and x
                 and not x.startswith('!')
-                and not get_socket_word_form(x).root_index
         )
     ]
 
