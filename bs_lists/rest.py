@@ -3,10 +3,9 @@
 
 import sys
 
-from bs_lists.socket_bg import (save_multi_root_words,
-                                get_replays_in_socket_duplicate)
-from utils import (save_list_to_file, get_dicts_from_csv_file,
-                   get_socket_word_form, get_bs_title_word_form)
+from bs_lists.socket_bg import (get_replays_in_socket_duplicate)
+from utils import (save_list_to_file, get_socket_word_form,
+                   get_bs_title_word_form)
 
 
 # Одиночки.txt
