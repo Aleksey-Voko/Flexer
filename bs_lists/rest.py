@@ -111,34 +111,49 @@ def get_words_with_spec_notes(word_forms_bases, _) -> list:
 # Многокорневые слова БС.txt
 def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
     """
-    Создать документ Многокорневые слова БГ.csv .
+    Найти в БГ и поместить в предварительный список строки
+    с многокорневыми словами, т.е. словами, у которых есть
+    корневой индекс (кроме невидимок) с соблюдением следующих правил:
+        1. строки приводятся полностью;
+        2. уже вставленная строка не должна вставляться второй (и более!) раз!
     Учитывая пункты 1 и 2 Правил соотношения БГ и БС, найти в БС строки,
-    соответствующие строкам из документа Многокорневые слова БГ.csv .
+    соответствующие строкам из предварительно созданного списка.
     """
 
-    save_multi_root_words(word_forms_bases, socket_group_list)
-    print(f'Создан документ: Многокорневые слова БГ.csv')
-    print(f'... сортировка ...')
-
-    multi_root_words = get_dicts_from_csv_file('Многокорневые слова БГ.csv')
+    print('... подождите, долгий алгоритм ...')
 
     multi_root_bg_forms = []
+    multi_root_bg_forms_with_sub_title = []
 
-    for multi_root_word in multi_root_words:
-        for root_index_key in multi_root_word:
-            if multi_root_word[root_index_key]:
-                socket_form = get_socket_word_form(
-                    multi_root_word[root_index_key]
-                )
-                multi_root_bg_forms.append(
-                    ' '.join(filter(
-                        None,
-                        [
-                            socket_form.name,
-                            socket_form.idf,
-                            ' '.join(socket_form.info),
-                            socket_form.note.replace('* ', ''),
-                        ])))
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            sub_title_form = sub_group.title_word_form
+            for socket_form in sub_group.socket_word_forms:
+                root_index = socket_form.root_index
+                if root_index and not socket_form.invisible:
+                    multi_root_bg_forms.append(
+                        ' '.join(filter(
+                            None,
+                            [
+                                socket_form.name,
+                                socket_form.idf,
+                                ' '.join(socket_form.info),
+                                socket_form.note.replace('* ', ''),
+                            ]
+                        ))
+                    )
+
+                    multi_root_bg_forms_with_sub_title.append(
+                        ' '.join(filter(
+                            None,
+                            [
+                                socket_form.name,
+                                socket_form.idf,
+                                ' '.join(socket_form.info),
+                                ' '.join(['<', str(sub_title_form)]),
+                            ]
+                        ))
+                    )
 
     word_forms = []
 
@@ -150,11 +165,14 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
                 title_form.name,
                 title_form.idf,
                 ' '.join(title_form.info),
-                (title_form.note.replace('.* ', '')
-                 if '<' not in title_form.note else None),
+                title_form.note.replace('.* ', ''),
             ]))
-        if src_title_form in multi_root_bg_forms:
-            word_forms.append(str(title_form))
+        if '<' not in title_form.note.replace('.* ', ''):
+            if src_title_form in multi_root_bg_forms:
+                word_forms.append(str(title_form))
+        else:
+            if src_title_form in multi_root_bg_forms_with_sub_title:
+                word_forms.append(str(title_form))
 
     word_forms = sorted(
         word_forms,
