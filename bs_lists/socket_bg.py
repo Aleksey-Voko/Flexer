@@ -1,5 +1,6 @@
 """База гнёзд БГ"""
-import sys
+
+
 from collections import Counter
 
 import numpy as np
@@ -363,18 +364,15 @@ def save_multi_root_words(_, socket_group_list):
             print(line)
         print()
 
-        print('Для выхода нажмите Enter')
-        input()
-        sys.exit()
-
     else:
         print()
         print('Все строки с многокорневыми словами успешно прошли проверку',
               'на соответствие корневого индекса количеству повторов в БГ',
               sep='\n')
-        print()
-        print('Для продолжения нажмите Enter')
-        input()
+
+    print()
+    print('Для продолжения нажмите Enter')
+    input()
 
     for k in root_index_ds:
         # noinspection PyUnresolvedReferences
