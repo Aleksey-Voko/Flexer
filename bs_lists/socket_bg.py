@@ -261,7 +261,7 @@ def save_multi_root_words(_, socket_group_list):
     8 8! 8* 8** 9 9! 9* 9** 10 10! 10* 10**
     """
 
-    print('... подождите, долгий алгоритм ...')
+    print('... ждите ...')
 
     root_index_ds = {
         '2': [],

@@ -119,7 +119,7 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
     соответствующие строкам из предварительно созданного списка.
     """
 
-    print('... подождите, долгий алгоритм ...')
+    print('... ждите ...')
 
     multi_root_bg_forms = []
     multi_root_bg_forms_with_sub_title = []
@@ -304,7 +304,7 @@ def get_homonymous_forms(word_forms_bases, _) -> list:
     с алфавитным порядком омонимичных форм.
     """
 
-    print('... подождите, долгий алгоритм ...')
+    print('... ждите ...')
 
     index = {}
 
