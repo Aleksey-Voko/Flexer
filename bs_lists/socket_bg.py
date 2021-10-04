@@ -362,7 +362,6 @@ def save_multi_root_words(_, socket_group_list):
 
         for line in sorted(list(set(wrong_lines))):
             print(line)
-        print()
 
     else:
         print()
