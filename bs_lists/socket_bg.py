@@ -638,7 +638,8 @@ def get_replays_in_socket_strings(_, socket_group_list) -> list:
     """
     Создать документ Повторы в пределах гнезда.txt .
     Удалить из него строки с ЗС групп, с ЗС подгрупп
-    и повторы строк.
+    и с многокорневыми словами.
+    Удалить повторы строк.
     Расположить оставшиеся строки в соответствии с алфавитным порядком слов.
     """
 
@@ -656,6 +657,7 @@ def get_replays_in_socket_strings(_, socket_group_list) -> list:
                 (flag, flag := x)[0]
                 and x
                 and not x.startswith('!')
+                and not get_socket_word_form(x).root_index
         )
     ]
 
