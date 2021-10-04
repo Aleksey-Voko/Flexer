@@ -3,7 +3,8 @@
 
 import sys
 
-from bs_lists.socket_bg import (get_replays_in_socket_duplicate)
+from bs_lists.socket_bg import (get_replays_in_socket_duplicate,
+                                save_multi_root_words)
 from utils import (save_list_to_file, get_socket_word_form,
                    get_bs_title_word_form)
 
@@ -118,6 +119,10 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
     Учитывая пункты 1 и 2 Правил соотношения БГ и БС, найти в БС строки,
     соответствующие строкам из предварительно созданного списка.
     """
+
+    save_multi_root_words(word_forms_bases, socket_group_list)
+    print(f'Создан документ: Многокорневые слова БГ.csv')
+    print(f'... сортировка ...')
 
     print('... ждите ...')
 
