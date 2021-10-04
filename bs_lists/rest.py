@@ -291,7 +291,7 @@ def get_homonyms(word_forms_bases, _) -> list:
 
 
 # Омонимичные формы БС.txt
-def get_homonymous_forms(word_forms_bases, _) -> list:
+def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     """
     Найти в БС строки с одинаковыми словами, находящимися в разных группах
     (с указанием строки с ЗС группы, в которой находится каждая такая строка).
@@ -306,29 +306,62 @@ def get_homonymous_forms(word_forms_bases, _) -> list:
 
     print('... ждите ...')
 
-    index = {}
+    bs_index = {}
 
     for group in word_forms_bases:
         title_form = group.title_word_form
-        index.setdefault(title_form.name, {})
-        index[title_form.name].setdefault(
+        bs_index.setdefault(title_form.name, {})
+        bs_index[title_form.name].setdefault(
             str(title_form), []).append(str(title_form))
 
         for word_form in group.word_forms:
-            index.setdefault(word_form.name, {})
-            index[word_form.name].setdefault(
+            bs_index.setdefault(word_form.name, {})
+            bs_index[word_form.name].setdefault(
                 str(title_form), []).append(str(word_form))
 
-    index = {k: v for k, v in index.items() if len(v) > 1}
+    bs_index = {k: v for k, v in bs_index.items() if len(v) > 1}
+
+    bg_index = {}
+
+    for socket_group in socket_group_list:
+        for sub_group in socket_group.sub_groups:
+            sub_title_form = sub_group.title_word_form
+            for socket_form in sub_group.socket_word_forms:
+                src_socket_form = ' '.join(filter(
+                    None, [
+                        socket_form.name,
+                        socket_form.idf,
+                        ' '.join(socket_form.info),
+                        socket_form.note.replace('* ', ''),
+                    ]
+                ))
+                bg_index.setdefault(
+                    src_socket_form, []).append(str(sub_title_form))
+
+    bg_index = [k for k, v in bg_index.items() if len(set(v)) > 1]
 
     word_forms = []
 
-    for index_key in sorted(index.keys()):
-        for title_word, homo_lst in index[index_key].items():
-            word_forms.append(f'!{title_word}')
-            for homo in homo_lst:
-                word_forms.append(homo)
-        word_forms.append('')
+    for index_key in sorted(bs_index.keys()):
+        for src_title_word, homo_lst in bs_index[index_key].items():
+            title_word = get_bs_title_word_form(src_title_word)
+            src_bs_form = ' '.join(filter(
+                None, [
+                    title_word.name,
+                    title_word.idf,
+                    ' '.join(title_word.info),
+                    (
+                        title_word.note.replace('* ', '')
+                        if '<' not in title_word.note
+                        else None
+                    )
+                ]
+            ))
+            if src_bs_form in bg_index:
+                word_forms.append(f'!{src_title_word}')
+                for homo in homo_lst:
+                    word_forms.append(homo)
+                word_forms.append('')
 
     return word_forms
 
