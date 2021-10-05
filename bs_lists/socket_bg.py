@@ -836,6 +836,10 @@ def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
     # Слова, омонимичные повторам в гнезде.txt
     word_forms = []
 
+    replays_in_socket_names = [
+        get_socket_word_form(x).name for x in replays_in_socket_strings
+    ]
+
     for socket_group in socket_group_list:
         title_word_form = socket_group.title_word_form
         if str(title_word_form) not in replays_in_socket_group:
@@ -844,7 +848,7 @@ def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
                 for cnt, word_form in enumerate(sub_group.socket_word_forms):
                     if (
                             not word_form.invisible
-                            and str(word_form) in replays_in_socket_strings
+                            and word_form.name in replays_in_socket_names
                     ):
                         if not cnt:
                             word_forms.append(str(word_form))
