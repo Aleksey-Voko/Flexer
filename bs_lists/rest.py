@@ -132,6 +132,18 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
     for socket_group in socket_group_list:
         for sub_group in socket_group.sub_groups:
             sub_title_form = sub_group.title_word_form
+            src_sub_title_form = ' '.join(filter(
+                None,
+                [
+                    sub_title_form.invisible,
+                    sub_title_form.name,
+                    sub_title_form.root_index,
+                    sub_title_form.idf,
+                    ' '.join(sub_title_form.info),
+                    sub_title_form.note,
+                    sub_title_form.spec_note,
+                ]
+            ))
             for socket_form in sub_group.socket_word_forms:
                 root_index = socket_form.root_index
                 if root_index and not socket_form.invisible:
@@ -154,7 +166,7 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
                                 socket_form.name,
                                 socket_form.idf,
                                 ' '.join(socket_form.info),
-                                ' '.join(['<', str(sub_title_form)]),
+                                ' '.join(['<', src_sub_title_form]),
                             ]
                         ))
                     )
