@@ -313,6 +313,18 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
 
     bs_index = {}
 
+    # Имена словоформ, находящиеся в сроках из разных групп.
+    # bs_index = {
+    #     'title_form.name': {
+    #         'str(title_form)': ['str(title_form)',...],
+    #         'str(title_form)': ['str(title_form)',...],
+    #     }
+    #     'word_form.name': {
+    #         'str(title_form)': ['str(word_form)',...],
+    #         'str(title_form)': ['str(word_form)',...],
+    #     }
+    # }
+
     for group in word_forms_bases:
         title_form = group.title_word_form
         bs_index.setdefault(title_form.name, {})
@@ -328,44 +340,30 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
 
     bg_index = {}
 
-    for socket_group in socket_group_list:
-        for sub_group in socket_group.sub_groups:
-            sub_title_form = sub_group.title_word_form
-            for socket_form in sub_group.socket_word_forms:
-                src_socket_form = ' '.join(filter(
-                    None, [
-                        socket_form.name,
-                        socket_form.idf,
-                        ' '.join(socket_form.info),
-                        socket_form.note.replace('* ', ''),
-                    ]
-                ))
-                bg_index.setdefault(
-                    src_socket_form, []).append(str(sub_title_form))
+    # Имена словоформ, заглавные слова которых находяться в разных группах
+    # bg_index = {
+    #     'socket_form.name': ['socket_title_form',...],
+    #     'socket_form.name': ['socket_title_form',...],
+    # }
 
-    bg_index = [k for k, v in bg_index.items() if len(set(v)) > 1]
+    for socket_group in socket_group_list:
+        socket_title_form = socket_group.title_word_form
+        for sub_group in socket_group.sub_groups:
+            for socket_form in sub_group.socket_word_forms:
+                bg_index.setdefault(socket_form.name, [])
+                bg_index[socket_form.name].append(str(socket_title_form))
+
+    bg_index = {k: list(set(v)) for k, v in bg_index.items()}
+    bg_index = {k: v for k, v in bg_index.items() if len(v) > 1}
 
     word_forms = []
 
-    for index_key in sorted(bs_index.keys()):
-        for src_title_word, homo_lst in bs_index[index_key].items():
-            title_word = get_bs_title_word_form(src_title_word)
-            src_bs_form = ' '.join(filter(
-                None, [
-                    title_word.name,
-                    title_word.idf,
-                    ' '.join(title_word.info),
-                    (
-                        title_word.note.replace('* ', '')
-                        if '<' not in title_word.note
-                        else None
-                    )
-                ]
-            ))
-            if src_bs_form in bg_index:
+    for title_form_name in sorted(bs_index.keys()):
+        if title_form_name in bg_index.keys():
+            for src_title_word, word_form_list in bs_index[title_form_name].items():
                 word_forms.append(f'!{src_title_word}')
-                for homo in homo_lst:
-                    word_forms.append(homo)
+                for word_form in word_form_list:
+                    word_forms.append(word_form)
                 word_forms.append('')
 
     return word_forms
