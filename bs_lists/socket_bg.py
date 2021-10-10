@@ -671,6 +671,7 @@ def get_homonyms_bg(_, socket_group_list) -> list:
     """
     Найти в БГ строки с омонимами, т.е. с одинаковыми словами,
     находящимися в разных группах (кроме невидимок и кроме многокорневых слов).
+    Примечание. КАЖДОЕ одинаковое слово должно находиться в СВОЕЙ группе!
     Создать документ Омонимы БГ.txt и вставить в него найденные строки с
     соблюдением алфавитного порядка слов и с соблюдением следующего правила:
         если омоним является ЗС подгруппы, то просто полностью указывается
@@ -691,10 +692,10 @@ def get_homonyms_bg(_, socket_group_list) -> list:
                         and not word_form.root_index
                 ):
                     group_names.append(word_form.name.replace('*', '').strip())
-        socket_names += list(set(group_names))
+        group_names = [x for x, y in Counter(group_names).items() if y == 1]
+        socket_names += group_names
 
     socket_names = [x for x, y in Counter(socket_names).items() if y > 1]
-    socket_names = sorted(list(set(socket_names)))
 
     homonyms = []
 
