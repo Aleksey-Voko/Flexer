@@ -338,7 +338,7 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
 
     bs_index = {}
 
-    # Имена словоформ, находящиеся в сроках из разных групп.
+    # Имена словоформ, находящиеся в строках из разных групп.
     # bs_index = {
     #     'title_form.name': {
     #         'str(title_form)': ['str(title_form)',...],
