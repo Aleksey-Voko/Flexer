@@ -312,10 +312,19 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     """
     Найти в БС строки с одинаковыми словами, находящимися в разных группах
     (с указанием строки с ЗС группы, в которой находится каждая такая строка).
+
+    Случаи, когда строки с ЗС групп находятся в БГ в одном гнезде хотя бы 1 раз
+    ИЛИ при этом в каждой такой строке имеется корневой индекс, ИГНОРИРОВАТЬ!
+    (При проверке на нахождение строк в БГ в одном гнезде
+    учитывать пункты 1 - 4 Правил соотношения БГ и БС).
+
     Примечание 1. Омонимичной формой может быть любая словоформа,
         в том числе ЗС группы или одиночка.
+
     Примечание 2. Количество омонимичных форм не ограничено.
+
     Примечание 3. Перед строкой с ЗС группы ставится "!".
+
     Примечание 4. "Абзацы" со строками с омонимичными формами с указанием
     строк с ЗС групп, в которых они находятся, располагаются в соответствии
     с алфавитным порядком омонимичных форм.
@@ -363,10 +372,21 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
         for sub_group in socket_group.sub_groups:
             for socket_form in sub_group.socket_word_forms:
                 bg_index.setdefault(socket_form.name, [])
-                bg_index[socket_form.name].append(str(socket_title_form))
+                bg_index[socket_form.name].append(
+                    (
+                        str(socket_title_form),
+                        socket_form.root_index,
+                    )
+                )
 
-    bg_index = {k: list(set(v)) for k, v in bg_index.items()}
-    bg_index = {k: v for k, v in bg_index.items() if len(v) > 1}
+    # WTF
+    bg_index = {
+        k: [x[0] for x in v]
+        for k, v in bg_index.items()
+        if len(v) > 1
+           and len(v) == len(set(v))
+           and [y for y in v if not y[1]]
+    }
 
     word_forms = []
 
