@@ -363,8 +363,14 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
 
     # Имена словоформ, заглавные слова которых находяться в разных группах
     # bg_index = {
-    #     'socket_form.name': ['socket_title_form',...],
-    #     'socket_form.name': ['socket_title_form',...],
+    #     'socket_form.name': [
+    #         ('socket_title_form', 'socket_form.root_index'),
+    #         ('socket_title_form', 'socket_form.root_index'),
+    #         ('socket_title_form', 'socket_form.root_index'),
+    #     ],
+    #
+    #     # после фильтрации:
+    #     'socket_form.name': ['socket_title_form', ...],
     # }
 
     for socket_group in socket_group_list:
