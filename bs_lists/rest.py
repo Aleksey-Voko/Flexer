@@ -313,8 +313,12 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     Найти в БС строки с одинаковыми словами, находящимися в разных группах
     (с указанием строки с ЗС группы, в которой находится каждая такая строка).
 
-    Случаи, когда строки с ЗС групп находятся в БГ в одном гнезде хотя бы 1 раз
-    ИЛИ при этом в каждой такой строке имеется корневой индекс, ИГНОРИРОВАТЬ!
+    Случаи, когда строки в БГ, соответствующие строкам с ЗС групп (из БС),
+    находятся в БГ в одном гнезде хотя бы 1 раз
+        И ПРИ ЭТОМ
+    в каждой такой (соответствующей) строке имеется корневой индекс,
+    ИГНОРИРОВАТЬ!
+
     (При проверке на нахождение строк в БГ в одном гнезде
     учитывать пункты 1 - 4 Правил соотношения БГ и БС).
 
@@ -389,9 +393,12 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     bg_index = {
         k: [x[0] for x in v]
         for k, v in bg_index.items()
-        if len(v) > 1
-           and len(v) == len(set(v))
-           and [y for y in v if not y[1]]
+        #  if not -> ИГНОРИРОВАТЬ!
+        if not (
+                len(v) != len(set(v))  # в одном гнезде хотя бы 1 раз
+                and  # И при этом
+                all([y[1] for y in v])  # в каждой строке корневой индекс
+        )
     }
 
     word_forms = []
@@ -402,7 +409,7 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
                 word_forms.append(f'!{src_title_word}')
                 for word_form in word_form_list:
                     word_forms.append(word_form)
-                word_forms.append('')
+            word_forms.append('')
 
     return word_forms
 
