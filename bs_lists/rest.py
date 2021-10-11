@@ -2,6 +2,7 @@
 
 
 import sys
+from functools import reduce
 
 from bs_lists.socket_bg import (get_replays_in_socket_duplicate,
                                 save_multi_root_words)
@@ -314,7 +315,7 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     (с указанием строки с ЗС группы, в которой находится каждая такая строка).
 
     Случаи, когда строки в БГ, соответствующие строкам с ЗС групп (из БС),
-    находятся в БГ в одном гнезде хотя бы 1 раз
+    находятся в БГ вместе в одном гнезде хотя бы 1 раз
         И ПРИ ЭТОМ
     в каждой такой (соответствующей) строке имеется корневой индекс,
     ИГНОРИРОВАТЬ!
@@ -370,11 +371,11 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     #     'socket_form.name': [
     #         ('socket_title_form', 'socket_form.root_index'),
     #         ('socket_title_form', 'socket_form.root_index'),
+    #     ],
+    #     'socket_form.name': [
+    #         ('socket_title_form', 'socket_form.root_index'),
     #         ('socket_title_form', 'socket_form.root_index'),
     #     ],
-    #
-    #     # после фильтрации:
-    #     'socket_form.name': ['socket_title_form', ...],
     # }
 
     for socket_group in socket_group_list:
@@ -390,14 +391,35 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
                 )
 
     # WTF
-    bg_index = {
-        k: [x[0] for x in v]
-        for k, v in bg_index.items()
-        #  if not -> ИГНОРИРОВАТЬ!
+    bs_index = {
+        k: v for k, v
+        in bs_index.items()
+
+        # Случаи, когда строки в БГ, ... ИГНОРИРОВАТЬ!
         if not (
-                len(v) != len(set(v))  # в одном гнезде хотя бы 1 раз
-                and  # И при этом
-                all([y[1] for y in v])  # в каждой строке корневой индекс
+            # в каждой такой (соответствующей) строке имеется корневой индекс
+            all(map(
+                lambda x: all(map(
+                    lambda y: y[1], bg_index[
+                        get_bs_title_word_form(x).name
+                    ]
+                )),
+                v.keys()
+            ))
+
+            and
+            # находятся в БГ вместе в одном гнезде хотя бы 1 раз
+            reduce(
+                set.intersection,
+                [
+                    set(a) for a in
+                    [
+                        [b[0] for b in bg_index[c]]
+                        for c in
+                        [get_bs_title_word_form(z).name for z in v.keys()]
+                    ]
+                ]
+            )
         )
     }
 
