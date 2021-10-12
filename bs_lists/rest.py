@@ -1,7 +1,6 @@
 """Обобщённо все части речи"""
 
 
-import sys
 from functools import reduce
 
 from bs_lists.socket_bg import (get_replays_in_socket_duplicate,
@@ -198,10 +197,10 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
             if src_title_form in multi_root_bg_forms_with_sub_title:
                 word_forms.append(str(title_form))
 
-    word_forms = sorted(
+    word_forms = list(sorted(
         word_forms,
         key=lambda x: x.replace('*', '').lower().strip()
-    )
+    ))
 
     return word_forms
 
@@ -513,7 +512,11 @@ def get_common_words_bs(word_forms_bases, socket_group_list) -> list:
     print(f'... сортировка ...')
 
     not_ordinary = multi_root_words + repeats_w_socket_1_in_bs + homonyms
-    word_forms = [x for x in bs_snapshot if x not in not_ordinary]
+
+    word_forms = list(sorted(
+        list(set(bs_snapshot) - set(not_ordinary)),
+        key=lambda x: x.replace('*', '').lower().strip()
+    ))
 
     return word_forms
 
