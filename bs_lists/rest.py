@@ -210,7 +210,6 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
 def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
     """
     Создать документы Повторы в гнезде. Повторяющиеся строки.txt
-    и Омонимы БС (ЗС групп и одиночки).txt .
 
     Найти в БС строки, соответствующие строкам из документа
     Повторы в гнезде. Повторяющиеся строки.txt .
@@ -247,26 +246,26 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
     ]
 
     # Омонимы БС (ЗС групп и одиночки).txt
-    homonyms = get_homonyms(word_forms_bases, socket_group_list)
-
-    save_list_to_file(
-        homonyms, 'Омонимы БС (ЗС групп и одиночки).txt', encoding='cp1251')
-
-    print(f'Создан документ: Омонимы БС (ЗС групп и одиночки).txt')
-    print(f'... сортировка ...')
-
-    homonyms_word_forms = [get_bs_title_word_form(x) for x in homonyms]
-    homonyms_str_forms = [
-        ' '.join(filter(
-            None,
-            [
-                x.name,
-                x.idf,
-                ' '.join(x.info),
-                x.note.replace('.*', '').strip()
-            ]))
-        for x in homonyms_word_forms
-    ]
+    # homonyms = get_homonyms(word_forms_bases, socket_group_list)
+    #
+    # save_list_to_file(
+    #     homonyms, 'Омонимы БС (ЗС групп и одиночки).txt', encoding='cp1251')
+    #
+    # print(f'Создан документ: Омонимы БС (ЗС групп и одиночки).txt')
+    # print(f'... сортировка ...')
+    #
+    # homonyms_word_forms = [get_bs_title_word_form(x) for x in homonyms]
+    # homonyms_str_forms = [
+    #     ' '.join(filter(
+    #         None,
+    #         [
+    #             x.name,
+    #             x.idf,
+    #             ' '.join(x.info),
+    #             x.note.replace('.*', '').strip()
+    #         ]))
+    #     for x in homonyms_word_forms
+    # ]
 
     # Повторы в пределах гнезда. 1 раз в БС.txt
     word_forms = []
@@ -282,16 +281,17 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
             ]))
 
         if title_str_form in socket_str_forms:
-            if title_str_form in homonyms_str_forms:
-                print(
-                    'В документе Омонимы БС (ЗС групп и одиночки).txt\n'
-                    f"обнаружена строка: '{title_str_form}'"
-                )
-                print('Для выхода нажмите Enter')
-                input()
-                sys.exit()
-            else:
-                word_forms.append(str(title_form))
+            # if title_str_form in homonyms_str_forms:
+            #     print(
+            #         'В документе Омонимы БС (ЗС групп и одиночки).txt\n'
+            #         f"обнаружена строка: '{title_str_form}'"
+            #     )
+            #     print('Для выхода нажмите Enter')
+            #     input()
+            #     sys.exit()
+            # else:
+            #     word_forms.append(str(title_form))
+            word_forms.append(str(title_form))
 
     return word_forms
 
