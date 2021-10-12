@@ -927,6 +927,7 @@ def get_ordinary_words_bg(word_forms_bases, socket_group_list) -> list:
     # Омонимы БГ.txt
     homonyms_bg = get_homonyms_bg(word_forms_bases, socket_group_list)
     save_list_to_file(homonyms_bg, 'Омонимы БГ.txt', encoding='cp1251')
+    homonyms_bg = [x.split(' < ')[0] for x in homonyms_bg]
     print(f'Создан документ: Омонимы БГ.txt')
     print(f'... сортировка ...')
 
@@ -966,10 +967,10 @@ def get_ordinary_words_bg(word_forms_bases, socket_group_list) -> list:
                 if str(word_form) not in unusual_words:
                     word_forms.append(str(word_form))
 
-    word_forms = sorted(
+    word_forms = list(sorted(
         word_forms,
         key=lambda x: x.replace('*', '').lower().strip()
-    )
+    ))
 
     return word_forms
 
