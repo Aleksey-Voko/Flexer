@@ -860,7 +860,7 @@ def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
                                 f'{str(sub_title_word_form)}'
                             )
 
-    return word_forms
+    return sorted(word_forms)
 
 
 # Обычные слова БГ.txt
