@@ -796,7 +796,7 @@ def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
     Создать документы Повторы в пределах гнезда.txt
     и Повторы в пределах гнезда. Строки.txt .
 
-    Найти в БГ в группах, НЕ указанных в документе
+    Найти в БГ в подгруппах, НЕ указанных в документе
     Повторы в пределах гнезда.txt ,
     строки со словами (кроме невидимок),
     совпадающими по написанию со словами из документа
@@ -826,12 +826,17 @@ def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
     replays_in_socket = get_string_list_from_file(
         'Повторы в пределах гнезда.txt', encoding='cp1251')
 
-    flag = True
+    # flag = True
+    # replays_in_socket_group = [
+    #     x for x in replays_in_socket
+    #     if (
+    #             (flag, flag := not bool(x))[0]
+    #     )
+    # ]
+
     replays_in_socket_group = [
-        x for x in replays_in_socket
-        if (
-                (flag, flag := not bool(x))[0]
-        )
+        x[2:] for x in replays_in_socket
+        if x.startswith('!')
     ]
 
     # Слова, омонимичные повторам в гнезде.txt
@@ -842,10 +847,9 @@ def get_homonymous_replays_in_socket(_, socket_group_list) -> list:
     ]
 
     for socket_group in socket_group_list:
-        title_word_form = socket_group.title_word_form
-        if str(title_word_form) not in replays_in_socket_group:
-            for sub_group in socket_group.sub_groups:
-                sub_title_word_form = sub_group.title_word_form
+        for sub_group in socket_group.sub_groups:
+            sub_title_word_form = sub_group.title_word_form
+            if str(sub_title_word_form) not in replays_in_socket_group:
                 for cnt, word_form in enumerate(sub_group.socket_word_forms):
                     if (
                             not word_form.invisible
