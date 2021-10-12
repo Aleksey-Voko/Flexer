@@ -407,44 +407,36 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     bs_index = {
         k: v for k, v
         in bs_index.items()
-
-        # Случаи, когда строки в БГ, ... ИГНОРИРОВАТЬ!
         if not (
-            # в каждой такой (соответствующей) строке имеется корневой индекс
+            # в каждой строке корневой индекс
             all(map(
                 lambda x: all(map(
-                    lambda y: y[1], bg_index[
-                        get_bs_title_word_form(x).name
-                    ]
-                )),
-                v.keys()
+                    lambda y: y[1], bg_index[get_bs_title_word_form(x).name]
+                )), v.keys()
             ))
 
             and
-            # находятся в БГ вместе в одном гнезде хотя бы 1 раз
-            reduce(
-                set.intersection,
+            # в одном гнезде хотя бы 1 раз
+            (lambda lst: len(set(lst)) < len(lst))
+            (sum(
                 [
-                    set(a) for a in
-                    [
-                        [b[0] for b in bg_index[c]]
-                        for c in
-                        [get_bs_title_word_form(z).name for z in v.keys()]
-                    ]
-                ]
-            )
+                    [x[0] for x in bg_index[y]]
+                    for y in
+                    [get_bs_title_word_form(z).name for z in v.keys()]
+                ], []))
         )
     }
 
     bs_index = {
         k: v for k, v
         in bs_index.items()
-        # соответствуют строки, находящиеся в одном гнезде
-        if not len(set(
-            tuple(x[0] for x in set(bg_index[y]))
-            for y in
-            [get_bs_title_word_form(z).name for z in v.keys()]
-        )) == 1
+        # удалить "абзацы" ... соответствуют строки, находящиеся в одном гнезде
+        if not len(set(sum(
+            [
+                [x[0] for x in bg_index[y]]
+                for y in
+                [get_bs_title_word_form(z).name for z in v.keys()]
+            ], []))) == 1
     }
 
     word_forms = []
