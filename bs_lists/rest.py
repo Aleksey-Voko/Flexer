@@ -451,12 +451,11 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     word_forms = []
 
     for title_form_name in sorted(bs_index.keys()):
-        if title_form_name in bg_index.keys():
-            for src_title_word, word_form_list in bs_index[title_form_name].items():
-                word_forms.append(f'!{src_title_word}')
-                for word_form in word_form_list:
-                    word_forms.append(word_form)
-            word_forms.append('')
+        for src_title_word, word_form_list in bs_index[title_form_name].items():
+            word_forms.append(f'!{src_title_word}')
+            for word_form in word_form_list:
+                word_forms.append(word_form)
+        word_forms.append('')
 
     return word_forms
 
