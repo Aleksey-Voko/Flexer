@@ -312,6 +312,47 @@ def get_homonyms(word_forms_bases, _) -> list:
     return word_forms
 
 
+def is_all_root_indices(v_keys, index: dict) -> bool:
+    # в каждой строке корневой индекс
+    lst = [
+        [
+            x[1]
+            for x in
+            index[get_bs_title_word_form(y).name]
+        ] for y in v_keys
+    ]
+
+    lst = [x for y in lst for x in y]
+
+    return all(lst)
+
+
+def is_in_one_socket_bg(v_keys, index: dict) -> bool:
+    # в одном гнезде хотя бы 1 раз
+    lst = [
+        [x[0] for x in index[y]]
+        for y in
+        [get_bs_title_word_form(z).name for z in v_keys]
+    ]
+
+    lst = [x for y in lst for x in y]
+
+    return len(set(lst)) < len(lst)
+
+
+def is_all_in_one_socket_bg(v_keys, index: dict) -> bool:
+    # ... соответствуют строки, находящиеся в одном гнезде
+    lst = [
+        [x[0] for x in index[y]]
+        for y in
+        [get_bs_title_word_form(z).name for z in v_keys]
+    ]
+
+    lst = [x for y in lst for x in y]
+
+    return len(set(lst)) != 1
+
+
 # Омонимичные формы БС.txt
 def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
     """
@@ -401,42 +442,20 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
                     )
                 )
 
-    # WTF
     bs_index = {
         k: v for k, v
         in bs_index.items()
         if not (
-            # в каждой строке корневой индекс
-            all(sum(
-                [
-                    [
-                        x[1] for x in
-                        bg_index[get_bs_title_word_form(y).name]
-                    ] for y in v.keys()
-                ], []))
-
-            and
-            # в одном гнезде хотя бы 1 раз
-            (lambda lst: len(set(lst)) < len(lst))
-            (sum(
-                [
-                    [x[0] for x in bg_index[y]]
-                    for y in
-                    [get_bs_title_word_form(z).name for z in v.keys()]
-                ], []))
+                is_all_root_indices(v.keys(), bg_index)
+                and
+                is_in_one_socket_bg(v.keys(), bg_index)
         )
     }
 
     bs_index = {
         k: v for k, v
         in bs_index.items()
-        # удалить "абзацы" ... соответствуют строки, находящиеся в одном гнезде
-        if not len(set(sum(
-            [
-                [x[0] for x in bg_index[y]]
-                for y in
-                [get_bs_title_word_form(z).name for z in v.keys()]
-            ], []))) == 1
+        if is_all_in_one_socket_bg(v.keys(), bg_index)
     }
 
     word_forms = []
