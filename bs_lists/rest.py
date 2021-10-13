@@ -1,8 +1,6 @@
 """Обобщённо все части речи"""
 
 
-from functools import reduce
-
 from bs_lists.socket_bg import (get_replays_in_socket_duplicate,
                                 save_multi_root_words)
 from utils import (save_list_to_file, get_socket_word_form,
@@ -409,11 +407,13 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
         in bs_index.items()
         if not (
             # в каждой строке корневой индекс
-            all(map(
-                lambda x: all(map(
-                    lambda y: y[1], bg_index[get_bs_title_word_form(x).name]
-                )), v.keys()
-            ))
+            all(sum(
+                [
+                    [
+                        x[1] for x in
+                        bg_index[get_bs_title_word_form(y).name]
+                    ] for y in v.keys()
+                ], []))
 
             and
             # в одном гнезде хотя бы 1 раз
