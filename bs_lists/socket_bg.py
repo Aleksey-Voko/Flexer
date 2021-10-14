@@ -937,6 +937,9 @@ def get_ordinary_words_bg(word_forms_bases, socket_group_list) -> list:
     save_list_to_file(homonymous_multi_rooted,
                       'Слова, омонимичные многокорневым словам.txt',
                       encoding='cp1251')
+    homonymous_multi_rooted = [
+        x.split(' < ')[0] for x in homonymous_multi_rooted
+    ]
     print(f'Создан документ: Слова, омонимичные многокорневым словам.txt')
     print(f'... сортировка ...')
 
@@ -946,6 +949,9 @@ def get_ordinary_words_bg(word_forms_bases, socket_group_list) -> list:
     save_list_to_file(homonymous_replays_in_socket,
                       'Слова, омонимичные повторам в гнезде.txt',
                       encoding='cp1251')
+    homonymous_replays_in_socket = [
+        x.split(' < ')[0] for x in homonymous_replays_in_socket
+    ]
     print(f'Создан документ: Слова, омонимичные повторам в гнезде.txt')
     print(f'... сортировка ...')
 
