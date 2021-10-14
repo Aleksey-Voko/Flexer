@@ -312,122 +312,68 @@ def get_homonyms(word_forms_bases, _) -> list:
     return word_forms
 
 
-def get_root_indices_from_bg(item: str, index: dict) -> list:
-    """
-    Возвращает список конревых индексов для каждого элемента
-    из БГ-индекса.
-
-    :param item: str(bs_title_form)
-
-    :param index:
-    bg_index = {
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        ...
-    }
-    """
-
-    return [x[1] for x in index[get_bs_title_word_form(item).name]]
-
-
-def is_all_root_indices(v_keys, index: dict) -> bool:
-    """
-    Проверяет наличие корневых индексов для каждого заглавного слова группы
-    во всех соответствующих элементах БГ-индекса
-    ... в каждой строке корневой индекс
-
-    :param v_keys:
-        v_keys = ['title_form.name', 'title_form.name', ...]
-
-    :param index:
-        bg_index = {
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        ...
-        }
-    """
-
-    lst = [get_root_indices_from_bg(x, index) for x in v_keys]
-    lst = [x for y in lst for x in y]
-    return all(lst)
-
-
 def get_title_words_from_bs(v_keys) -> list:
     """
-    Возвращает список заглавных слов группы для каждого элемента
-    из БС-индекса.
+    Возвращает список строк заглавных слов группы для каждого элемента
+    из БС-индекса в формате bg_form.
 
     :param v_keys:
         v_keys = ['title_form.name', 'title_form.name', ...]
     """
 
-    return [get_bs_title_word_form(x).name for x in v_keys]
+    return [
+        get_bs_title_word_form(x.split(' .* < ')[0]).bg_form
+        for x in v_keys
+    ]
 
 
-def get_title_words_from_bg(item: str, index: dict) -> list:
+def get_all_bg_title_forms(v_keys, index) -> list:
     """
-    Возвращает список заглавных слов гнезда для каждого элемента
-    из БГ-индекса.
-
-    :param item: str(bs_title_form)
-
-    :param index:
-    bg_index = {
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        ...
-    }
-    """
-
-    return [x[0] for x in index[get_bs_title_word_form(item).name]]
-
-
-def get_all_title_words_from_bg(v_keys, index: dict) -> list:
-    """
-    Возвращает список заглавных слов гнезда каждого элемента
-    из БГ-индекса для всех элементов из БС-индекса.
+    Возвращает список всех заглавных слов из БС-индекса.
 
     :param v_keys:
         v_keys = ['title_form.name', 'title_form.name', ...]
 
     :param index:
-    bg_index = {
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
+    index = {
+        socket_form.bg_form: {
+            'socket_root_index': socket_form.root_index,
+            'title_forms': [socket_title_form, socket_title_form, ...]
+        }
         ...
     }
     """
 
-    lst = [
-        get_title_words_from_bg(y, index)
-        for y in
+    title_forms = [
+        index[x]['title_forms']
+        for x in
         get_title_words_from_bs(v_keys)
     ]
-    return [x for y in lst for x in y]
+    return [x for y in title_forms for x in y]
+
+
+def get_all_bg_root_indices(v_keys, index) -> list:
+    """
+    Возвращает список всех корневых индексов из БС-индекса.
+
+    :param v_keys:
+        v_keys = ['title_form.name', 'title_form.name', ...]
+
+    :param index:
+    index = {
+        socket_form.bg_form: {
+            'socket_root_index': socket_form.root_index,
+            'title_forms': [socket_title_form, socket_title_form, ...]
+        }
+        ...
+    }
+    """
+    root_indices = [
+        index[x]['socket_root_index']
+        for x in
+        get_title_words_from_bs(v_keys)
+    ]
+    return root_indices
 
 
 def is_in_one_socket_bg(v_keys, index: dict) -> bool:
@@ -439,47 +385,17 @@ def is_in_one_socket_bg(v_keys, index: dict) -> bool:
         v_keys = ['title_form.name', 'title_form.name', ...]
 
     :param index:
-    bg_index = {
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
-        'socket_form.name': [
-            ('socket_title_form', 'socket_form.root_index'),
-            ('socket_title_form', 'socket_form.root_index'),
-        ],
+    index = {
+        socket_form.bg_form: {
+            'socket_root_index': socket_form.root_index,
+            'title_forms': [socket_title_form, socket_title_form, ...]
+        }
         ...
     }
     """
 
-    lst = get_all_title_words_from_bg(v_keys, index)
-    return len(set(lst)) < len(lst)
-
-
-def is_all_in_one_socket_bg(v_keys, index: dict) -> bool:
-    """
-     Проверяет наличие всех заглавных слов групп БС
-     в одном гнезде БГ.
-
-     :param v_keys:
-         v_keys = ['title_form.name', 'title_form.name', ...]
-
-     :param index:
-     bg_index = {
-         'socket_form.name': [
-             ('socket_title_form', 'socket_form.root_index'),
-             ('socket_title_form', 'socket_form.root_index'),
-         ],
-         'socket_form.name': [
-             ('socket_title_form', 'socket_form.root_index'),
-             ('socket_title_form', 'socket_form.root_index'),
-         ],
-         ...
-     }
-     """
-
-    lst = get_all_title_words_from_bg(v_keys, index)
-    return len(set(lst)) != 1
+    title_forms = get_all_bg_title_forms(v_keys, index)
+    return len(set(title_forms)) < len(title_forms)
 
 
 # Омонимичные формы БС.txt
@@ -549,42 +465,30 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
 
     # Имена словоформ, заглавные слова которых находяться в разных группах
     # bg_index = {
-    #     'socket_form.name': [
-    #         ('socket_title_form', 'socket_form.root_index'),
-    #         ('socket_title_form', 'socket_form.root_index'),
-    #     ],
-    #     'socket_form.name': [
-    #         ('socket_title_form', 'socket_form.root_index'),
-    #         ('socket_title_form', 'socket_form.root_index'),
-    #     ],
+    #     socket_form.bg_form: {
+    #         'socket_root_index': socket_form.root_index,
+    #         'title_forms': [socket_title_form, socket_title_form, ...]
+    #     }
+    #     ...
     # }
 
     for socket_group in socket_group_list:
         socket_title_form = socket_group.title_word_form
         for sub_group in socket_group.sub_groups:
             for socket_form in sub_group.socket_word_forms:
-                bg_index.setdefault(socket_form.name, [])
-                bg_index[socket_form.name].append(
-                    (
-                        str(socket_title_form),
-                        socket_form.root_index,
-                    )
-                )
+                dict_bg_form = bg_index.setdefault(socket_form.bg_form, {})
+                dict_bg_form['socket_root_index'] = socket_form.root_index
+                dict_bg_form.setdefault(
+                    'title_forms', []).append(str(socket_title_form))
 
     bs_index = {
         k: v for k, v
         in bs_index.items()
         if not (
-            is_all_root_indices(v.keys(), bg_index)
-            and
             is_in_one_socket_bg(v.keys(), bg_index)
-        )
-    }
-
-    bs_index = {
-        k: v for k, v
-        in bs_index.items()
-        if is_all_in_one_socket_bg(v.keys(), bg_index)
+            and
+            all(get_all_bg_root_indices(v.keys(), bg_index))
+        ) and len(set(get_all_bg_title_forms(v.keys(), bg_index))) != 1
     }
 
     word_forms = []

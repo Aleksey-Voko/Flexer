@@ -182,6 +182,18 @@ class SocketWordForm:
             self.__spec_note,
         ]
 
+    @property
+    def bg_form(self):
+        return ' '.join(filter(
+            None,
+            [
+                self.name,
+                self.idf,
+                ' '.join(self.info),
+                self.note.replace('* ', '.* ')
+            ]
+        )).strip()
+
 
 class SocketSubGroupWordForm:
     def __init__(self, socket_word_forms: list):
