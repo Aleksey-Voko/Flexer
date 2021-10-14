@@ -42,15 +42,15 @@ def add_groups_to_bs():
             name_title = title_form.name
 
             if not name_title.islower():
-                capital_letters.append(title_form.bg_form)
+                capital_letters.append(title_form.conformity_form)
 
             if 'ё' in name_title.lower():
-                invalid_characters.append(title_form.bg_form)
+                invalid_characters.append(title_form.conformity_form)
 
             if name_title in word_form_names:
-                added_homonyms.append(title_form.bg_form)
+                added_homonyms.append(title_form.conformity_form)
                 existing_homonyms += [
-                    x.title_word_form.bg_form for x in word_forms_bases
+                    x.title_word_form.conformity_form for x in word_forms_bases
                     if name_title == x.title_word_form.name
                 ]
 

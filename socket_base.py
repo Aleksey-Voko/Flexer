@@ -17,7 +17,6 @@ class SocketWordForm:
         return ' '.join(filter(
             None,
             [
-                # self.__invisible,
                 self.__name,
                 self.__root_index,
                 self.__idf,
@@ -183,14 +182,14 @@ class SocketWordForm:
         ]
 
     @property
-    def bg_form(self):
+    def conformity_form(self):
         return ' '.join(filter(
             None,
             [
                 self.name,
                 self.idf,
                 ' '.join(self.info),
-                self.note.replace('* ', '.* ')
+                self.note.replace('* ', '')
             ]
         )).strip()
 

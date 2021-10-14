@@ -152,17 +152,7 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
             for socket_form in sub_group.socket_word_forms:
                 root_index = socket_form.root_index
                 if root_index and not socket_form.invisible:
-                    multi_root_bg_forms.append(
-                        ' '.join(filter(
-                            None,
-                            [
-                                socket_form.name,
-                                socket_form.idf,
-                                ' '.join(socket_form.info),
-                                socket_form.note.replace('* ', ''),
-                            ]
-                        ))
-                    )
+                    multi_root_bg_forms.append(socket_form.conformity_form)
 
                     multi_root_bg_forms_with_sub_title.append(
                         ' '.join(filter(
@@ -180,14 +170,7 @@ def get_multi_root_words(word_forms_bases, socket_group_list) -> list:
 
     for group_word_form in word_forms_bases:
         title_form = group_word_form.title_word_form
-        src_title_form = ' '.join(filter(
-            None,
-            [
-                title_form.name,
-                title_form.idf,
-                ' '.join(title_form.info),
-                title_form.note.replace('.* ', ''),
-            ]))
+        src_title_form = title_form.conformity_form
         if '<' not in title_form.note.replace('.* ', ''):
             if src_title_form in multi_root_bg_forms:
                 word_forms.append(str(title_form))
@@ -230,17 +213,7 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
     print(f'... сортировка ...')
 
     socket_word_forms = [get_socket_word_form(x) for x in socket_duplicate]
-    socket_str_forms = [
-        ' '.join(filter(
-            None,
-            [
-                x.name,
-                x.idf,
-                ' '.join(x.info),
-                x.note.replace('.*', '').strip()
-            ]))
-        for x in socket_word_forms
-    ]
+    socket_str_forms = [x.conformity_form for x in socket_word_forms]
 
     # Омонимы БС (ЗС групп и одиночки).txt
     # homonyms = get_homonyms(word_forms_bases, socket_group_list)
@@ -252,36 +225,20 @@ def get_repeats_w_socket_1_in_bs(word_forms_bases, socket_group_list) -> list:
     # print(f'... сортировка ...')
     #
     # homonyms_word_forms = [get_bs_title_word_form(x) for x in homonyms]
-    # homonyms_str_forms = [
-    #     ' '.join(filter(
-    #         None,
-    #         [
-    #             x.name,
-    #             x.idf,
-    #             ' '.join(x.info),
-    #             x.note.replace('.*', '').strip()
-    #         ]))
-    #     for x in homonyms_word_forms
-    # ]
+    # homonyms_str_forms = [x.conformity_form for x in homonyms_word_forms]
 
     # Повторы в пределах гнезда. 1 раз в БС.txt
     word_forms = []
 
     for group in word_forms_bases:
         title_form = group.title_word_form
-        title_str_form = ' '.join(filter(
-            None, [
-                title_form.name,
-                title_form.idf,
-                ' '.join(title_form.info),
-                title_form.note.replace('.*', '').strip()
-            ]))
+        title_conformity_form = title_form.conformity_form
 
-        if title_str_form in socket_str_forms:
-            # if title_str_form in homonyms_str_forms:
+        if title_conformity_form in socket_str_forms:
+            # if title_conformity_form in homonyms_str_forms:
             #     print(
             #         'В документе Омонимы БС (ЗС групп и одиночки).txt\n'
-            #         f"обнаружена строка: '{title_str_form}'"
+            #         f"обнаружена строка: '{title_conformity_form}'"
             #     )
             #     print('Для выхода нажмите Enter')
             #     input()
@@ -322,7 +279,7 @@ def get_title_words_from_bs(v_keys) -> list:
     """
 
     return [
-        get_bs_title_word_form(x.split(' .* < ')[0]).bg_form
+        get_bs_title_word_form(x.split(' .* < ')[0]).conformity_form
         for x in v_keys
     ]
 
@@ -476,7 +433,8 @@ def get_homonymous_forms(word_forms_bases, socket_group_list) -> list:
         socket_title_form = socket_group.title_word_form
         for sub_group in socket_group.sub_groups:
             for socket_form in sub_group.socket_word_forms:
-                dict_bg_form = bg_index.setdefault(socket_form.bg_form, {})
+                dict_bg_form = bg_index.setdefault(
+                    socket_form.conformity_form, {})
                 dict_bg_form['socket_root_index'] = socket_form.root_index
                 dict_bg_form.setdefault(
                     'title_forms', []).append(str(socket_title_form))

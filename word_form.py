@@ -105,14 +105,14 @@ class TitleWordForm(WordForm):
         return super().list_form + [self.info, self.note]
 
     @property
-    def bg_form(self):
+    def conformity_form(self):
         return ' '.join(filter(
             None,
             [
                 self.name,
                 self.idf,
                 ' '.join(self.info),
-                self.note
+                self.note.replace('.* ', '')
             ]
         )).strip()
 

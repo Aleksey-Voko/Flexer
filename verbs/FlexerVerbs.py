@@ -382,7 +382,7 @@ def save_groups_to_bs():
                 group_word_form = get_group_word_form(src_dict)
                 add_groups_to_bs_list.append(group_word_form)
                 add_groups_to_bg_list.append(
-                    group_word_form.title_word_form.bg_form)
+                    group_word_form.title_word_form.conformity_form)
                 count += 1
             except InputDataError as e:
                 error_list.append(get_error_message(e))
