@@ -358,7 +358,6 @@ def save_multi_root_words(_, socket_group_list):
         print('Строки с многокорневыми словами НЕ прошли проверку',
               'на соответствие корневого индекса количеству повторов в БГ:',
               sep='\n')
-        print()
 
         for line in sorted(list(set(wrong_lines))):
             print(line)
@@ -752,6 +751,7 @@ def get_homonymous_multi_rooted(word_forms_bases, socket_group_list) -> list:
     save_multi_root_words(word_forms_bases, socket_group_list)
     print(f'Создан документ: Многокорневые слова БГ.csv')
     print(f'... сортировка ...')
+    print('... ждите ...')
 
     multi_root_words = get_dicts_from_csv_file('Многокорневые слова БГ.csv')
 
@@ -958,6 +958,8 @@ def get_ordinary_words_bg(word_forms_bases, socket_group_list) -> list:
     homonymous_replays_in_socket = [
         x.split(' < ')[0] for x in homonymous_replays_in_socket
     ]
+
+    print('... ждите ...')
 
     # Обычные слова БГ.txt
     unusual_words = (invisible + multi_root_names
