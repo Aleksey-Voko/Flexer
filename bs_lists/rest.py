@@ -269,89 +269,85 @@ def get_homonyms(word_forms_bases, _) -> list:
     return word_forms
 
 
-def get_title_words_from_bs(v_keys) -> list:
+def get_title_words_from_bs(bs_title_forms) -> list:
     """
     Возвращает список строк заглавных слов группы для каждого элемента
     из БС-индекса в формате bg_form.
 
-    :param v_keys:
-        v_keys = ['title_form.name', 'title_form.name', ...]
+    :param bs_title_forms: ['title_form.name', 'title_form.name', ...]
     """
 
     return [
         get_bs_title_word_form(x.split(' .* < ')[0]).conformity_form
-        for x in v_keys
+        for x in bs_title_forms
     ]
 
 
-def get_all_bg_title_forms(v_keys, index) -> list:
+def get_all_bg_title_forms(bs_title_forms, index) -> list:
     """
     Возвращает список всех заглавных слов из БС-индекса.
 
-    :param v_keys:
-        v_keys = ['title_form.name', 'title_form.name', ...]
+    :param bs_title_forms: ['title_form.name', 'title_form.name', ...]
 
     :param index:
-    index = {
-        socket_form.bg_form: {
-            'socket_root_index': socket_form.root_index,
-            'title_forms': [socket_title_form, socket_title_form, ...]
+        {
+            socket_form.bg_form: {
+                'socket_root_index': socket_form.root_index,
+                'title_forms': [socket_title_form, socket_title_form, ...]
+            }
+            ...
         }
-        ...
-    }
     """
 
     title_forms = [
         index[x]['title_forms']
         for x in
-        get_title_words_from_bs(v_keys)
+        get_title_words_from_bs(bs_title_forms)
     ]
     return [x for y in title_forms for x in y]
 
 
-def get_all_bg_root_indices(v_keys, index) -> list:
+def get_all_bg_root_indices(bs_title_forms, index) -> list:
     """
-    Возвращает список всех корневых индексов из БС-индекса.
+    Возвращает список всех корневых индексов из БГ-индекса.
 
-    :param v_keys:
-        v_keys = ['title_form.name', 'title_form.name', ...]
+    :param bs_title_forms: ['title_form.name', 'title_form.name', ...]
 
     :param index:
-    index = {
-        socket_form.bg_form: {
-            'socket_root_index': socket_form.root_index,
-            'title_forms': [socket_title_form, socket_title_form, ...]
+        {
+            socket_form.bg_form: {
+                'socket_root_index': socket_form.root_index,
+                'title_forms': [socket_title_form, socket_title_form, ...]
+            }
+            ...
         }
-        ...
-    }
     """
     root_indices = [
         index[x]['socket_root_index']
         for x in
-        get_title_words_from_bs(v_keys)
+        get_title_words_from_bs(bs_title_forms)
     ]
     return root_indices
 
 
-def is_in_one_socket_bg(v_keys, index: dict) -> bool:
+def is_in_one_socket_bg(bs_title_forms, index: dict) -> bool:
     """
     Проверяет наличие заглавных слов групп БС
     в одном гнезде БГ хотя бы один раз.
 
-    :param v_keys:
-        v_keys = ['title_form.name', 'title_form.name', ...]
+    :param bs_title_forms: ['title_form.name', 'title_form.name', ...]
 
     :param index:
-    index = {
-        socket_form.bg_form: {
-            'socket_root_index': socket_form.root_index,
-            'title_forms': [socket_title_form, socket_title_form, ...]
+        {
+            socket_form.bg_form: {
+                'socket_root_index': socket_form.root_index,
+                'title_forms': [socket_title_form, socket_title_form, ...]
+            }
+            ...
         }
-        ...
-    }
     """
 
-    title_forms = get_all_bg_title_forms(v_keys, index)
+    title_forms = get_all_bg_title_forms(bs_title_forms, index)
     return len(set(title_forms)) < len(title_forms)
 
 
