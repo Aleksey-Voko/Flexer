@@ -48,7 +48,8 @@ def get_singular_nouns(word_forms_bases, _) -> list:
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
            and any(map(
-            lambda x: x.startswith(('м', 'ж', 'с')),
+            lambda x: x.startswith(('м', 'ж', 'с'))
+                      and not x.startswith('мн'),
             group.title_word_form.info))
     ]
     return word_forms
