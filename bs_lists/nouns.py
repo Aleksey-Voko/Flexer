@@ -237,3 +237,23 @@ def get_nouns_of_iii_declension(word_forms_bases, _) -> list:
             group.title_word_form.info))
     ]
     return word_forms
+
+
+# Существительные смеш. скл.txt
+def get_mixed_nouns(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации указан шаблон ед. ч. I5&II2* / I7&II4*                                                                                                                                                                   (кроме существительных с дефисом, у которых изменяются обе части слова, т.е. кроме ЗС групп, идентификатор которых содержит .С , а также -С)."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.С')
+           and any(map(
+            lambda x: x.startswith(('м', 'ж', 'с'))
+                      and not x.startswith('мн')
+                      and (
+                              'I5&II2*' in x
+                              or 'I7&II4*' in x
+                      ),
+            group.title_word_form.info))
+    ]
+    return word_forms
