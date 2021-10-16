@@ -264,3 +264,21 @@ def get_mixed_nouns(word_forms_bases, _) -> list:
             group.title_word_form.info))
     ]
     return word_forms
+
+
+# Существительные ПОЛ-.txt
+def get_pol_nouns(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации указан шаблон ед. ч.,
+    название которого содержит символ / ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.С')
+           and any(map(
+            lambda x: x.startswith(('м', 'ж', 'с'))
+                      and not x.startswith('мн')
+                      and '/' in x,
+            group.title_word_form.info))
+    ]
+    return word_forms
