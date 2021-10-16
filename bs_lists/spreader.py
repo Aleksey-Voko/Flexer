@@ -1,7 +1,8 @@
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
-                            get_singular_and_plural_nouns, get_masculine_nouns)
+                            get_singular_and_plural_nouns, get_masculine_nouns,
+                            get_feminine_nouns)
 from bs_lists.numerals import (get_numerals, get_numerals_implicit_pattern,
                                get_numerals_hyphenated,
                                get_numerals_hyphenated_ch_first_part,
@@ -49,6 +50,7 @@ EXPLICIT_TASKS = {
     'Существительные. Нет ед. ч.txt': get_non_singular_nouns,
     'Существительные ед. и мн. ч.txt': get_singular_and_plural_nouns,
     'Существительные м. р.txt': get_masculine_nouns,
+    'Существительные ж. р.txt': get_feminine_nouns,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
