@@ -23,3 +23,16 @@ def get_inanimate_nouns(word_forms_bases, _) -> list:
            and 'неод' in group.title_word_form.info
     ]
     return word_forms
+
+
+# Существительные одуш.txt
+def get_animate_nouns(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации указано одуш ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.С')
+           and 'одуш' in group.title_word_form.info
+    ]
+    return word_forms
