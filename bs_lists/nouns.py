@@ -53,3 +53,18 @@ def get_singular_nouns(word_forms_bases, _) -> list:
             group.title_word_form.info))
     ]
     return word_forms
+
+
+# Существительные. Нет мн. ч.txt
+def get_non_plural_nouns(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации имеется указатель рода с индикатором "!":  м! / ж! / с! ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.С')
+           and any(map(
+            lambda x: x.startswith(('м!', 'ж!', 'с!')),
+            group.title_word_form.info))
+    ]
+    return word_forms
