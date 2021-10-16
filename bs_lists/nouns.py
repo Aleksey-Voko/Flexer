@@ -36,3 +36,20 @@ def get_animate_nouns(word_forms_bases, _) -> list:
            and 'одуш' in group.title_word_form.info
     ]
     return word_forms
+
+
+# Существительные ед. ч.txt
+def get_singular_nouns(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации имеется указатель рода м / ж / с
+    или указатель рода с индикатором "!":  м! / ж! / с! ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.С')
+           and any(map(
+            lambda x: x.startswith(('м', 'ж', 'с'))
+                      and not x.startswith('мн'),
+            group.title_word_form.info))
+    ]
+    return word_forms
