@@ -214,7 +214,8 @@ def get_nouns_of_ii_declension(word_forms_bases, _) -> list:
                       and not x.startswith('мн')
                       and 'II' in x
                       and 'III' not in x
-                      and x not in ('I5&II2*', 'I7&II4*'),
+                      and 'I5&II2*' not in x
+                      and 'I7&II4*' not in x,
             group.title_word_form.info))
     ]
     return word_forms
