@@ -1,5 +1,7 @@
 """Все существительные"""
 
+from pathlib import Path
+
 
 # Существительные.txt
 def get_nouns(word_forms_bases, _) -> list:
@@ -280,5 +282,29 @@ def get_pol_nouns(word_forms_bases, _) -> list:
                       and not x.startswith('мн')
                       and '/' in x,
             group.title_word_form.info))
+    ]
+    return word_forms
+
+
+# Поиск существительных с определённым шаблоном ед. ч.
+# Напр. Существительные_ед_ч I1.txt
+def get_singular_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
+    """
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации указан искомый шаблон ед. ч.
+    Название этого шаблона вставляется в название документа
+    после Существительные ед. ч.
+    """
+
+    idfs = Path(task).stem.split()[-1]
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if (
+                group.title_word_form.idf.startswith('.С')
+                and any(map(
+                    lambda x: x in group.title_word_form.info,
+                    [x + idfs for x in 'мжс']
+                ))
+        )
     ]
     return word_forms
