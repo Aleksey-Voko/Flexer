@@ -12,12 +12,12 @@ def get_pronouns_implicit_pattern(word_forms_bases, _, task) -> list:
     Название этого шаблона вставляется в название документа после Местоимения
     """
 
-    idfs = Path(task).stem.split()[1:]
+    idfs = Path(task).stem.split()[-1]
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if (
                 group.title_word_form.idf.startswith('.М')
-                and all(map(lambda x: x in group.title_word_form.info, idfs))
+                and idfs in group.title_word_form.info
         )
     ]
     return word_forms
