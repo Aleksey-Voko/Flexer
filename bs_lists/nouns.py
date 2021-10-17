@@ -124,16 +124,27 @@ def get_singular_and_plural_nouns(word_forms_bases, _) -> list:
 # Существительные м. р.txt
 def get_masculine_nouns(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
-    и в спец. информации в составе шаблона ед. ч. имеется указатель муж. рода м
-    или указатель муж. рода м! ,
-    или указатель муж. рода с предшествующим дефисом -м (м…-м…)."""
+    и в спец. информации в составе шаблона ед. ч. имеется:
+        а. указатель муж. рода м
+            или
+        б. указатель муж. рода м!
+            или
+        в. указатель муж. рода м и указатель муж. рода
+        с предшествующим дефисом -м (м…-м…)."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
            and any(map(
-            lambda x: x.startswith(('м', '-м'))
-                      and not x.startswith('мн'),
+            lambda x: (
+                          x.startswith('м')
+                          and '-' not in x
+                          and not x.startswith('мн')
+                      ) or (
+                            x.startswith('м')
+                            and '-м' in x
+                            and not x.startswith('мн')
+            ),
             group.title_word_form.info))
     ]
     return word_forms
