@@ -187,15 +187,25 @@ def get_feminine_nouns(word_forms_bases, _) -> list:
 # Существительные с. р.txt
 def get_neuter_nouns(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
-    и в спец. информации в составе шаблона ед. ч. имеется указатель ср. рода с
-    или указатель ср. рода с! ,
-    или указатель ср. рода с предшествующим дефисом -с (с…-с…)."""
+    и в спец. информации в составе шаблона ед. ч. имеется:
+        а. указатель ср. рода с
+            или
+        б. указатель ср. рода с!
+            или
+        в. указатель ср. рода с и указатель ср. рода
+        с предшествующим дефисом -с (с…-с…)."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
            and any(map(
-            lambda x: x.startswith(('с', '-с')),
+            lambda x: (
+                              x.startswith('с')
+                              and '-' not in x
+                      ) or (
+                              x.startswith('с')
+                              and '-с' in x
+                      ),
             group.title_word_form.info))
     ]
     return word_forms
