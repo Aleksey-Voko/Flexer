@@ -308,3 +308,24 @@ def get_singular_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
         )
     ]
     return word_forms
+
+
+# Поиск существительных с определённым шаблоном мн. ч.
+# Напр. Существительные_мн_ч I1.txt
+def get_plural_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
+    """
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации указан искомый шаблон мн. ч.
+    Название этого шаблона вставляется в название документа
+    после Существительные мн. ч.
+    """
+
+    idfs = Path(task).stem.split()[-1]
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if (
+                group.title_word_form.idf.startswith('.С')
+                and f'мн{idfs}' in group.title_word_form.info
+        )
+    ]
+    return word_forms

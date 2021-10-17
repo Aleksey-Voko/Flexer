@@ -6,7 +6,8 @@ from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_nouns_of_i_declension,
                             get_nouns_of_ii_declension,
                             get_nouns_of_iii_declension, get_mixed_nouns,
-                            get_pol_nouns, get_singular_nouns_implicit_pattern)
+                            get_pol_nouns, get_singular_nouns_implicit_pattern,
+                            get_plural_nouns_implicit_pattern)
 from bs_lists.numerals import (get_numerals, get_numerals_implicit_pattern,
                                get_numerals_hyphenated,
                                get_numerals_hyphenated_ch_first_part,
@@ -117,6 +118,7 @@ IMPLICIT_TASK = {
     'Местоимения': get_pronouns_implicit_pattern,
     'Числительные': get_numerals_implicit_pattern,
     'Существительные_ед_ч': get_singular_nouns_implicit_pattern,
+    'Существительные_мн_ч': get_plural_nouns_implicit_pattern,
 }
 
 
