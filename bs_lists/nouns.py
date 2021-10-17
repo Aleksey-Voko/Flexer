@@ -160,15 +160,25 @@ def get_masculine_nouns(word_forms_bases, _) -> list:
 # Существительные ж. р.txt
 def get_feminine_nouns(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
-    и в спец. информации в составе шаблона ед. ч. имеется указатель жен. рода ж
-    или указатель жен. рода ж! ,
-    или указатель жен. рода с предшествующим дефисом -ж (ж…-ж…)."""
+    и в спец. информации в составе шаблона ед. ч. имеется:
+        а. указатель жен. рода ж
+            или
+        б. указатель жен. рода ж!
+            или
+        в. указатель жен. рода ж и указатель жен. рода
+        с предшествующим дефисом -ж (ж…-ж…)."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
            and any(map(
-            lambda x: x.startswith(('ж', '-ж')),
+            lambda x: (
+                              x.startswith('ж')
+                              and '-' not in x
+                      ) or (
+                              x.startswith('ж')
+                              and '-ж' in x
+                      ),
             group.title_word_form.info))
     ]
     return word_forms
