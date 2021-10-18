@@ -441,3 +441,41 @@ def get_nouns_hyphenated_ch_first_part(word_forms_bases, _) -> list:
             word_forms.append(str(group.title_word_form))
 
     return word_forms
+
+
+# Сущ-ные с дефисом. Изм. последняя часть.txt
+def get_nouns_hyphenated_ch_last_part(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп, отвечающих следующим требованиям:
+    идентификатор ЗС группы содержит .С ;
+    в ЗС имеется хотя бы 1 дефис;
+    часть слова после последнего дефиса в строке ЗС и часть слова
+    после последнего дефиса в следующей после строки ЗС строке разные;
+    часть слова до последнего дефиса во всех строках группы одинаковая.
+    """
+
+    word_forms = []
+
+    groups = [
+        group for group in word_forms_bases
+        if (group.title_word_form.idf.startswith('.С')
+            and '-' in group.title_word_form.name)
+    ]
+
+    for group in groups:
+        if (
+                group.title_word_form.name.split('-')[-1]
+                != group.word_forms[0].name.split('-')[-1]
+                and all(map(
+                    lambda x: x == '-'.join(
+                        group.title_word_form.name.split('-')[:-1]
+                    ),
+                    [
+                        '-'.join(x.name.split('-')[:-1])
+                        for x in group.word_forms
+                    ]
+                ))
+        ):
+            word_forms.append(str(group.title_word_form))
+
+    return word_forms
