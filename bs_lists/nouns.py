@@ -366,3 +366,26 @@ def get_plural_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
         )
     ]
     return word_forms
+
+
+# Поиск существительных с определённым сочетанием идущих друг за другом
+# элементов спец. информации
+# Напр. Существительные мI1 мнI1.txt
+def get_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
+    """
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в спец. информации указано искомое сочетание
+    идущих друг за другом элементов.
+    Это сочетание элементов спец. информации вставляется в название
+    документа после Существительные
+    """
+
+    idfs = Path(task).stem.split()[1:]
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if (
+                group.title_word_form.idf.startswith('.С')
+                and all(map(lambda x: x in group.title_word_form.info, idfs))
+        )
+    ]
+    return word_forms
