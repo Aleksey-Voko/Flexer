@@ -12,7 +12,8 @@ from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_nouns_hyphenated_ch_first_part,
                             get_nouns_hyphenated_ch_last_part,
                             get_nouns_hyphenated_ch_both_parts,
-                            get_nouns_hyphenated_singular_and_plural)
+                            get_nouns_hyphenated_singular_and_plural,
+                            get_nouns_multiple_hyphens)
 from bs_lists.numerals import (get_numerals, get_numerals_implicit_pattern,
                                get_numerals_hyphenated,
                                get_numerals_hyphenated_ch_first_part,
@@ -72,6 +73,7 @@ EXPLICIT_TASKS = {
     'Сущ-ные с дефисом. Изм. последняя часть.txt': get_nouns_hyphenated_ch_last_part,
     'Сущ-ные с дефисом. Изм. обе части.txt': get_nouns_hyphenated_ch_both_parts,
     'Сущ-ные с дефисом. Разное число.txt': get_nouns_hyphenated_singular_and_plural,
+    'Существительные. Несколько дефисов.txt': get_nouns_multiple_hyphens,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,

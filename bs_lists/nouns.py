@@ -524,3 +524,16 @@ def get_nouns_hyphenated_singular_and_plural(word_forms_bases, _) -> list:
         if group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
     ]
     return word_forms
+
+
+# Существительные. Несколько дефисов.txt
+def get_nouns_multiple_hyphens(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в ЗС имеется более 1 дефиса."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.С')
+           and group.title_word_form.name.count('-') > 1
+    ]
+    return word_forms
