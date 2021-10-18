@@ -196,6 +196,7 @@ def get_feminine_nouns(word_forms_bases, _) -> list:
 # Существительные с. р.txt
 def get_neuter_nouns(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и не содержит символ /
     и в спец. информации в составе шаблона ед. ч. имеется:
         а. указатель ср. рода с
             или
@@ -207,6 +208,7 @@ def get_neuter_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
+           and '/' not in group.title_word_form.idf
            and any(map(
             lambda x: (
                               x.startswith('с')
