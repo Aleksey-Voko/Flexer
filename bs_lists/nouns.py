@@ -389,3 +389,16 @@ def get_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
         )
     ]
     return word_forms
+
+
+# Существительные с дефисом.txt
+def get_nouns_hyphenated(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и в ЗС имеется хотя бы 1 дефис."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.С')
+           and '-' in group.title_word_form.name
+    ]
+    return word_forms
