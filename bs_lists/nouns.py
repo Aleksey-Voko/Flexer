@@ -154,7 +154,7 @@ def get_masculine_nouns(word_forms_bases, _) -> list:
                           and not x.startswith('мн')
                       ) or (
                             x.startswith('м')
-                            and '-м' in x
+                            and ('-м' in x and '-мн' not in x)
                             and not x.startswith('мн')
             ),
             group.title_word_form.info))
