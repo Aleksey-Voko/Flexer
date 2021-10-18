@@ -136,6 +136,7 @@ def get_singular_and_plural_nouns(word_forms_bases, _) -> list:
 # Существительные м. р.txt
 def get_masculine_nouns(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и не содержит символ /
     и в спец. информации в составе шаблона ед. ч. имеется:
         а. указатель муж. рода м
             или
@@ -147,6 +148,7 @@ def get_masculine_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
+           and '/' not in group.title_word_form.idf
            and any(map(
             lambda x: (
                           x.startswith('м')
