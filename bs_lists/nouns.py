@@ -76,16 +76,18 @@ def get_non_plural_nouns(word_forms_bases, _) -> list:
 
 # Существительные мн. ч.txt
 def get_plural_nouns(word_forms_bases, _) -> list:
-    """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    """Найти в БС строки с ЗС групп с идентификатором .СеИ-СмнИ / .СмнИ-СеИ ,
+    а также строки с ЗС групп, идентификатор которых содержит .С ,
     и в спец. информации имеется индикатор мн. ч. мн
     или индикатор мн. ч. с индикатором "!": мн! ."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.С')
-           and any(map(
-            lambda x: x.startswith('мн'),
-            group.title_word_form.info))
+        if (group.title_word_form.idf.startswith('.С')
+            and any(map(
+                    lambda x: x.startswith('мн'),
+                    group.title_word_form.info)))
+           or group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
     ]
     return word_forms
 
