@@ -512,3 +512,15 @@ def get_nouns_hyphenated_ch_both_parts(word_forms_bases, _) -> list:
             word_forms.append(str(group.title_word_form))
 
     return word_forms
+
+
+# Сущ-ные с дефисом. Разное число.txt
+def get_nouns_hyphenated_singular_and_plural(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп
+    с идентификатором .СеИ-СмнИ / .СмнИ-СеИ ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
+    ]
+    return word_forms
