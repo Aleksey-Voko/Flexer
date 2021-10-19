@@ -105,7 +105,7 @@ def get_feminine_adjectives(word_forms_bases, _) -> list:
 def get_neuter_adjectives(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
     и в спец. информации указан шаблон полной формы,
-    название которого содержит с (но не -с).                                        """
+    название которого содержит с (но не -с)."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
