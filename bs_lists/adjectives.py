@@ -115,3 +115,18 @@ def get_neuter_adjectives(word_forms_bases, _) -> list:
            and not group.title_word_form.info[0].endswith('-с')
     ]
     return word_forms
+
+
+# Прилагательные. Нет с. р.txt
+def get_non_neuter_adjectives(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и в спец. информации указан шаблон полной формы,
+    название которого содержит -с ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.П')
+           and not group.title_word_form.info[0].startswith(('К', 'С', 'П'))
+           and group.title_word_form.info[0].endswith('-с')
+    ]
+    return word_forms
