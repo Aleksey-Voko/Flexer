@@ -1,3 +1,4 @@
+from bs_lists.adjectives import get_adjectives
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
@@ -74,6 +75,8 @@ EXPLICIT_TASKS = {
     'Сущ-ные с дефисом. Изм. обе части.txt': get_nouns_hyphenated_ch_both_parts,
     'Сущ-ные с дефисом. Разное число.txt': get_nouns_hyphenated_singular_and_plural,
     'Существительные. Несколько дефисов.txt': get_nouns_multiple_hyphens,
+
+    'Прилагательные.txt': get_adjectives,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
