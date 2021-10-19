@@ -84,3 +84,18 @@ def get_masculine_adjectives(word_forms_bases, _) -> list:
            and not group.title_word_form.info[0].endswith('фм')
     ]
     return word_forms
+
+
+# Прилагательные. Только ж. р.txt
+def get_feminine_adjectives(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и в спец. информации указан шаблон полной формы,
+    название которого содержит ж ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.П')
+           and not group.title_word_form.info[0].startswith(('К', 'С', 'П'))
+           and group.title_word_form.info[0].endswith('ж')
+    ]
+    return word_forms
