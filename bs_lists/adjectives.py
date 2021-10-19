@@ -162,3 +162,16 @@ def get_russian_surnames(word_forms_bases, _) -> list:
            and not group.title_word_form.info[0].startswith('IIIфм')
     ]
     return word_forms
+
+
+# Адъектированные причастия.txt
+def get_adjusted_participles(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и перед ЗС имеется поставленный(-ые) без пробела символ(ы) * / ** ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.П')
+           and group.title_word_form.name.startswith('*')
+    ]
+    return word_forms
