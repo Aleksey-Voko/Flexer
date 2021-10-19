@@ -222,7 +222,7 @@ def get_comparative_adjectives(word_forms_bases, _) -> list:
            and any(map(
             lambda x: x.startswith('С'),
             group.title_word_form.info
-        ))
+            ))
     ]
     return word_forms
 
