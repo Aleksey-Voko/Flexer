@@ -210,7 +210,7 @@ def get_short_adjectives(word_forms_bases, _) -> list:
 
 
 # Прилагательные. Есть срав. ст.txt
-def get_comparative_adjective(word_forms_bases, _) -> list:
+def get_comparative_adjectives(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
     и в спец. информации имеется шаблон сравнительной степени."""
 

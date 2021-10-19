@@ -11,7 +11,7 @@ from bs_lists.adjectives import (get_adjectives, get_animate_adjectives,
                                  get_adjusted_participles,
                                  get_no_full_form_adjectives,
                                  get_short_adjectives,
-                                 get_comparative_adjective,
+                                 get_comparative_adjectives,
                                  get_superlative_adjectives)
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
@@ -104,7 +104,7 @@ EXPLICIT_TASKS = {
     'Адъектированные причастия.txt': get_adjusted_participles,
     'Прилагательные. Нет полн. ф.txt': get_no_full_form_adjectives,
     'Прилагательные. Есть кр. ф.txt': get_short_adjectives,
-    'Прилагательные. Есть срав. ст.txt': get_comparative_adjective,
+    'Прилагательные. Есть срав. ст.txt': get_comparative_adjectives,
     'Прилагательные. Есть прев. ст.txt': get_superlative_adjectives,
 
     'Местоимения.txt': get_pronouns,
