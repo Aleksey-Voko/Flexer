@@ -223,3 +223,19 @@ def get_comparative_adjective(word_forms_bases, _) -> list:
         ))
     ]
     return word_forms
+
+
+# Прилагательные. Есть прев. ст.txt
+def get_superlative_adjectives(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и в спец. информации имеется шаблон превосходной степени."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.П')
+           and any(map(
+            lambda x: x.startswith('П'),
+            group.title_word_form.info
+        ))
+    ]
+    return word_forms
