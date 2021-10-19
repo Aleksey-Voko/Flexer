@@ -1,7 +1,8 @@
 from bs_lists.adjectives import (get_adjectives, get_animate_adjectives,
                                  get_non_plural_adjectives,
                                  get_non_singular_adjectives,
-                                 get_singular_and_plural_adjectives)
+                                 get_singular_and_plural_adjectives,
+                                 get_masculine_adjectives)
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
@@ -84,6 +85,7 @@ EXPLICIT_TASKS = {
     'Прилагательные. Нет мн. ч.txt': get_non_plural_adjectives,
     'Прилагательные. Нет ед. ч.txt': get_non_singular_adjectives,
     'Прилагательные ед. и мн. ч.txt': get_singular_and_plural_adjectives,
+    'Прилагательные. Только м. р.txt': get_masculine_adjectives,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
