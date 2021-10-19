@@ -12,7 +12,8 @@ from bs_lists.adjectives import (get_adjectives, get_animate_adjectives,
                                  get_no_full_form_adjectives,
                                  get_short_adjectives,
                                  get_comparative_adjectives,
-                                 get_superlative_adjectives)
+                                 get_superlative_adjectives,
+                                 get_adjectives_implicit_pattern)
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
@@ -164,6 +165,7 @@ IMPLICIT_TASK = {
     'Существительные_ед_ч': get_singular_nouns_implicit_pattern,
     'Существительные_мн_ч': get_plural_nouns_implicit_pattern,
     'Существительные': get_nouns_implicit_pattern,
+    'Прилагательные': get_adjectives_implicit_pattern,
 }
 
 

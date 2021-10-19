@@ -1,5 +1,7 @@
 """Все прилагательные"""
 
+from pathlib import Path
+
 
 # Прилагательные.txt
 def get_adjectives(word_forms_bases, _) -> list:
@@ -237,5 +239,27 @@ def get_superlative_adjectives(word_forms_bases, _) -> list:
             lambda x: x.startswith('П'),
             group.title_word_form.info
             ))
+    ]
+    return word_forms
+
+
+# Поиск прилагательных с определённым элементом спец. информации /
+# определённым сочетанием идущих друг за другом
+# элементов спец. информации
+# Напр. Прилагательные К2о СII5ч.txt
+def get_adjectives_implicit_pattern(word_forms_bases, _, task) -> list:
+    """
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и в спец. информации указан искомый элемент / указано искомое сочетание
+    идущих друг за другом элементов.                                                                                                                                          Этот элемент спец. информации / сочетание элементов спец. информации вставляется в название документа после Прилагательные
+    """
+
+    idfs = Path(task).stem.split()[1:]
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if (
+                group.title_word_form.idf.startswith('.П')
+                and all(map(lambda x: x in group.title_word_form.info, idfs))
+        )
     ]
     return word_forms
