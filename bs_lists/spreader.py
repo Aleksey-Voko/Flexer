@@ -8,7 +8,8 @@ from bs_lists.adjectives import (get_adjectives, get_animate_adjectives,
                                  get_non_neuter_adjectives,
                                  get_possessive_adjectives,
                                  get_russian_surnames,
-                                 get_adjusted_participles)
+                                 get_adjusted_participles,
+                                 get_no_full_form_adjectives)
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
@@ -98,6 +99,7 @@ EXPLICIT_TASKS = {
     'Притяжательные прилагательные.txt': get_possessive_adjectives,
     'Русские фамилии.txt': get_russian_surnames,
     'Адъектированные причастия.txt': get_adjusted_participles,
+    'Прилагательные. Нет полн. ф.txt': get_no_full_form_adjectives,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,

@@ -175,3 +175,19 @@ def get_adjusted_participles(word_forms_bases, _) -> list:
            and group.title_word_form.name.startswith('*')
     ]
     return word_forms
+
+
+# Прилагательные. Нет полн. ф.txt
+def get_no_full_form_adjectives(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и в спец. информации отсутствует шаблон полной формы
+    (кроме адъектированных причастий, т.е. ЗС,
+    перед которыми имеется поставленный(-ые) без пробела символ(ы) * / ** )."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.П')
+           and group.title_word_form.info[0].startswith(('К', 'С', 'П'))
+           and not group.title_word_form.name.startswith('*')
+    ]
+    return word_forms
