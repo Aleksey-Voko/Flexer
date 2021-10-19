@@ -14,7 +14,8 @@ from bs_lists.adjectives import (get_adjectives, get_animate_adjectives,
                                  get_comparative_adjectives,
                                  get_superlative_adjectives,
                                  get_adjectives_implicit_pattern,
-                                 get_adjectives_hyphenated)
+                                 get_adjectives_hyphenated,
+                                 get_adjectives_hyphenated_ch_first_part)
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
@@ -109,6 +110,7 @@ EXPLICIT_TASKS = {
     'Прилагательные. Есть срав. ст.txt': get_comparative_adjectives,
     'Прилагательные. Есть прев. ст.txt': get_superlative_adjectives,
     'Прилагательные с дефисом.txt': get_adjectives_hyphenated,
+    'Прил-ные с дефисом. Изм. первая часть.txt': get_adjectives_hyphenated_ch_first_part,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,

@@ -276,3 +276,32 @@ def get_adjectives_hyphenated(word_forms_bases, _) -> list:
            and '-' in group.title_word_form.name
     ]
     return word_forms
+
+
+# Прил-ные с дефисом. Изм. первая часть.txt
+def get_adjectives_hyphenated_ch_first_part(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп, отвечающих следующим требованиям:
+        идентификатор ЗС группы содержит .П ;
+        в ЗС имеется хотя бы 1 дефис;
+        часть слова до первого дефиса в строке ЗС
+        и часть слова до первого дефиса в следующей после строки ЗС
+        строке разные;                                                                                                                                                                 часть слова после первого дефиса во всех строках группы одинаковая.
+    """
+
+    word_forms = []
+
+    groups = [
+        group for group in word_forms_bases
+        if (group.title_word_form.idf.startswith('.П')
+            and '-' in group.title_word_form.name)
+    ]
+
+    for group in groups:
+        if (
+                group.title_word_form.name.split('-')[0]
+                != group.word_forms[0].name.split('-')[0]
+        ):
+            word_forms.append(str(group.title_word_form))
+
+    return word_forms
