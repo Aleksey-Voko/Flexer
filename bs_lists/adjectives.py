@@ -191,3 +191,19 @@ def get_no_full_form_adjectives(word_forms_bases, _) -> list:
            and not group.title_word_form.name.startswith('*')
     ]
     return word_forms
+
+
+# Прилагательные. Есть кр. ф.txt
+def get_short_adjectives(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и в спец. информации имеется шаблон краткой формы."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.П')
+           and any(map(
+               lambda x: x.startswith('К'),
+               group.title_word_form.info
+           ))
+    ]
+    return word_forms
