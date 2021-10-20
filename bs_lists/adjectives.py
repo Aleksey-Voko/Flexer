@@ -310,7 +310,9 @@ def get_adjectives_hyphenated_ch_last_part(word_forms_bases, _) -> list:
         в ЗС имеется хотя бы 1 дефис;
         часть слова после последнего дефиса в строке ЗС
         и часть слова после последнего дефиса
-        в следующей после строки ЗС строке разные;                                                                                                                                         часть слова до последнего дефиса во всех строках группы одинаковая."""
+        в следующей после строки ЗС строке разные;
+        часть слова до последнего дефиса во всех строках группы одинаковая.
+    """
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
@@ -318,6 +320,15 @@ def get_adjectives_hyphenated_ch_last_part(word_forms_bases, _) -> list:
             and '-' in group.title_word_form.name)
             and group.title_word_form.name.split('-')[-1]
                 != group.word_forms[0].name.split('-')[-1]
+           and all(map(
+               lambda x: x == '-'.join(
+                   group.title_word_form.name.split('-')[:-1]
+               ),
+               [
+                   '-'.join(x.name.split('-')[:-1])
+                   for x in group.word_forms
+               ]
+           ))
     ]
 
     return word_forms
