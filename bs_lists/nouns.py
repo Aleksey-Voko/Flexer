@@ -182,12 +182,18 @@ def get_feminine_nouns(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
     и не содержит символ /
     и в спец. информации в составе шаблона ед. ч. имеется:
-        а. указатель жен. рода ж
+        а. указатель жен. рода ж и отсутствует дефис
+        (кроме ЗС групп с идентификатором .СеИ-)
             или
-        б. указатель жен. рода ж!
+        б. указатель жен. рода ж! и отсутствует дефис
+        (кроме ЗС групп с идентификатором .СеИ-)
             или
         в. указатель жен. рода ж и указатель жен. рода
-        с предшествующим дефисом -ж (ж…-ж…)."""
+        с предшествующим дефисом -ж (ж…-ж…)
+            или
+        г. указатель жен. рода с индикатором "!" ж!
+        и указатель жен. рода с индикатором "!"
+        с предшествующим дефисом -ж! (ж!…-ж!…)."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
@@ -197,9 +203,18 @@ def get_feminine_nouns(word_forms_bases, _) -> list:
             lambda x: (
                               x.startswith('ж')
                               and '-' not in x
+                              and not x.startswith('мн')
                       ) or (
                               x.startswith('ж')
-                              and '-ж' in x
+                              and group.title_word_form.idf == '.СеИ-'
+                              and not x.startswith('мн')
+                      ) or (
+                              x.startswith('ж')
+                              and ('-ж' in x and '-мн' not in x)
+                              and not x.startswith('мн')
+                      ) or (
+                              x.startswith('ж!')
+                              and '-ж!' in x
                       ),
             group.title_word_form.info))
     ]
