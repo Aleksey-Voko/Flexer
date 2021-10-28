@@ -250,6 +250,9 @@ def get_neuter_nouns(word_forms_bases, _) -> list:
                       ) or (
                               x.startswith('с')
                               and '-с' in x
+                      ) or (
+                              x.startswith('с!')
+                              and '-с!' in x
                       ),
             group.title_word_form.info))
     ]
