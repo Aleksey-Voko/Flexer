@@ -548,7 +548,8 @@ def get_nouns_hyphenated_ch_both_parts(word_forms_bases, _) -> list:
     groups = [
         group for group in word_forms_bases
         if (group.title_word_form.idf.startswith('.С')
-            and '-' in group.title_word_form.name)
+            and '-' in group.title_word_form.name
+            and '-' in group.word_forms[0].name)
     ]
 
     for group in groups:
