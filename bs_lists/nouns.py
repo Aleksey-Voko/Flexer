@@ -203,15 +203,12 @@ def get_feminine_nouns(word_forms_bases, _) -> list:
             lambda x: (
                               x.startswith('ж')
                               and '-' not in x
-                              and not x.startswith('мн')
                       ) or (
                               x.startswith('ж')
                               and group.title_word_form.idf == '.СеИ-'
-                              and not x.startswith('мн')
                       ) or (
                               x.startswith('ж')
-                              and ('-ж' in x and '-мн' not in x)
-                              and not x.startswith('мн')
+                              and '-ж' in x
                       ) or (
                               x.startswith('ж!')
                               and '-ж!' in x
