@@ -216,11 +216,14 @@ def get_short_adjectives(word_forms_bases, _) -> list:
 # Прилагательные. Есть срав. ст.txt
 def get_comparative_adjectives(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
-    и в спец. информации имеется шаблон сравнительной степени."""
+    и в спец. информации имеется шаблон сравнительной степени
+    (кроме прилагательных с дефисом, у которых изменяются обе части слова,
+    т.е. кроме ЗС групп, идентификатор которых содержит .П , а также -П)."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.П')
+           and '-П' not in group.title_word_form.idf
            and any(map(
             lambda x: x.startswith('С'),
             group.title_word_form.info
