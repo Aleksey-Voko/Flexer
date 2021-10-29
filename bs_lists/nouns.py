@@ -410,7 +410,10 @@ def get_plural_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
         str(group.title_word_form) for group in word_forms_bases
         if (
                 group.title_word_form.idf.startswith('.С')
-                and f'мн{idfs}' in group.title_word_form.info
+                and any(map(
+                    lambda x: x in group.title_word_form.info,
+                    [f'{x}{idfs}' for x in ('мн', 'мн!')]
+                ))
         )
     ]
     return word_forms
