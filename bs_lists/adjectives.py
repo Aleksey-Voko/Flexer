@@ -55,7 +55,7 @@ def get_non_singular_adjectives(word_forms_bases, _) -> list:
     return word_forms
 
 
-# Прилагательные ед. и мн. ч.txt
+# Прилагательные. Полная форма ед. и мн. ч.txt
 def get_singular_and_plural_adjectives(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
     в спец. информации указан шаблон полной формы,

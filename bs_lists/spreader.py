@@ -98,7 +98,7 @@ EXPLICIT_TASKS = {
     'Прилагательные одуш.txt': get_animate_adjectives,
     'Прилагательные. Нет мн. ч.txt': get_non_plural_adjectives,
     'Прилагательные. Нет ед. ч.txt': get_non_singular_adjectives,
-    'Прилагательные ед. и мн. ч.txt': get_singular_and_plural_adjectives,
+    'Прилагательные. Полная форма ед. и мн. ч.txt': get_singular_and_plural_adjectives,
     'Прилагательные. Только м. р.txt': get_masculine_adjectives,
     'Прилагательные. Только ж. р.txt': get_feminine_adjectives,
     'Прилагательные. Только с. р.txt': get_neuter_adjectives,
