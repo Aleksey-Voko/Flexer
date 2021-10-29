@@ -388,7 +388,7 @@ def get_singular_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
                 group.title_word_form.idf.startswith('.С')
                 and any(map(
                     lambda x: x in group.title_word_form.info,
-                    [f'{x}{idfs}' for x in 'мжс']
+                    [f'{x}{idfs}' for x in ('м', 'м!', 'ж', 'ж!', 'с', 'с!')]
                 ))
         )
     ]
