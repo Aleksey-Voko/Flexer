@@ -61,7 +61,7 @@ def main():
                 input()
                 sys.exit()
 
-        if task.endswith('.csv'):
+        elif task.endswith('.csv'):
             print(f'... сортировка ...')
             out_task = run_csv_task(word_forms_bases, socket_group_list,
                                     task)
