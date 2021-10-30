@@ -49,10 +49,9 @@ def main():
             out_task = get_filtered_list(word_forms_bases, socket_group_list,
                                          task)
             if out_task:
-                task = task.replace('*', '+')
+                task = task.replace('*', '^')
                 task = task.replace('/', '[')
-                task = task.replace('\\', ']')
-                task = task.replace('|', 'l')
+                task = task.replace('|', ']')
                 save_list_to_file(out_task, task, encoding='cp1251')
                 print(f'Создан документ: {task}\n')
                 print('Для продолжения нажмите Enter')
