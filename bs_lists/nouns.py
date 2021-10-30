@@ -381,7 +381,8 @@ def get_singular_nouns_implicit_pattern(word_forms_bases, _, task) -> list:
     после Существительные ед. ч.
     """
 
-    idfs = Path(task).stem.split()[-1]
+    idfs = task.split('.')[0]
+    idfs = idfs.split()[-1]
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if (
