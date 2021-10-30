@@ -44,7 +44,7 @@ def main():
         print(f'{"* " * 38}*\n')
         print(f'Список: {task}\n')
 
-        if Path(task).suffix == '.txt':
+        if task.endswith('.txt'):
             print(f'... сортировка ...')
             out_task = get_filtered_list(word_forms_bases, socket_group_list,
                                          task)
@@ -62,7 +62,7 @@ def main():
                 input()
                 sys.exit()
 
-        elif Path(task).suffix == '.csv':
+        if task.endswith('.csv'):
             print(f'... сортировка ...')
             out_task = run_csv_task(word_forms_bases, socket_group_list,
                                     task)
