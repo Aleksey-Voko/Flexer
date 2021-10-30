@@ -50,9 +50,9 @@ def main():
                                          task)
             if out_task:
                 task = task.replace('*', '+')
-                task = task.replace('/', '+')
-                task = task.replace('\\', '+')
-                task = task.replace('|', '+')
+                task = task.replace('/', '[')
+                task = task.replace('\\', ']')
+                task = task.replace('|', 'l')
                 save_list_to_file(out_task, task, encoding='cp1251')
                 print(f'Создан документ: {task}\n')
                 print('Для продолжения нажмите Enter')
