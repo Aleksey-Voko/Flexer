@@ -1,6 +1,6 @@
 """Все существительные"""
 
-from pathlib import Path
+from utils import save_list_of_lists_to_csv_file
 
 
 # Существительные.txt
@@ -592,3 +592,106 @@ def get_nouns_multiple_hyphens(word_forms_bases, _) -> list:
            and group.title_word_form.name.count('-') > 1
     ]
     return word_forms
+
+
+# Существительные. Сочетания шаблонов.csv
+def save_pattern_combinations(word_forms_bases, _):
+    """Создать документы:
+        Сущ-ные с дефисом. Изм. первая часть.txt ,
+        Сущ-ные с дефисом. Изм. обе части.txt ,
+        Сущ-ные с дефисом. Разное число.txt .
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .С ,
+    и ЗС отсутствует в документах
+        Сущ-ные с дефисом. Изм. первая часть.txt ,
+        Сущ-ные с дефисом. Изм. обе части.txt ,
+        Сущ-ные с дефисом. Разное число.txt .
+
+    Выбрать из найденных строк строки с уникальным сочетанием
+    элементов спец. информации
+    (подробнее об элементах спец. информации - см. док-т Структура строки.xlsx,
+    вкладка Структура спец. информации).
+
+    Примечание. При наличии нескольких строк с одинаковым сочетанием
+    элементов спец. информации выбирать первую (верхнюю) строку,
+    т.е. строку, слово в которой идёт первым по алфавиту.
+
+    Создать документ Существительные. Сочетания шаблонов.csv .
+    Вставить в 8 столбцов этого документа выбранные строки
+    (слово - в первый столбец, элементы спец. информации - в другие,
+    соответствующие им по типу 7 столбцов),
+    располагая строки в соответствии с алфавитным порядком
+    элементов спец. информации."""
+
+    nouns_ch_first_part = get_nouns_hyphenated_ch_first_part(
+        word_forms_bases, _)
+    nouns_ch_both_parts = get_nouns_hyphenated_ch_both_parts(
+        word_forms_bases, _)
+    nouns_singular_and_plural = get_nouns_hyphenated_singular_and_plural(
+        word_forms_bases, _)
+
+    unusual_words = (
+            nouns_ch_first_part
+            + nouns_ch_both_parts
+            + nouns_singular_and_plural
+    )
+
+    word_forms = []
+    unique_elements = []
+
+    for group in word_forms_bases:
+        if (
+                group.title_word_form.idf.startswith('.С')
+                and str(group.title_word_form) not in unusual_words
+        ):
+            elements = ' '.join(group.title_word_form.info)
+            if elements not in unique_elements:
+                unique_elements.append(elements)
+                word_forms.append(group.title_word_form)
+
+    in_form_of_list = []
+
+    for form in word_forms:
+        lst = [
+            form.name,
+            form.idf,
+            form.info[0],  # одуш / неод
+        ]
+
+        if not form.info[1].startswith('мн'):
+            lst.append(form.info[1][0])
+            if form.info[1][1] == '!':
+                lst.append('!')
+                lst.append(form.info[1][2:])
+            else:
+                lst.append('')
+                lst.append(form.info[1][1:])
+
+            if len(form.info) > 2:
+                lst.append(form.info[2][:2])
+                if form.info[2][2] == '!':
+                    lst.append('!')
+                    lst.append(form.info[2][3:])
+                else:
+                    lst.append('')
+                    lst.append(form.info[2][2:])
+
+        else:
+            lst.append('')
+            lst.append('')
+            lst.append('')
+
+            lst.append(form.info[1][:2])
+            if form.info[1][2] == '!':
+                lst.append('!')
+                lst.append(form.info[1][3:])
+            else:
+                lst.append('')
+                lst.append(form.info[1][2:])
+
+        in_form_of_list.append(lst)
+
+    save_list_of_lists_to_csv_file(
+        in_form_of_list,
+        'Существительные. Сочетания шаблонов.csv',
+        delimiter=';'
+    )

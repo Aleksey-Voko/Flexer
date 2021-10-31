@@ -210,3 +210,11 @@ def read_src_socket_bs(f_name: str, encoding='cp1251'):
                     socket_group_list.append(socket_sub_group)
 
                 yield SocketGroupWordForm(socket_group_list)
+
+
+def save_list_of_lists_to_csv_file(in_list, f_name, encoding='utf-8',
+                                   newline='', delimiter=','):
+    Path(f_name).parent.mkdir(parents=True, exist_ok=True)
+    with open(Path(f_name), 'w', encoding=encoding, newline=newline) as f_out:
+        csv_writer = csv.writer(f_out, delimiter=delimiter)
+        csv_writer.writerows(in_list)
