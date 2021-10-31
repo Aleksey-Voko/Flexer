@@ -371,3 +371,19 @@ def get_adjectives_hyphenated_ch_both_parts(word_forms_bases, _) -> list:
     ]
 
     return word_forms
+
+
+# Прилагательные. Несколько дефисов.txt
+def get_adjectives_multiple_hyphens(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и в ЗС имеется более 1 дефиса.
+    """
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.П')
+           and group.title_word_form.name.count('-') > 1
+    ]
+
+    return word_forms
