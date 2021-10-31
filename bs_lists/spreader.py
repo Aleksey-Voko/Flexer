@@ -35,7 +35,7 @@ from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_nouns_hyphenated_ch_both_parts,
                             get_nouns_hyphenated_singular_and_plural,
                             get_nouns_multiple_hyphens,
-                            save_pattern_combinations)
+                            save_nouns_pattern_combinations)
 from bs_lists.numerals import (get_numerals, get_numerals_implicit_pattern,
                                get_numerals_hyphenated,
                                get_numerals_hyphenated_ch_first_part,

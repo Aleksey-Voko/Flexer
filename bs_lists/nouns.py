@@ -595,7 +595,7 @@ def get_nouns_multiple_hyphens(word_forms_bases, _) -> list:
 
 
 # Существительные. Сочетания шаблонов.csv
-def save_pattern_combinations(word_forms_bases, _):
+def save_nouns_pattern_combinations(word_forms_bases, _):
     """Создать документы:
         Сущ-ные с дефисом. Изм. первая часть.txt ,
         Сущ-ные с дефисом. Изм. обе части.txt ,
