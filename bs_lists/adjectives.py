@@ -444,7 +444,6 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
     in_form_of_list = []
 
     for form in word_forms:
-        print(form)
         indicators = {
             'name': form.name,
             'idf': form.idf,
