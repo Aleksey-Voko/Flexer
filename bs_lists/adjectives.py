@@ -2,6 +2,8 @@
 
 from pathlib import Path
 
+from utils import save_list_of_lists_to_csv_file
+
 
 # Прилагательные.txt
 def get_adjectives(word_forms_bases, _) -> list:
@@ -387,3 +389,91 @@ def get_adjectives_multiple_hyphens(word_forms_bases, _) -> list:
     ]
 
     return word_forms
+
+
+# Прилагательные. Сочетания шаблонов.csv
+def save_adjectives_pattern_combinations(word_forms_bases, _):
+    """Создать документы:
+        Прил-ные с дефисом. Изм. первая часть.txt
+        и Прил-ные с дефисом. Изм. обе части.txt .
+
+    Найти в БС строки с ЗС групп, идентификатор которых содержит .П ,
+    и ЗС отсутствует в документах
+        Прил-ные с дефисом. Изм. первая часть.txt
+        и Прил-ные с дефисом. Изм. обе части.txt .
+
+    Выбрать из найденных строк строки с уникальным сочетанием
+    элементов спец. информации
+    (подробнее об элементах спец. информации - см. док-т Структура строки.xlsx,
+    вкладка Структура спец. информации).
+
+    Примечание. При наличии нескольких строк с одинаковым
+    сочетанием элементов спец. информации выбирать первую (верхнюю) строку,
+    т.е. строку, слово в которой идёт первым по алфавиту.
+
+    Создать документ Прилагательные. Сочетания шаблонов.csv .
+    Вставить в 7 столбцов этого документа выбранные строки
+    (слово - в первый столбец, элементы спец. информации - в другие,
+    соответствующие им по типу 6 столбцов),
+    располагая строки в соответствии с алфавитным порядком
+    элементов спец. информации."""
+
+    adjectives_ch_first_part = get_adjectives_hyphenated_ch_first_part(
+        word_forms_bases, _)
+    adjectives_ch_both_parts = get_adjectives_hyphenated_ch_both_parts(
+        word_forms_bases, _)
+
+    unusual_words = (
+            adjectives_ch_first_part
+            + adjectives_ch_both_parts
+    )
+
+    word_forms = []
+    unique_elements = []
+
+    for group in word_forms_bases:
+        if (
+                group.title_word_form.idf.startswith('.П')
+                and str(group.title_word_form) not in unusual_words
+        ):
+            elements = ' '.join(group.title_word_form.info)
+            if elements not in unique_elements:
+                unique_elements.append(elements)
+                word_forms.append(group.title_word_form)
+
+    in_form_of_list = []
+
+    for form in word_forms:
+        print(form)
+        indicators = {
+            'name': form.name,
+            'idf': form.idf,
+            'I': '',
+            'К': '',
+            'С': '',
+            'П': '',
+            'о': '',
+            'е': '',
+        }
+
+        for indicator in form.info:
+            if indicator.startswith('I'):
+                indicators['I'] = indicator
+            elif indicator.startswith('К'):
+                indicators['К'] = indicator
+            elif indicator.startswith('С'):
+                indicators['С'] = indicator
+            elif indicator.startswith('П'):
+                indicators['П'] = indicator
+            elif indicator == 'о':
+                indicators['о'] = indicator
+            elif indicator == 'е':
+                indicators['е'] = indicator
+
+        in_form_of_list.append(list(indicators.values()))
+
+    save_list_of_lists_to_csv_file(
+        in_form_of_list,
+        'Прилагательные. Сочетания шаблонов.csv',
+        delimiter=';'
+    )

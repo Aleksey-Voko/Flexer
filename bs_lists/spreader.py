@@ -18,7 +18,8 @@ from bs_lists.adjectives import (get_adjectives, get_animate_adjectives,
                                  get_adjectives_hyphenated_ch_first_part,
                                  get_adjectives_hyphenated_ch_last_part,
                                  get_adjectives_hyphenated_ch_both_parts,
-                                 get_adjectives_multiple_hyphens)
+                                 get_adjectives_multiple_hyphens,
+                                 save_adjectives_pattern_combinations)
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
@@ -197,7 +198,8 @@ def get_filtered_list(word_forms_bases, socket_group_list, task: str) -> list:
 
 SCV_TASK = {
     'Многокорневые слова БГ.csv': save_multi_root_words,
-    'Существительные. Сочетания шаблонов.csv': save_pattern_combinations,
+    'Существительные. Сочетания шаблонов.csv': save_nouns_pattern_combinations,
+    'Прилагательные. Сочетания шаблонов.csv': save_adjectives_pattern_combinations,
 }
 
 
