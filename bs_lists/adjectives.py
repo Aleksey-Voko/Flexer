@@ -298,7 +298,7 @@ def get_adjectives_hyphenated_ch_first_part(word_forms_bases, _) -> list:
     """
 
     word_forms = [
-        group for group in word_forms_bases
+        str(group.title_word_form) for group in word_forms_bases
         if (group.title_word_form.idf.startswith('.П')
             and '-' in group.title_word_form.name)
             and (
