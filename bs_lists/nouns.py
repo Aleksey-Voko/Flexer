@@ -693,5 +693,6 @@ def save_nouns_pattern_combinations(word_forms_bases, _):
     save_list_of_lists_to_csv_file(
         in_form_of_list,
         'Существительные. Сочетания шаблонов.csv',
+        encoding='cp1251',
         delimiter=';'
     )
