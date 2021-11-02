@@ -4,6 +4,7 @@
 from collections import OrderedDict
 from itertools import zip_longest
 
+from rem import reminder_nouns
 from utils import save_list_of_lists_to_csv_file, save_list_to_file
 
 
@@ -740,6 +741,8 @@ def save_nouns_pattern_combinations(word_forms_bases, _):
         [x for y in lst for x in y]
         for lst in in_form_of_list
     ]
+
+    print(f'\n{reminder_nouns}\n')
 
     save_list_of_lists_to_csv_file(
         in_form_of_list,
