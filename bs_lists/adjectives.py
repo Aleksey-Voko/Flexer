@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from utils import save_list_of_lists_to_csv_file
+from utils import save_list_of_lists_to_csv_file, save_list_to_file
 
 
 # Прилагательные.txt
@@ -430,10 +430,23 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
     располагая строки в соответствии с алфавитным порядком
     элементов спец. информации."""
 
+    # Прил-ные с дефисом. Изм. первая часть.txt
     adjectives_ch_first_part = get_adjectives_hyphenated_ch_first_part(
         word_forms_bases, _)
+    save_list_to_file(adjectives_ch_first_part,
+                      'Прил-ные с дефисом. Изм. первая часть.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Прил-ные с дефисом. Изм. первая часть.txt')
+    print(f'... сортировка ...')
+
+    # Прил-ные с дефисом. Изм. обе части.txt
     adjectives_ch_both_parts = get_adjectives_hyphenated_ch_both_parts(
         word_forms_bases, _)
+    save_list_to_file(adjectives_ch_both_parts,
+                      'Прил-ные с дефисом. Изм. обе части.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Прил-ные с дефисом. Изм. обе части.txt')
+    print(f'... сортировка ...')
 
     unusual_words = (
             adjectives_ch_first_part
