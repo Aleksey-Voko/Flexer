@@ -1,5 +1,7 @@
 """Все прилагательные"""
 
+
+from collections import OrderedDict
 from pathlib import Path
 
 from utils import save_list_of_lists_to_csv_file, save_list_to_file
@@ -469,7 +471,7 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
     in_form_of_list = []
 
     for form in word_forms:
-        indicators = {
+        indicators = OrderedDict({
             'name': form.name,
             'idf': form.idf,
             'I': '',
@@ -478,7 +480,7 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
             'П': '',
             'о': '',
             'е': '',
-        }
+        })
 
         for indicator in form.info:
             if indicator.startswith('I'):
