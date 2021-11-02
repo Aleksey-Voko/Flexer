@@ -1,5 +1,9 @@
 """Все существительные"""
 
+
+from collections import OrderedDict
+from itertools import zip_longest
+
 from utils import save_list_of_lists_to_csv_file, save_list_to_file
 
 
@@ -668,47 +672,74 @@ def save_nouns_pattern_combinations(word_forms_bases, _):
                 unique_elements.append(elements)
                 word_forms.append(group.title_word_form)
 
-    in_form_of_list = []
+    in_form_of_list_1 = []
+    in_form_of_list_2 = []
+    in_form_of_list_3 = []
 
     for form in word_forms:
-        lst = [
-            form.name,
-            form.idf,
-            form.info[0],  # одуш / неод
-        ]
+        indicators = OrderedDict({
+            'name': form.name,
+            'idf': form.idf,
+            'animality': '',
+            'род': '',
+            'только ед. ч.': '',
+            'шаблон ед. ч.': '',
+            'мн': '',
+            'только мн. ч.': '',
+            'шаблон мн. ч.': '',
+        })
 
-        if not form.info[1].startswith('мн'):
-            lst.append(form.info[1][0])
-            if form.info[1][1] == '!':
-                lst.append('!')
-                lst.append(form.info[1][2:])
-            else:
-                lst.append('')
-                lst.append(form.info[1][1:])
+        for indicator in form.info:
+            if indicator in ('одуш', 'неод'):
+                indicators['animality'] = indicator
+            elif indicator.startswith('мн!'):
+                indicators['мн'] = 'мн'
+                indicators['только мн. ч.'] = '!'
+                indicators['шаблон мн. ч.'] = indicator[3:]
+            elif indicator.startswith('мн'):
+                indicators['мн'] = 'мн'
+                indicators['шаблон мн. ч.'] = indicator[2:]
+            elif indicator.startswith(('м!', 'ж!', 'с!')):
+                indicators['род'] = indicator[0]
+                indicators['только ед. ч.'] = '!'
+                indicators['шаблон ед. ч.'] = indicator[2:]
+            elif indicator.startswith(('м', 'ж', 'с')):
+                indicators['род'] = indicator[0]
+                indicators['шаблон ед. ч.'] = indicator[1:]
 
-            if len(form.info) > 2:
-                lst.append(form.info[2][:2])
-                if form.info[2][2] == '!':
-                    lst.append('!')
-                    lst.append(form.info[2][3:])
-                else:
-                    lst.append('')
-                    lst.append(form.info[2][2:])
-
+        if indicators['только ед. ч.']:
+            in_form_of_list_2.append(list(indicators.values()))
+        elif indicators['только мн. ч.']:
+            in_form_of_list_3.append(list(indicators.values()))
         else:
-            lst.append('')
-            lst.append('')
-            lst.append('')
+            in_form_of_list_1.append(list(indicators.values()))
 
-            lst.append(form.info[1][:2])
-            if form.info[1][2] == '!':
-                lst.append('!')
-                lst.append(form.info[1][3:])
-            else:
-                lst.append('')
-                lst.append(form.info[1][2:])
+    in_form_of_list_1 = sorted(
+        in_form_of_list_1,
+        key=lambda x: (x[5], x[8], x[2], x[3])
+    )
 
-        in_form_of_list.append(lst)
+    in_form_of_list_2 = sorted(
+        in_form_of_list_2,
+        key=lambda x: (x[5], x[2], x[3])
+    )
+
+    in_form_of_list_3 = sorted(
+        in_form_of_list_3,
+        key=lambda x: (x[8], x[2], x[3])
+    )
+
+    in_form_of_list = zip_longest(
+            in_form_of_list_1,
+            in_form_of_list_2,
+            in_form_of_list_3,
+            fillvalue=[''] * 9
+    )
+
+    in_form_of_list = [
+        [x for y in lst for x in y]
+        for lst in in_form_of_list
+    ]
 
     save_list_of_lists_to_csv_file(
         in_form_of_list,
