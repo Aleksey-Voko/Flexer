@@ -474,7 +474,7 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
     for form in word_forms:
         indicators = OrderedDict({
             'name': form.name,
-            'idf': form.idf,
+            # 'idf': form.idf,
             'I': '',
             'К': '',
             'С': '',
@@ -501,11 +501,11 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
 
     in_form_of_list = sorted(
         in_form_of_list,
-        key=lambda x: (x[2], x[3], x[4], x[5], x[6], x[7])
+        key=lambda x: (x[1], x[2], x[3], x[4], x[5], x[6])
     )
 
     head_1 = [
-        '', '',
+        '',
         'полная\nформа',
         'краткая\nформа',
         'сравнительная\nстепень',
@@ -515,7 +515,7 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
     ]
 
     head_2 = [
-        '', '',
+        '',
         'НЕ образуется для\nадъектированных причастий и\nГОРАЗД, РАД,\nПОЛНЫМ-ПОЛОН',
         'Новое прилагательное,\nобразующее краткую форму,\nнужно внести в список 12',
         'Новое прилагательное,\nобразующее сравнительную степень,\nнужно внести в список 22',
