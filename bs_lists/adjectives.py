@@ -4,6 +4,7 @@
 from collections import OrderedDict
 from pathlib import Path
 
+from rem import reminder_nouns
 from utils import save_list_of_lists_to_csv_file, save_list_to_file
 
 
@@ -497,6 +498,13 @@ def save_adjectives_pattern_combinations(word_forms_bases, _):
                 indicators['е'] = indicator
 
         in_form_of_list.append(list(indicators.values()))
+
+    in_form_of_list = sorted(
+        in_form_of_list,
+        key=lambda x: (x[2], x[3], x[4], x[5], x[6], x[7])
+    )
+
+    print(f'\n{reminder_nouns}\n')
 
     save_list_of_lists_to_csv_file(
         in_form_of_list,
