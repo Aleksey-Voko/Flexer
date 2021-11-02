@@ -680,7 +680,7 @@ def save_nouns_pattern_combinations(word_forms_bases, _):
     for form in word_forms:
         indicators = OrderedDict({
             'name': form.name,
-            'idf': form.idf,
+            # 'idf': form.idf,
             'animality': '',
             'род': '',
             'только ед. ч.': '',
@@ -717,24 +717,24 @@ def save_nouns_pattern_combinations(word_forms_bases, _):
 
     in_form_of_list_1 = sorted(
         in_form_of_list_1,
-        key=lambda x: (x[5], x[8], x[2], x[3])
+        key=lambda x: (x[4], x[7], x[1], x[2])
     )
 
     in_form_of_list_2 = sorted(
         in_form_of_list_2,
-        key=lambda x: (x[5], x[2], x[3])
+        key=lambda x: (x[4], x[1], x[2])
     )
 
     in_form_of_list_3 = sorted(
         in_form_of_list_3,
-        key=lambda x: (x[8], x[2], x[3])
+        key=lambda x: (x[7], x[1], x[2])
     )
 
     in_form_of_list = zip_longest(
             in_form_of_list_1,
             in_form_of_list_2,
             in_form_of_list_3,
-            fillvalue=[''] * 9
+            fillvalue=[''] * 8
     )
 
     in_form_of_list = [
