@@ -1,6 +1,6 @@
 """Все существительные"""
 
-from utils import save_list_of_lists_to_csv_file
+from utils import save_list_of_lists_to_csv_file, save_list_to_file
 
 
 # Существительные.txt
@@ -622,12 +622,32 @@ def save_nouns_pattern_combinations(word_forms_bases, _):
     располагая строки в соответствии с алфавитным порядком
     элементов спец. информации."""
 
+    # Сущ-ные с дефисом. Изм. первая часть.txt
     nouns_ch_first_part = get_nouns_hyphenated_ch_first_part(
         word_forms_bases, _)
+    save_list_to_file(nouns_ch_first_part,
+                      'Сущ-ные с дефисом. Изм. первая часть.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Сущ-ные с дефисом. Изм. первая часть.txt')
+    print(f'... сортировка ...')
+
+    # Сущ-ные с дефисом. Изм. обе части.txt
     nouns_ch_both_parts = get_nouns_hyphenated_ch_both_parts(
         word_forms_bases, _)
+    save_list_to_file(nouns_ch_both_parts,
+                      'Сущ-ные с дефисом. Изм. обе части.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Сущ-ные с дефисом. Изм. обе части.txt')
+    print(f'... сортировка ...')
+
+    # Сущ-ные с дефисом. Разное число.txt
     nouns_singular_and_plural = get_nouns_hyphenated_singular_and_plural(
         word_forms_bases, _)
+    save_list_to_file(nouns_singular_and_plural,
+                      'Сущ-ные с дефисом. Разное число.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Сущ-ные с дефисом. Разное число.txt')
+    print(f'... сортировка ...')
 
     unusual_words = (
             nouns_ch_first_part
