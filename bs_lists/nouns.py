@@ -5,7 +5,8 @@ from collections import OrderedDict
 from itertools import zip_longest
 
 from rem import reminder_nouns
-from utils import save_list_of_lists_to_csv_file, save_list_to_file
+from utils import (save_list_of_lists_to_csv_file, save_list_to_file,
+                   get_bs_title_word_form)
 
 
 # Существительные.txt
@@ -583,6 +584,51 @@ def get_nouns_hyphenated_singular_and_plural(word_forms_bases, _) -> list:
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
     ]
+    return word_forms
+
+
+# Сущ-ные с дефисом. Разный род.txt
+def get_hyphenated_nouns_different_kind(word_forms_bases, _) -> list:
+    """Создать документ Сущ-ные с дефисом. Изм. обе части.txt .
+    Найти в созданном документе строки, в которых в спец. информации
+    имеются следующие комбинации указателей рода:
+        а. указатель муж. рода м и указатель жен. рода
+            с предшествующим дефисом -ж (м…-ж…) [в том числе м!…-ж!…]
+            или
+        б. указатель муж. рода м и указатель ср. рода
+            с предшествующим дефисом -с (м…-с…) [в том числе м!…-с!…]
+            или
+        в. указатель жен. рода ж и указатель муж. рода
+            с предшествующим дефисом -м (ж…-м…) [в том числе ж!…-м!…]
+            или
+        г. указатель жен. рода ж и указатель ср. рода
+            с предшествующим дефисом -с (ж…-с…) [в том числе ж!…-с!…]
+            или
+        д. указатель ср. рода с и указатель муж. рода
+            с предшествующим дефисом -м (с…-м…) [в том числе с!…-м!…]
+            или
+        е. указатель ср. рода с и указатель жен. рода
+            с предшествующим дефисом -ж (с…-ж…) [в том числе с!…-ж!…]."""
+
+    # Сущ-ные с дефисом. Изм. обе части.txt
+    nouns_ch_both_parts = get_nouns_hyphenated_ch_both_parts(
+        word_forms_bases, _)
+    save_list_to_file(nouns_ch_both_parts,
+                      'Сущ-ные с дефисом. Изм. обе части.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Сущ-ные с дефисом. Изм. обе части.txt')
+    print(f'... сортировка ...')
+
+    word_forms = []
+
+    for title_form in nouns_ch_both_parts:
+        word_form = get_bs_title_word_form(title_form)
+        indicator = word_form.info[1]
+        if not indicator.startswith('мн'):
+            gender_0, gender_1 = indicator.split('-')
+            if gender_0[0] != gender_1[0]:
+                word_forms.append(title_form)
+
     return word_forms
 
 

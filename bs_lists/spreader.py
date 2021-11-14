@@ -36,7 +36,8 @@ from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_nouns_hyphenated_ch_both_parts,
                             get_nouns_hyphenated_singular_and_plural,
                             get_nouns_multiple_hyphens,
-                            save_nouns_pattern_combinations)
+                            save_nouns_pattern_combinations,
+                            get_hyphenated_nouns_different_kind)
 from bs_lists.numerals import (get_numerals, get_numerals_implicit_pattern,
                                get_numerals_hyphenated,
                                get_numerals_hyphenated_ch_first_part,
@@ -96,6 +97,7 @@ EXPLICIT_TASKS = {
     'Сущ-ные с дефисом. Изм. последняя часть.txt': get_nouns_hyphenated_ch_last_part,
     'Сущ-ные с дефисом. Изм. обе части.txt': get_nouns_hyphenated_ch_both_parts,
     'Сущ-ные с дефисом. Разное число.txt': get_nouns_hyphenated_singular_and_plural,
+    'Сущ-ные с дефисом. Разный род.txt': get_hyphenated_nouns_different_kind,
     'Существительные. Несколько дефисов.txt': get_nouns_multiple_hyphens,
 
     'Прилагательные.txt': get_adjectives,
