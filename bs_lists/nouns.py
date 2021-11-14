@@ -645,6 +645,96 @@ def get_nouns_multiple_hyphens(word_forms_bases, _) -> list:
     return word_forms
 
 
+# Существительные. Идентификаторы.txt
+def get_nouns_identifiers(word_forms_bases, _) -> list:
+    """1. Создать документ Сущ-ные с дефисом. Изм. обе части.txt .
+    2. Найти в БС группы с ЗС, идентификатор которых содержит .С
+        (кроме ЗС из документа Сущ-ные с дефисом. Изм. обе части.txt).
+    3. Создать документ Существительные. Идентификаторы.txt
+        и вставить в него все идентификаторы из найденных согласно п. 2 групп.
+    4. Удалить повторы одинаковых идентификаторов, оставив только уникальные.
+    5. Упорядочить идентификаторы следующим образом:
+        сначала с учётом числа (сначала идентификаторы единственного числа,
+        затем - множественного);
+        затем учитывая порядок падежей: И Р Д В Т П ;
+        затем - в соответствии с алфавитным порядком
+        остальных элементов идентификаторов.
+    6. Сохранить документ Существительные. Идентификаторы.txt ."""
+
+    # Сущ-ные с дефисом. Изм. обе части.txt
+    nouns_ch_both_parts = get_nouns_hyphenated_ch_both_parts(
+        word_forms_bases, _)
+    save_list_to_file(nouns_ch_both_parts,
+                      'Сущ-ные с дефисом. Изм. обе части.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Сущ-ные с дефисом. Изм. обе части.txt')
+    print(f'... сортировка ...')
+
+    sei_idf = set()  # .СеИ
+    ser_idf = set()  # .СеР
+    sed_idf = set()  # .СеД
+    sev_idf = set()  # .СеВ
+    set_idf = set()  # .СеТ
+    sep_idf = set()  # .СеП
+
+    smni_idf = set()  # .СмнИ
+    smnr_idf = set()  # .СмнР
+    smnd_idf = set()  # .СмнД
+    smnv_idf = set()  # .СмнВ
+    smnt_idf = set()  # .СмнТ
+    smnp_idf = set()  # .СмнП
+
+    identifiers = []
+
+    for group in word_forms_bases:
+        if (str(group.title_word_form) not in nouns_ch_both_parts
+                and group.title_word_form.idf.startswith('.С')):
+            forms = [group.title_word_form] + group.word_forms
+            idfs = [x.idf for x in forms]
+
+            for identifier in idfs:
+                if identifier.startswith('.СеИ'):
+                    sei_idf.add(identifier)
+                elif identifier.startswith('.СеР'):
+                    ser_idf.add(identifier)
+                elif identifier.startswith('.СеД'):
+                    sed_idf.add(identifier)
+                elif identifier.startswith('.СеВ'):
+                    sev_idf.add(identifier)
+                elif identifier.startswith('.СеТ'):
+                    set_idf.add(identifier)
+                elif identifier.startswith('.СеП'):
+                    sep_idf.add(identifier)
+                elif identifier.startswith('.СмнИ'):
+                    smni_idf.add(identifier)
+                elif identifier.startswith('.СмнР'):
+                    smnr_idf.add(identifier)
+                elif identifier.startswith('.СмнД'):
+                    smnd_idf.add(identifier)
+                elif identifier.startswith('.СмнВ'):
+                    smnv_idf.add(identifier)
+                elif identifier.startswith('.СмнТ'):
+                    smnt_idf.add(identifier)
+                elif identifier.startswith('.СмнП'):
+                    smnp_idf.add(identifier)
+
+    identifiers += sorted(list(sei_idf))
+    identifiers += sorted(list(ser_idf))
+    identifiers += sorted(list(sed_idf))
+    identifiers += sorted(list(sev_idf))
+    identifiers += sorted(list(set_idf))
+    identifiers += sorted(list(sep_idf))
+
+    identifiers += sorted(list(smni_idf))
+    identifiers += sorted(list(smnr_idf))
+    identifiers += sorted(list(smnd_idf))
+    identifiers += sorted(list(smnv_idf))
+    identifiers += sorted(list(smnt_idf))
+    identifiers += sorted(list(smnp_idf))
+
+    return identifiers
+
+
 # Существительные. Сочетания шаблонов.csv
 def save_nouns_pattern_combinations(word_forms_bases, _):
     """Создать документы:
