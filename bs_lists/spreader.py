@@ -20,7 +20,8 @@ from bs_lists.adjectives import (get_adjectives, get_animate_adjectives,
                                  get_adjectives_hyphenated_ch_both_parts,
                                  get_adjectives_multiple_hyphens,
                                  save_adjectives_pattern_combinations,
-                                 get_adjectives_identifiers)
+                                 get_adjectives_identifiers,
+                                 get_adjectives_ch_both_parts_identifiers)
 from bs_lists.nouns import (get_nouns, get_inanimate_nouns, get_animate_nouns,
                             get_singular_nouns, get_non_plural_nouns,
                             get_plural_nouns, get_non_singular_nouns,
@@ -127,6 +128,7 @@ EXPLICIT_TASKS = {
     'Прил-ные с дефисом. Изм. обе части.txt': get_adjectives_hyphenated_ch_both_parts,
     'Прилагательные. Несколько дефисов.txt': get_adjectives_multiple_hyphens,
     'Прилагательные. Идентификаторы.txt': get_adjectives_identifiers,
+    'Прил-ные с дефисом. Изм. обе части. Идентификаторы.txt': get_adjectives_ch_both_parts_identifiers,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
