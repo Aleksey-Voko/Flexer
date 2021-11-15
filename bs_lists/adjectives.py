@@ -406,6 +406,151 @@ def get_adjectives_multiple_hyphens(word_forms_bases, _) -> list:
     return word_forms
 
 
+# Прилагательные. Идентификаторы.txt
+def get_adjectives_identifiers(word_forms_bases, _) -> list:
+    """1. Создать документ Прил-ные с дефисом. Изм. обе части.txt .
+    2. Найти в БС группы с ЗС, идентификатор которых содержит .П
+        (кроме ЗС из документа Прил-ные с дефисом. Изм. обе части.txt).
+    3. Создать документ Прилагательные. Идентификаторы.txt
+        и вставить в него все идентификаторы из найденных согласно п. 2 групп.
+    4. Удалить повторы одинаковых идентификаторов, оставив только уникальные.
+    5. Упорядочить идентификаторы следующим образом:
+        сначала с учётом числа (сначала идентификаторы единственного числа,
+        затем - множественного);
+        затем учитывая порядок падежей: И Р Д В Т П ;
+        затем - в соответствии с алфавитным порядком
+        остальных элементов идентификаторов.
+    6. Сохранить документ Прилагательные. Идентификаторы.txt ."""
+
+    # Прил-ные с дефисом. Изм. обе части.txt
+    adjectives_hyphenated = get_adjectives_hyphenated_ch_both_parts(
+        word_forms_bases, _)
+    save_list_to_file(adjectives_hyphenated,
+                      'Прил-ные с дефисом. Изм. обе части.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Прил-ные с дефисом. Изм. обе части.txt')
+    print(f'... сортировка ...')
+
+    pmi_idf = set()  # .ПмИ
+    pmr_idf = set()  # .ПмР
+    pmd_idf = set()  # .ПмД
+    pmv_idf = set()  # .ПмВ
+    pmt_idf = set()  # .ПмТ
+    pmp_idf = set()  # .ПмП
+
+    pzi_idf = set()  # .ПжИ
+    pzr_idf = set()  # .ПжР
+    pzd_idf = set()  # .ПжД
+    pzv_idf = set()  # .ПжВ
+    pzt_idf = set()  # .ПжТ
+    pzp_idf = set()  # .ПжП
+
+    psi_idf = set()  # .ПсИ
+    psr_idf = set()  # .ПсР
+    psd_idf = set()  # .ПсД
+    psv_idf = set()  # .ПсВ
+    pst_idf = set()  # .ПсТ
+    psp_idf = set()  # .ПсП
+
+    pmni_idf = set()  # .ПмнИ
+    pmnr_idf = set()  # .ПмнР
+    pmnd_idf = set()  # .ПмнД
+    pmnv_idf = set()  # .ПмнВ
+    pmnt_idf = set()  # .ПмнТ
+    pmnp_idf = set()  # .ПмнП
+
+    identifiers = []
+
+    for group in word_forms_bases:
+        if (str(group.title_word_form) not in adjectives_hyphenated
+                and group.title_word_form.idf.startswith('.П')):
+            forms = [group.title_word_form] + group.word_forms
+            idfs = [x.idf for x in forms]
+
+            for identifier in idfs:
+                if identifier.startswith('.ПмИ'):
+                    pmi_idf.add(identifier)
+                elif identifier.startswith('.ПмР'):
+                    pmr_idf.add(identifier)
+                elif identifier.startswith('.ПмД'):
+                    pmd_idf.add(identifier)
+                elif identifier.startswith('.ПмВ'):
+                    pmv_idf.add(identifier)
+                elif identifier.startswith('.ПмТ'):
+                    pmt_idf.add(identifier)
+                elif identifier.startswith('.ПмП'):
+                    pmp_idf.add(identifier)
+
+                elif identifier.startswith('.ПжИ'):
+                    pzi_idf.add(identifier)
+                elif identifier.startswith('.ПжР'):
+                    pzr_idf.add(identifier)
+                elif identifier.startswith('.ПжД'):
+                    pzd_idf.add(identifier)
+                elif identifier.startswith('.ПжВ'):
+                    pzv_idf.add(identifier)
+                elif identifier.startswith('.ПжТ'):
+                    pzt_idf.add(identifier)
+                elif identifier.startswith('.ПжП'):
+                    pzp_idf.add(identifier)
+
+                elif identifier.startswith('.ПсИ'):
+                    psi_idf.add(identifier)
+                elif identifier.startswith('.ПсР'):
+                    psr_idf.add(identifier)
+                elif identifier.startswith('.ПсД'):
+                    psd_idf.add(identifier)
+                elif identifier.startswith('.ПсВ'):
+                    psv_idf.add(identifier)
+                elif identifier.startswith('.ПсТ'):
+                    pst_idf.add(identifier)
+                elif identifier.startswith('.ПсП'):
+                    psp_idf.add(identifier)
+
+                elif identifier.startswith('.ПмнИ'):
+                    pmni_idf.add(identifier)
+                elif identifier.startswith('.ПмнР'):
+                    pmnr_idf.add(identifier)
+                elif identifier.startswith('.ПмнД'):
+                    pmnd_idf.add(identifier)
+                elif identifier.startswith('.ПмнВ'):
+                    pmnv_idf.add(identifier)
+                elif identifier.startswith('.ПмнТ'):
+                    pmnt_idf.add(identifier)
+                elif identifier.startswith('.ПмнП'):
+                    pmnp_idf.add(identifier)
+
+    identifiers += sorted(list(pmi_idf))
+    identifiers += sorted(list(pmr_idf))
+    identifiers += sorted(list(pmd_idf))
+    identifiers += sorted(list(pmv_idf))
+    identifiers += sorted(list(pmt_idf))
+    identifiers += sorted(list(pmp_idf))
+
+    identifiers += sorted(list(pzi_idf))
+    identifiers += sorted(list(pzr_idf))
+    identifiers += sorted(list(pzd_idf))
+    identifiers += sorted(list(pzv_idf))
+    identifiers += sorted(list(pzt_idf))
+    identifiers += sorted(list(pzp_idf))
+
+    identifiers += sorted(list(psi_idf))
+    identifiers += sorted(list(psr_idf))
+    identifiers += sorted(list(psd_idf))
+    identifiers += sorted(list(psv_idf))
+    identifiers += sorted(list(pst_idf))
+    identifiers += sorted(list(psp_idf))
+
+    identifiers += sorted(list(pmni_idf))
+    identifiers += sorted(list(pmnr_idf))
+    identifiers += sorted(list(pmnd_idf))
+    identifiers += sorted(list(pmnv_idf))
+    identifiers += sorted(list(pmnt_idf))
+    identifiers += sorted(list(pmnp_idf))
+
+    return identifiers
+
+
 # Прилагательные. Сочетания шаблонов.csv
 def save_adjectives_pattern_combinations(word_forms_bases, _):
     """Создать документы:
