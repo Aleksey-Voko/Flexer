@@ -49,3 +49,16 @@ def get_two_species_verbs(word_forms_bases, _) -> list:
            and '2в' in group.title_word_form.info
     ]
     return word_forms
+
+
+# Переходные глаголы.txt
+def get_transitive_verbs(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .Г ,
+    и в спец. информации указано пер ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.Г')
+           and 'пер' in group.title_word_form.info
+    ]
+    return word_forms
