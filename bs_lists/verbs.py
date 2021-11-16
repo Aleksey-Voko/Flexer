@@ -75,3 +75,16 @@ def get_intransitive_verbs(word_forms_bases, _) -> list:
            and 'неп' in group.title_word_form.info
     ]
     return word_forms
+
+
+# Безличные глаголы.txt
+def get_impersonal_verbs(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .Г ,
+    и в спец. информации имеется индикатор безличности б ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.Г')
+           and 'б' in group.title_word_form.info
+    ]
+    return word_forms
