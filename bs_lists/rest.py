@@ -63,6 +63,28 @@ def get_latin_words(word_forms_bases, _) -> list:
     return word_forms
 
 
+# Самые длинные словоформы.txt
+def get_longest_word_forms(word_forms_bases, _) -> list:
+    """
+    Найти в БС строки со словоформами,
+    состоящими из наибольшего количества букв.
+    """
+
+    form_names = [group.all_form_names for group in word_forms_bases]
+    form_names = [x for y in form_names for x in y]
+    max_length = len(sorted(form_names, key=len)[-1])
+
+    all_forms = [group.all_word_forms for group in word_forms_bases]
+    all_forms = [x for y in all_forms for x in y]
+
+    word_forms = [
+        str(form) for form in all_forms
+        if len(form.name) == max_length
+    ]
+
+    return word_forms
+
+
 # Слова с пояснительными примечаниями БС.txt
 def get_words_with_exp_notes(word_forms_bases, _) -> list:
     """

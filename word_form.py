@@ -165,6 +165,14 @@ class GroupWordForm:
         self.__word_forms = word_forms
 
     @property
+    def all_word_forms(self):
+        return [self.__title_word_form] + self.__word_forms
+
+    @property
+    def all_form_names(self):
+        return [x.name for x in self.all_word_forms]
+
+    @property
     def dict_form(self):
         return OrderedDict({
             'title_word_form': self.title_word_form.dict_form,

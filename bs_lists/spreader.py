@@ -61,7 +61,7 @@ from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_spec_notes, get_multi_root_words,
                            get_repeats_w_socket_1_in_bs, get_homonymous_forms,
                            get_bs_snapshot, get_common_words_bs,
-                           get_words_multiple_hyphens)
+                           get_words_multiple_hyphens, get_longest_word_forms)
 from bs_lists.socket_bg import (save_multi_root_words,
                                 get_replays_in_socket,
                                 get_replays_in_socket_duplicate,
@@ -162,6 +162,7 @@ EXPLICIT_TASKS = {
     'Слова с дефисом.txt': get_words_hyphenated,
     'Слова с несколькими дефисами.txt': get_words_multiple_hyphens,
     'Слова с латиницей.txt': get_latin_words,
+    'Самые длинные словоформы.txt': get_longest_word_forms,
     'Слова с пояснительными примечаниями БС.txt': get_words_with_exp_notes,
     'Пояснительные примечания (без омонимов).txt': get_words_with_exp_notes_no_homonyms,
     'Слова со специальными примечаниями.txt': get_words_with_spec_notes,
