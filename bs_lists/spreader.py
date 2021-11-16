@@ -77,6 +77,7 @@ from bs_lists.socket_bg import (save_multi_root_words,
                                 get_replays_in_socket_strings,
                                 get_homonymous_replays_in_socket,
                                 get_ordinary_words_bg, get_bg_snapshot)
+from bs_lists.verbs import get_verbs
 
 EXPLICIT_TASKS = {
     # БС
@@ -129,6 +130,8 @@ EXPLICIT_TASKS = {
     'Прилагательные. Несколько дефисов.txt': get_adjectives_multiple_hyphens,
     'Прилагательные. Идентификаторы.txt': get_adjectives_identifiers,
     'Прил-ные с дефисом. Изм. обе части. Идентификаторы.txt': get_adjectives_ch_both_parts_identifiers,
+
+    'Глаголы.txt': get_verbs,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
