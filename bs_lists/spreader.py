@@ -77,7 +77,8 @@ from bs_lists.socket_bg import (save_multi_root_words,
                                 get_replays_in_socket_strings,
                                 get_homonymous_replays_in_socket,
                                 get_ordinary_words_bg, get_bg_snapshot)
-from bs_lists.verbs import get_verbs, get_imperfective_verbs, get_perfect_verbs
+from bs_lists.verbs import (get_verbs, get_imperfective_verbs,
+                            get_perfect_verbs, get_two_species_verbs)
 
 EXPLICIT_TASKS = {
     # БС
@@ -134,6 +135,7 @@ EXPLICIT_TASKS = {
     'Глаголы.txt': get_verbs,
     'Глаголы нес. вида.txt': get_imperfective_verbs,
     'Глаголы сов. вида.txt': get_perfect_verbs,
+    'Двувидовые глаголы.txt': get_two_species_verbs,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
