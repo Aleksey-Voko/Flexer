@@ -408,19 +408,26 @@ def get_adjectives_multiple_hyphens(word_forms_bases, _) -> list:
 
 # Прилагательные. Идентификаторы.txt
 def get_adjectives_identifiers(word_forms_bases, _) -> list:
-    """1. Создать документ Прил-ные с дефисом. Изм. обе части.txt .
+    """
+    1. Создать документ Прил-ные с дефисом. Изм. обе части.txt .
     2. Найти в БС группы с ЗС, идентификатор которых содержит .П
         (кроме ЗС из документа Прил-ные с дефисом. Изм. обе части.txt).
     3. Создать документ Прилагательные. Идентификаторы.txt
         и вставить в него все идентификаторы из найденных согласно п. 2 групп.
     4. Удалить повторы одинаковых идентификаторов, оставив только уникальные.
     5. Упорядочить идентификаторы следующим образом:
-        сначала с учётом числа (сначала идентификаторы единственного числа,
+        сначала с учётом формы (сначала идентификаторы полной формы,
+        затем краткой формы, затем сравнительной степени,
+        затем превосходной степени);
+        затем с учётом числа (сначала идентификаторы единственного числа,
         затем - множественного);
+        затем с учётом рода (сначала идентификаторы мужского рода,
+        затем женского, затем среднего);
         затем учитывая порядок падежей: И Р Д В Т П ;
-        затем - в соответствии с алфавитным порядком
-        остальных элементов идентификаторов.
-    6. Сохранить документ Прилагательные. Идентификаторы.txt ."""
+        затем - в соответствии с алфавитным порядком остальных
+        элементов идентификаторов.
+    6. Сохранить документ Прилагательные. Идентификаторы.txt .
+    """
 
     # Прил-ные с дефисом. Изм. обе части.txt
     adjectives_hyphenated = get_adjectives_hyphenated_ch_both_parts(
@@ -459,6 +466,41 @@ def get_adjectives_identifiers(word_forms_bases, _) -> list:
     pmnt_idf = set()  # .ПмнТ
     pmnp_idf = set()  # .ПмнП
 
+    pkm_idf = set()  # .ПКм
+    pkz_idf = set()  # .ПКж
+    pks_idf = set()  # .ПКс
+    pkmn_idf = set()  # .ПКмн
+
+    ps_idf = set()  # .ПС
+
+    ppmi_idf = set()  # .ППмИ
+    ppmr_idf = set()  # .ППмР
+    ppmd_idf = set()  # .ППмД
+    ppmv_idf = set()  # .ППмВ
+    ppmt_idf = set()  # .ППмТ
+    ppmp_idf = set()  # .ППмП
+
+    ppzi_idf = set()  # .ППжИ
+    ppzr_idf = set()  # .ППжР
+    ppzd_idf = set()  # .ППжД
+    ppzv_idf = set()  # .ППжВ
+    ppzt_idf = set()  # .ППжТ
+    ppzp_idf = set()  # .ППжП
+
+    ppsi_idf = set()  # .ППсИ
+    ppsr_idf = set()  # .ППсР
+    ppsd_idf = set()  # .ППсД
+    ppsv_idf = set()  # .ППсВ
+    ppst_idf = set()  # .ППсТ
+    ppsp_idf = set()  # .ППсП
+
+    ppmni_idf = set()  # .ППмнИ
+    ppmnr_idf = set()  # .ППмнР
+    ppmnd_idf = set()  # .ППмнД
+    ppmnv_idf = set()  # .ППмнВ
+    ppmnt_idf = set()  # .ППмнТ
+    ppmnp_idf = set()  # .ППмнП
+
     identifiers = []
 
     for group in word_forms_bases:
@@ -468,57 +510,131 @@ def get_adjectives_identifiers(word_forms_bases, _) -> list:
             idfs = [x.idf for x in forms]
 
             for identifier in idfs:
-                if identifier.startswith('.ПмИ'):
-                    pmi_idf.add(identifier)
-                elif identifier.startswith('.ПмР'):
-                    pmr_idf.add(identifier)
-                elif identifier.startswith('.ПмД'):
-                    pmd_idf.add(identifier)
-                elif identifier.startswith('.ПмВ'):
-                    pmv_idf.add(identifier)
-                elif identifier.startswith('.ПмТ'):
-                    pmt_idf.add(identifier)
-                elif identifier.startswith('.ПмП'):
-                    pmp_idf.add(identifier)
+                # полная форма
+                if identifier[2] not in ('К', 'С', 'П'):
+                    if not identifier.find('мн') > 0:
+                        if identifier.startswith('.ПмИ'):
+                            pmi_idf.add(identifier)
+                        elif identifier.startswith('.ПмР'):
+                            pmr_idf.add(identifier)
+                        elif identifier.startswith('.ПмД'):
+                            pmd_idf.add(identifier)
+                        elif identifier.startswith('.ПмВ'):
+                            pmv_idf.add(identifier)
+                        elif identifier.startswith('.ПмТ'):
+                            pmt_idf.add(identifier)
+                        elif identifier.startswith('.ПмП'):
+                            pmp_idf.add(identifier)
 
-                elif identifier.startswith('.ПжИ'):
-                    pzi_idf.add(identifier)
-                elif identifier.startswith('.ПжР'):
-                    pzr_idf.add(identifier)
-                elif identifier.startswith('.ПжД'):
-                    pzd_idf.add(identifier)
-                elif identifier.startswith('.ПжВ'):
-                    pzv_idf.add(identifier)
-                elif identifier.startswith('.ПжТ'):
-                    pzt_idf.add(identifier)
-                elif identifier.startswith('.ПжП'):
-                    pzp_idf.add(identifier)
+                        elif identifier.startswith('.ПжИ'):
+                            pzi_idf.add(identifier)
+                        elif identifier.startswith('.ПжР'):
+                            pzr_idf.add(identifier)
+                        elif identifier.startswith('.ПжД'):
+                            pzd_idf.add(identifier)
+                        elif identifier.startswith('.ПжВ'):
+                            pzv_idf.add(identifier)
+                        elif identifier.startswith('.ПжТ'):
+                            pzt_idf.add(identifier)
+                        elif identifier.startswith('.ПжП'):
+                            pzp_idf.add(identifier)
 
-                elif identifier.startswith('.ПсИ'):
-                    psi_idf.add(identifier)
-                elif identifier.startswith('.ПсР'):
-                    psr_idf.add(identifier)
-                elif identifier.startswith('.ПсД'):
-                    psd_idf.add(identifier)
-                elif identifier.startswith('.ПсВ'):
-                    psv_idf.add(identifier)
-                elif identifier.startswith('.ПсТ'):
-                    pst_idf.add(identifier)
-                elif identifier.startswith('.ПсП'):
-                    psp_idf.add(identifier)
+                        elif identifier.startswith('.ПсИ'):
+                            psi_idf.add(identifier)
+                        elif identifier.startswith('.ПсР'):
+                            psr_idf.add(identifier)
+                        elif identifier.startswith('.ПсД'):
+                            psd_idf.add(identifier)
+                        elif identifier.startswith('.ПсВ'):
+                            psv_idf.add(identifier)
+                        elif identifier.startswith('.ПсТ'):
+                            pst_idf.add(identifier)
+                        elif identifier.startswith('.ПсП'):
+                            psp_idf.add(identifier)
+                    else:
+                        if identifier.startswith('.ПмнИ'):
+                            pmni_idf.add(identifier)
+                        elif identifier.startswith('.ПмнР'):
+                            pmnr_idf.add(identifier)
+                        elif identifier.startswith('.ПмнД'):
+                            pmnd_idf.add(identifier)
+                        elif identifier.startswith('.ПмнВ'):
+                            pmnv_idf.add(identifier)
+                        elif identifier.startswith('.ПмнТ'):
+                            pmnt_idf.add(identifier)
+                        elif identifier.startswith('.ПмнП'):
+                            pmnp_idf.add(identifier)
 
-                elif identifier.startswith('.ПмнИ'):
-                    pmni_idf.add(identifier)
-                elif identifier.startswith('.ПмнР'):
-                    pmnr_idf.add(identifier)
-                elif identifier.startswith('.ПмнД'):
-                    pmnd_idf.add(identifier)
-                elif identifier.startswith('.ПмнВ'):
-                    pmnv_idf.add(identifier)
-                elif identifier.startswith('.ПмнТ'):
-                    pmnt_idf.add(identifier)
-                elif identifier.startswith('.ПмнП'):
-                    pmnp_idf.add(identifier)
+                # краткая форма
+                elif identifier[2] == 'К':
+                    if not identifier.find('мн') > 0:
+                        if identifier.startswith('.ПКм'):
+                            pkm_idf.add(identifier)
+                        elif identifier.startswith('.ПКж'):
+                            pkz_idf.add(identifier)
+                        elif identifier.startswith('.ПКс'):
+                            pks_idf.add(identifier)
+                    elif identifier.startswith('.ПКмн'):
+                        pkmn_idf.add(identifier)
+
+                # сравинтельная степень
+                elif identifier[2] == 'С':
+                    ps_idf.add(identifier)
+
+                # превосходная степень
+                elif identifier[2] == 'П':
+                    if not identifier.find('мн') > 0:
+                        if identifier.startswith('.ППмИ'):
+                            ppmi_idf.add(identifier)
+                        elif identifier.startswith('.ППмР'):
+                            ppmr_idf.add(identifier)
+                        elif identifier.startswith('.ППмД'):
+                            ppmd_idf.add(identifier)
+                        elif identifier.startswith('.ППмВ'):
+                            ppmv_idf.add(identifier)
+                        elif identifier.startswith('.ППмТ'):
+                            ppmt_idf.add(identifier)
+                        elif identifier.startswith('.ППмП'):
+                            ppmp_idf.add(identifier)
+
+                        elif identifier.startswith('.ППжИ'):
+                            ppzi_idf.add(identifier)
+                        elif identifier.startswith('.ППжР'):
+                            ppzr_idf.add(identifier)
+                        elif identifier.startswith('.ППжД'):
+                            ppzd_idf.add(identifier)
+                        elif identifier.startswith('.ППжВ'):
+                            ppzv_idf.add(identifier)
+                        elif identifier.startswith('.ППжТ'):
+                            ppzt_idf.add(identifier)
+                        elif identifier.startswith('.ППжП'):
+                            ppzp_idf.add(identifier)
+
+                        elif identifier.startswith('.ППсИ'):
+                            ppsi_idf.add(identifier)
+                        elif identifier.startswith('.ППсР'):
+                            ppsr_idf.add(identifier)
+                        elif identifier.startswith('.ППсД'):
+                            ppsd_idf.add(identifier)
+                        elif identifier.startswith('.ППсВ'):
+                            ppsv_idf.add(identifier)
+                        elif identifier.startswith('.ППсТ'):
+                            ppst_idf.add(identifier)
+                        elif identifier.startswith('.ППсП'):
+                            ppsp_idf.add(identifier)
+                    else:
+                        if identifier.startswith('.ППмнИ'):
+                            ppmni_idf.add(identifier)
+                        elif identifier.startswith('.ППмнР'):
+                            ppmnr_idf.add(identifier)
+                        elif identifier.startswith('.ППмнД'):
+                            ppmnd_idf.add(identifier)
+                        elif identifier.startswith('.ППмнВ'):
+                            ppmnv_idf.add(identifier)
+                        elif identifier.startswith('.ППмнТ'):
+                            ppmnt_idf.add(identifier)
+                        elif identifier.startswith('.ППмнП'):
+                            ppmnp_idf.add(identifier)
 
     identifiers += sorted(list(pmi_idf))
     identifiers += sorted(list(pmr_idf))
@@ -534,7 +650,7 @@ def get_adjectives_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(pzt_idf))
     identifiers += sorted(list(pzp_idf))
 
-    identifiers += sorted(list(psi_idf))
+    identifiers += sorted(list(pzi_idf))
     identifiers += sorted(list(psr_idf))
     identifiers += sorted(list(psd_idf))
     identifiers += sorted(list(psv_idf))
@@ -547,6 +663,41 @@ def get_adjectives_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(pmnv_idf))
     identifiers += sorted(list(pmnt_idf))
     identifiers += sorted(list(pmnp_idf))
+
+    identifiers += sorted(list(pkm_idf))
+    identifiers += sorted(list(pkz_idf))
+    identifiers += sorted(list(pks_idf))
+    identifiers += sorted(list(pkmn_idf))
+
+    identifiers += sorted(list(ps_idf))
+
+    identifiers += sorted(list(ppmi_idf))
+    identifiers += sorted(list(ppmr_idf))
+    identifiers += sorted(list(ppmd_idf))
+    identifiers += sorted(list(ppmv_idf))
+    identifiers += sorted(list(ppmt_idf))
+    identifiers += sorted(list(ppmp_idf))
+
+    identifiers += sorted(list(ppzi_idf))
+    identifiers += sorted(list(ppzr_idf))
+    identifiers += sorted(list(ppzd_idf))
+    identifiers += sorted(list(ppzv_idf))
+    identifiers += sorted(list(ppzt_idf))
+    identifiers += sorted(list(ppzp_idf))
+
+    identifiers += sorted(list(ppzi_idf))
+    identifiers += sorted(list(ppsr_idf))
+    identifiers += sorted(list(ppsd_idf))
+    identifiers += sorted(list(ppsv_idf))
+    identifiers += sorted(list(ppst_idf))
+    identifiers += sorted(list(ppsp_idf))
+
+    identifiers += sorted(list(ppmni_idf))
+    identifiers += sorted(list(ppmnr_idf))
+    identifiers += sorted(list(ppmnd_idf))
+    identifiers += sorted(list(ppmnv_idf))
+    identifiers += sorted(list(ppmnt_idf))
+    identifiers += sorted(list(ppmnp_idf))
 
     return identifiers
 
