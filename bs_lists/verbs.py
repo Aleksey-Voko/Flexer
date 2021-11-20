@@ -167,3 +167,38 @@ def is_first_conj(form: TitleWordForm):
         return True
     else:
         return False
+
+
+# Глаголы II спр.txt
+def get_verbs_of_second_conj(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .Г ,
+    и в спец. информации указан шаблон НБ вр.,
+    название которого содержит римскую цифру II
+    (кроме шаблонов НБ вр., название которого содержит
+    сочетание римских цифр I-II ,
+    а также шаблонов НБ вр. I3&II2 / I3&II2л / I8щ&II5щ ,
+    и кроме глаголов с дефисом, т.е. кроме ЗС групп,
+    идентификатор которых содержит .Г , а также -Г)."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if is_second_conj(group.title_word_form)
+    ]
+    return word_forms
+
+
+def is_second_conj(form: TitleWordForm):
+    """
+    Для 'Глаголы II спр.txt'
+    """
+
+    info_list = [x for x in form.info if x.startswith('НБ')]
+    if (
+            info_list
+            and form.idf.startswith('.Г')
+            and '-' not in form.idf
+            and info_list[0].startswith('НБII')
+    ):
+        return True
+    else:
+        return False
