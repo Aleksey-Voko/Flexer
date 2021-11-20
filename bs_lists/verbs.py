@@ -196,8 +196,9 @@ def is_second_conj(form: TitleWordForm):
     if (
             info_list
             and form.idf.startswith('.Г')
-            and '-' not in form.idf
-            and info_list[0].startswith('НБII')
+            and 'II' in info_list[0]
+            and 'I-II' not in info_list[0]
+            and '&' not in info_list[0]
     ):
         return True
     else:
