@@ -83,7 +83,8 @@ from bs_lists.verbs import (get_verbs, get_imperfective_verbs,
                             get_transitive_verbs, get_intransitive_verbs,
                             get_impersonal_verbs, get_reflexive_verbs,
                             get_non_reflexive_verbs, get_walked_verbs,
-                            get_verbs_of_first_conj, get_verbs_of_second_conj)
+                            get_verbs_of_first_conj, get_verbs_of_second_conj,
+                            get_verbs_of_mixed_conj)
 
 EXPLICIT_TASKS = {
     # БС
@@ -149,6 +150,7 @@ EXPLICIT_TASKS = {
     'Глаголы -ШЕЛ(СЯ).txt': get_walked_verbs,
     'Глаголы I спр.txt': get_verbs_of_first_conj,
     'Глаголы II спр.txt': get_verbs_of_second_conj,
+    'Глаголы смеш. спр.txt': get_verbs_of_mixed_conj,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,

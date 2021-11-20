@@ -202,3 +202,38 @@ def is_second_conj(form: TitleWordForm):
         return True
     else:
         return False
+
+
+# Глаголы смеш. спр.txt
+def get_verbs_of_mixed_conj(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .Г ,
+    и в спец. информации указан шаблон НБ вр.,
+    название которого содержит сочетание римских цифр I-II ,
+    а также следующие шаблоны НБ вр.: I3&II2 / I3&II2л / I8щ&II5щ ."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if is_mixed_conj(group.title_word_form)
+    ]
+    return word_forms
+
+
+def is_mixed_conj(form: TitleWordForm):
+    """
+    Для 'Глаголы смеш. спр.txt'
+    """
+
+    info_list = [x for x in form.info if x.startswith('НБ')]
+    if (
+            info_list
+            and form.idf.startswith('.Г')
+
+            and (
+                'I-II' in info_list[0]
+                or
+                ('II' in info_list[0] and '&' in info_list[0])
+            )
+    ):
+        return True
+    else:
+        return False
