@@ -119,11 +119,11 @@ def get_non_reflexive_verbs(word_forms_bases, _) -> list:
 # Глаголы -ШЕЛ(СЯ).txt
 def get_walked_verbs(word_forms_bases, _) -> list:
     """Найти в БС строки с ЗС групп, идентификатор которых содержит .Г ,
-    и ЗС оканчивается не на -ШЕЛ(СЯ) ."""
+    и ЗС оканчивается на -ШЕЛ(СЯ) ."""
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.Г')
-           and not group.title_word_form.name.endswith(('шел', 'шелся'))
+           and group.title_word_form.name.endswith(('шел', 'шелся'))
     ]
     return word_forms
