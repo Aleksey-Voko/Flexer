@@ -238,3 +238,16 @@ def is_mixed_conj(form: TitleWordForm):
         return True
     else:
         return False
+
+
+# Глаголы с дефисом.txt
+def get_verbs_hyphenated(word_forms_bases, _) -> list:
+    """Найти в БС строки с ЗС групп, идентификатор которых содержит .Г ,
+    и в ЗС имеется хотя бы 1 дефис."""
+
+    word_forms = [
+        str(group.title_word_form) for group in word_forms_bases
+        if group.title_word_form.idf.startswith('.Г')
+           and '-' in group.title_word_form.name
+    ]
+    return word_forms
