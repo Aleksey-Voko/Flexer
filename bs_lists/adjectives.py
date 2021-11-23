@@ -948,7 +948,7 @@ def get_adjectives_ch_both_parts_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(pzt_idf))
     identifiers += sorted(list(pzp_idf))
 
-    identifiers += sorted(list(pzi_idf))
+    identifiers += sorted(list(psi_idf))
     identifiers += sorted(list(psr_idf))
     identifiers += sorted(list(psd_idf))
     identifiers += sorted(list(psv_idf))
@@ -983,7 +983,7 @@ def get_adjectives_ch_both_parts_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(ppzt_idf))
     identifiers += sorted(list(ppzp_idf))
 
-    identifiers += sorted(list(ppzi_idf))
+    identifiers += sorted(list(ppsi_idf))
     identifiers += sorted(list(ppsr_idf))
     identifiers += sorted(list(ppsd_idf))
     identifiers += sorted(list(ppsv_idf))
