@@ -84,7 +84,8 @@ from bs_lists.verbs import (get_verbs, get_imperfective_verbs,
                             get_impersonal_verbs, get_reflexive_verbs,
                             get_non_reflexive_verbs, get_walked_verbs,
                             get_verbs_of_first_conj, get_verbs_of_second_conj,
-                            get_verbs_of_mixed_conj, get_verbs_hyphenated)
+                            get_verbs_of_mixed_conj, get_verbs_hyphenated,
+                            save_verbs_pattern_combinations)
 
 EXPLICIT_TASKS = {
     # БС
@@ -235,6 +236,7 @@ SCV_TASK = {
     'Многокорневые слова БГ.csv': save_multi_root_words,
     'Существительные. Сочетания шаблонов.csv': save_nouns_pattern_combinations,
     'Прилагательные. Сочетания шаблонов.csv': save_adjectives_pattern_combinations,
+    'Глаголы. Сочетания шаблонов.csv': save_verbs_pattern_combinations,
 }
 
 

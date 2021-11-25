@@ -1,6 +1,10 @@
 """Все Глаголы"""
 
 
+from collections import OrderedDict
+
+from rem import reminder_nouns
+from utils import save_list_of_lists_to_csv_file
 from word_form import TitleWordForm
 
 
@@ -253,3 +257,111 @@ def get_verbs_hyphenated(word_forms_bases, _) -> list:
            and '-' in group.title_word_form.name
     ]
     return word_forms
+
+
+# Глаголы. Сочетания шаблонов.csv
+def save_verbs_pattern_combinations(word_forms_bases, _):
+    """
+    1. Найти в БС строки с ЗС групп, идентификатор которых содержит .Г ,
+        и в ЗС отсутствует дефис .
+
+    2. Выбрать из найденных строк строки с уникальным сочетанием
+        элементов спец. информации (ЭСИ).
+
+        Примечание 1. Подробнее об ЭСИ - см. документ Структура строки.xlsx ,
+        вкладка Структура спец. информации.
+
+        Примечание 2. При наличии нескольких строк с одинаковым сочетанием ЭСИ
+        выбирать первую (верхнюю) строку, т.е. строку,
+        слово в которой идёт первым по алфавиту.
+
+    3. Создать документ Глаголы. Сочетания шаблонов.csv .
+        Вставить в 14 столбцов этого документа выбранные строки
+        (слово - в первый столбец, ЭСИ - в другие 13 столбцов).
+
+    4. Расположить строки следующим образом:
+        сначала - учитывая наличие / отсутствие индикатора безличности;
+        затем - в соответствии с алфавитным порядком названий шаблонов
+        настоящего / будущего времени;
+        затем - в соответствии с алфавитным порядком остальных ЭСИ.
+
+    5. Вставить в верхнюю часть документа "шапку"-памятку.
+
+    6. Сохранить документ Глаголы. Сочетания шаблонов.csv .
+    """
+
+    word_forms = []
+    unique_elements = []
+
+    for group in word_forms_bases:
+        if group.title_word_form.idf.startswith('.Г'):
+            elements = ' '.join(group.title_word_form.info)
+            if elements not in unique_elements:
+                unique_elements.append(elements)
+                word_forms.append(group.title_word_form)
+
+    in_form_of_list = []
+
+    for form in word_forms:
+        indicators = OrderedDict({
+            'name': form.name,
+            'вид': '',  # нес сов 2в
+            'переходность': '',  # пер неп
+            'безличность': '',  # б (если есть)
+            'шаблон НБ': '',  # НБ... (если есть)
+            'шаблон П': '',  # П... (если есть)
+            'шаблон Пв': '',  # Пв... (если есть)
+            'шаблон С': '',  # С... (если есть)
+            'шаблон ПНД': '',  # ПНД... (если есть)
+            'шаблон ПНС': '',  # ПНС... (если есть)
+            'шаблон ППД': '',  # ППД... (если есть)
+            'шаблон ППС': '',  # ППС... (если есть)
+            'шаблон ДН': '',  # ДН... (если есть)
+            'шаблон ДП': '',  # ДП... (если есть)
+        })
+
+        for indicator in form.info:
+            if indicator in ('нес', 'сов', '2в'):
+                indicators['вид'] = indicator
+            elif indicator in ('пер', 'неп'):
+                indicators['переходность'] = indicator
+            elif indicator == 'б':
+                indicators['безличность'] = indicator
+            elif indicator.startswith('НБ'):
+                indicators['шаблон НБ'] = indicator
+            elif (indicator.startswith('П')
+                  and not indicator.startswith(('Пв', 'ПН', 'ПП'))):
+                indicators['шаблон П'] = indicator
+            elif indicator.startswith('Пв'):
+                indicators['шаблон Пв'] = indicator
+            elif indicator.startswith('С'):
+                indicators['шаблон С'] = indicator
+            elif indicator.startswith('ПНД'):
+                indicators['шаблон ПНД'] = indicator
+            elif indicator.startswith('ПНС'):
+                indicators['шаблон ПНС'] = indicator
+            elif indicator.startswith('ППД'):
+                indicators['шаблон ППД'] = indicator
+            elif indicator.startswith('ППС'):
+                indicators['шаблон ППС'] = indicator
+            elif indicator.startswith('ДН'):
+                indicators['шаблон ДН'] = indicator
+            elif indicator.startswith('ДП'):
+                indicators['шаблон ДП'] = indicator
+
+        in_form_of_list.append(list(indicators.values()))
+
+    in_form_of_list = sorted(
+        in_form_of_list,
+        key=lambda x: (x[3], x[4], x[5], x[6], x[7], x[8],
+                       x[9], x[10], x[11], x[12], x[13])
+    )
+
+    print(f'\n{reminder_nouns}\n')
+
+    save_list_of_lists_to_csv_file(
+        in_form_of_list,
+        'Глаголы. Сочетания шаблонов.csv',
+        encoding='cp1251',
+        delimiter=';'
+    )
