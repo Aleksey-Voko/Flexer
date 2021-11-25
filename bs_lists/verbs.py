@@ -160,7 +160,7 @@ def is_first_conj(form: TitleWordForm):
             info_list
             and form.idf.startswith('.Г')
             and '-' not in form.idf
-            and 'I-II' not in form.idf
+            and 'I-II' not in info_list[0]
             and info_list[0].startswith('НБI')
             and not info_list[0].startswith((
                 'НБII', 'НБI3&II2', 'НБI3&II2л', 'НБI8щ&II5щ'))
