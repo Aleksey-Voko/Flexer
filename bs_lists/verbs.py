@@ -409,7 +409,7 @@ def save_verbs_pattern_combinations(word_forms_bases, _):
     in_form_of_list = sorted(
         in_form_of_list,
         key=lambda x: (x[3], x[4], x[5], x[6], x[7], x[8],
-                       x[9], x[10], x[11], x[12], x[13])
+                       x[9], x[10], x[11], x[12], x[13], x[1], x[2])
     )
 
     in_form_of_list.insert(0, header_3)
