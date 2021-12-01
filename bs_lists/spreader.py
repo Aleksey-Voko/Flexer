@@ -85,7 +85,8 @@ from bs_lists.verbs import (get_verbs, get_imperfective_verbs,
                             get_non_reflexive_verbs, get_walked_verbs,
                             get_verbs_of_first_conj, get_verbs_of_second_conj,
                             get_verbs_of_mixed_conj, get_verbs_hyphenated,
-                            save_verbs_pattern_combinations)
+                            save_verbs_pattern_combinations,
+                            get_verbs_identifiers)
 
 EXPLICIT_TASKS = {
     # БС
@@ -153,6 +154,7 @@ EXPLICIT_TASKS = {
     'Глаголы II спр.txt': get_verbs_of_second_conj,
     'Глаголы смеш. спр.txt': get_verbs_of_mixed_conj,
     'Глаголы с дефисом.txt': get_verbs_hyphenated,
+    'Глаголы. Идентификаторы.txt': get_verbs_identifiers,
 
     'Местоимения.txt': get_pronouns,
     'Местоимения. Нет мн. ч.txt': get_pronouns_no_plural,
