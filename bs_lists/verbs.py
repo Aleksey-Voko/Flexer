@@ -503,6 +503,8 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
     pnds_idf = set()  # .ПНДс
     pndmn_idf = set()  # .ПНДмн
 
+    pndk_idf = set()  # .ПНДК
+
     pnd1m_idf = set()  # .ПНД1м
     pnd1z_idf = set()  # .ПНД1ж
     pnd1s_idf = set()  # .ПНД1с
@@ -513,12 +515,12 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
     pnd2s_idf = set()  # .ПНД2с
     pnd2mn_idf = set()  # .ПНД2мн
 
-    pndk_idf = set()  # .ПНДК
-
     pnsm_idf = set()  # .ПНСм
     pnsz_idf = set()  # .ПНСж
     pnss_idf = set()  # .ПНСс
     pnsmn_idf = set()  # .ПНСмн
+
+    pnsk_idf = set()  # .ПНСКм
 
     pns1m_idf = set()  # .ПНС1м
     pns1z_idf = set()  # .ПНС1ж
@@ -529,8 +531,6 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
     pns2z_idf = set()  # .ПНС2ж
     pns2s_idf = set()  # .ПНС2с
     pns2mn_idf = set()  # .ПНС2мн
-
-    pnsk_idf = set()  # .ПНСКм
 
     ppdm_idf = set()  # .ППДм
     ppdz_idf = set()  # .ППДж
@@ -734,6 +734,9 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(pndmn_idf),
                           key=lambda x: sorting_by_case[x[6:]])
 
+    identifiers += sorted(list(pndk_idf),
+                          key=lambda x: sorting_by_gender[x[5:]])
+
     identifiers += sorted(list(pnd1m_idf),
                           key=lambda x: sorting_by_case[x[6:]])
     identifiers += sorted(list(pnd1z_idf),
@@ -752,9 +755,6 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(pnd2mn_idf),
                           key=lambda x: sorting_by_case[x[7:]])
 
-    identifiers += sorted(list(pndk_idf),
-                          key=lambda x: sorting_by_gender[x[5:]])
-
     identifiers += sorted(list(pnsm_idf),
                           key=lambda x: sorting_by_case[x[5:]])
     identifiers += sorted(list(pnsz_idf),
@@ -763,6 +763,9 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
                           key=lambda x: sorting_by_case[x[5:]])
     identifiers += sorted(list(pnsmn_idf),
                           key=lambda x: sorting_by_case[x[6:]])
+
+    identifiers += sorted(list(pnsk_idf),
+                          key=lambda x: sorting_by_gender[x[5:]])
 
     identifiers += sorted(list(pns1m_idf),
                           key=lambda x: sorting_by_case[x[6:]])
@@ -781,9 +784,6 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
                           key=lambda x: sorting_by_case[x[6:]])
     identifiers += sorted(list(pns2mn_idf),
                           key=lambda x: sorting_by_case[x[7:]])
-
-    identifiers += sorted(list(pnsk_idf),
-                          key=lambda x: sorting_by_gender[x[5:]])
 
     identifiers += sorted(list(ppdm_idf),
                           key=lambda x: sorting_by_case[x[5:]])
