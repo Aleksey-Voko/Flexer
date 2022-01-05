@@ -87,7 +87,8 @@ from bs_lists.verbs import (get_verbs, get_imperfective_verbs,
                             get_verbs_of_mixed_conj, get_verbs_hyphenated,
                             save_verbs_pattern_combinations,
                             get_verbs_identifiers,
-                            get_verbs_hyphenated_identifiers)
+                            get_verbs_hyphenated_identifiers,
+                            get_verbs_implicit_pattern)
 
 EXPLICIT_TASKS = {
     # БС
@@ -218,6 +219,7 @@ IMPLICIT_TASK = {
     'Существительные_мн_ч': get_plural_nouns_implicit_pattern,
     'Существительные': get_nouns_implicit_pattern,
     'Прилагательные': get_adjectives_implicit_pattern,
+    'Глаголы': get_verbs_implicit_pattern,
 }
 
 
