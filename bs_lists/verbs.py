@@ -846,3 +846,424 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(dp_idf))
 
     return identifiers
+
+
+# Глаголы с дефисом. Идентификаторы.txt
+def get_verbs_hyphenated_identifiers(word_forms_bases, _) -> list:
+    """
+    1. Создать документ Глаголы с дефисом.txt .
+    2. Найти в БС группы с ЗС из документа Глаголы с дефисом.txt .
+    3. Создать документ Глаголы с дефисом. Идентификаторы.txt
+        и вставить в него все идентификаторы из найденных согласно п. 2 групп.
+    4. Удалить повторы одинаковых идентификаторов, оставив только уникальные.
+    5. Упорядочить идентификаторы следующим образом:
+        сначала учитывая порядок форм (сначала идентификаторы инфинитива,
+        затем настоящего / будущего времени,
+        затем прошедшего времени и т. д.): И НБ П Пв СД ПНД ПНС ППД ППС ДН ДП ;
+        затем с учётом числа (сначала идентификаторы единственного числа,
+        затем - множественного);
+        затем с учётом лица (сначала идентификаторы 1-ого лица, затем 2-ого,
+        затем 3-его) - только для форм настоящего / будущего времени;
+        затем с учётом рода (сначала идентификаторы мужского рода,
+        затем женского, затем среднего);
+        затем учитывая порядок падежей: И Р Д В Т П ;
+        затем - в соответствии с алфавитным порядком
+        остальных элементов идентификаторов.
+    6. Сохранить документ Глаголы с дефисом. Идентификаторы.txt .
+    """
+
+    # Глаголы с дефисом.txt
+    verbs_hyphenated = get_verbs_hyphenated(word_forms_bases, _)
+    save_list_to_file(verbs_hyphenated, 'Глаголы с дефисом.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Глаголы с дефисом.txt')
+    print(f'... сортировка ...')
+
+    sorting_by_case = {
+        'И': 1,
+        'Р': 2,
+        'Д': 3,
+        'В': 4,
+        'Т': 5,
+        'Т1': 6,
+        'Т2': 7,
+        'Т3': 8,
+        'П': 9,
+    }
+
+    sorting_by_gender = {
+        'м': 1,
+        'м1': 2,
+        'м2': 3,
+        'м3': 4,
+        'ж': 5,
+        'ж1': 6,
+        'ж2': 7,
+        'ж3': 8,
+        'с': 9,
+        'с1': 10,
+        'с2': 11,
+        'с3': 12,
+        'мн': 13,
+        'мн1': 14,
+        'мн2': 15,
+        'мн3': 16,
+    }
+
+    gi_idf = set()  # .ГИ
+    gnb_idf = set()  # .ГНБ
+    gp_idf = set()  # .ГП
+    gpv_idf = set()  # .ГПв
+    gs_idf = set()  # .ГС
+
+    pndm_idf = set()  # .ПНДм
+    pndz_idf = set()  # .ПНДж
+    pnds_idf = set()  # .ПНДс
+    pndmn_idf = set()  # .ПНДмн
+
+    pndk_idf = set()  # .ПНДК
+
+    pnd1m_idf = set()  # .ПНД1м
+    pnd1z_idf = set()  # .ПНД1ж
+    pnd1s_idf = set()  # .ПНД1с
+    pnd1mn_idf = set()  # .ПНД1мн
+
+    pnd2m_idf = set()  # .ПНД2м
+    pnd2z_idf = set()  # .ПНД2ж
+    pnd2s_idf = set()  # .ПНД2с
+    pnd2mn_idf = set()  # .ПНД2мн
+
+    pnsm_idf = set()  # .ПНСм
+    pnsz_idf = set()  # .ПНСж
+    pnss_idf = set()  # .ПНСс
+    pnsmn_idf = set()  # .ПНСмн
+
+    pnsk_idf = set()  # .ПНСКм
+
+    pns1m_idf = set()  # .ПНС1м
+    pns1z_idf = set()  # .ПНС1ж
+    pns1s_idf = set()  # .ПНС1с
+    pns1mn_idf = set()  # .ПНС1мн
+
+    pns2m_idf = set()  # .ПНС2м
+    pns2z_idf = set()  # .ПНС2ж
+    pns2s_idf = set()  # .ПНС2с
+    pns2mn_idf = set()  # .ПНС2мн
+
+    ppdm_idf = set()  # .ППДм
+    ppdz_idf = set()  # .ППДж
+    ppds_idf = set()  # .ППДс
+    ppdmn_idf = set()  # .ППДмн
+
+    ppd1m_idf = set()  # .ППД1м
+    ppd1z_idf = set()  # .ППД1ж
+    ppd1s_idf = set()  # .ППД1с
+    ppd1mn_idf = set()  # .ППД1мн
+
+    ppd2m_idf = set()  # .ППД2м
+    ppd2z_idf = set()  # .ППД2ж
+    ppd2s_idf = set()  # .ППД2с
+    ppd2mn_idf = set()  # .ППД2мн
+
+    ppsm_idf = set()  # .ППСм
+    ppsz_idf = set()  # .ППСж
+    ppss_idf = set()  # .ППСс
+    ppsmn_idf = set()  # .ППСмн
+
+    pps1m_idf = set()  # .ППС1м
+    pps1z_idf = set()  # .ППС1ж
+    pps1s_idf = set()  # .ППС1с
+    pps1mn_idf = set()  # .ППС1мн
+
+    pps2m_idf = set()  # .ППС2м
+    pps2z_idf = set()  # .ППС2ж
+    pps2s_idf = set()  # .ППС2с
+    pps2mn_idf = set()  # .ППС2мн
+
+    ppsk_idf = set()  # .ППСКм
+
+    dn_idf = set()  # .ДН
+    dp_idf = set()  # .ДП
+
+    identifiers = []
+
+    for group in word_forms_bases:
+        if str(group.title_word_form) in verbs_hyphenated:
+            forms = [group.title_word_form] + group.word_forms
+            idfs = [x.idf for x in forms]
+
+            for identifier in idfs:
+                if identifier.startswith('.ГИ'):
+                    gi_idf.add(identifier)
+                elif identifier.startswith('.ГНБ'):
+                    gnb_idf.add(identifier)
+                elif identifier.startswith('.ГПв'):
+                    gpv_idf.add(identifier)
+                elif identifier.startswith('.ГС'):
+                    gs_idf.add(identifier)
+
+                elif (identifier.startswith('.ПНД1м')
+                      and not identifier.startswith('.ПНД1мн')):
+                    pnd1m_idf.add(identifier)
+                elif identifier.startswith('.ПНД1ж'):
+                    pnd1z_idf.add(identifier)
+                elif identifier.startswith('.ПНД1с'):
+                    pnd1s_idf.add(identifier)
+                elif identifier.startswith('.ПНД1мн'):
+                    pnd1mn_idf.add(identifier)
+
+                elif (identifier.startswith('.ПНД2м')
+                      and not identifier.startswith('.ПНД2мн')):
+                    pnd2m_idf.add(identifier)
+                elif identifier.startswith('.ПНД2ж'):
+                    pnd2z_idf.add(identifier)
+                elif identifier.startswith('.ПНД2с'):
+                    pnd2s_idf.add(identifier)
+                elif identifier.startswith('.ПНД2мн'):
+                    pnd2mn_idf.add(identifier)
+
+                elif identifier.startswith('.ПНДК'):
+                    pndk_idf.add(identifier)
+
+                elif (identifier.startswith('.ПНДм')
+                      and not identifier.startswith('.ПНДмн')):
+                    pndm_idf.add(identifier)
+                elif identifier.startswith('.ПНДж'):
+                    pndz_idf.add(identifier)
+                elif identifier.startswith('.ПНДс'):
+                    pnds_idf.add(identifier)
+                elif identifier.startswith('.ПНДмн'):
+                    pndmn_idf.add(identifier)
+
+                elif (identifier.startswith('.ПНС1м')
+                      and not identifier.startswith('.ПНС1мн')):
+                    pns1m_idf.add(identifier)
+                elif identifier.startswith('.ПНС1ж'):
+                    pns1z_idf.add(identifier)
+                elif identifier.startswith('.ПНС1с'):
+                    pns1s_idf.add(identifier)
+                elif identifier.startswith('.ПНС1мн'):
+                    pns1mn_idf.add(identifier)
+
+                elif (identifier.startswith('.ПНС2м')
+                      and not identifier.startswith('.ПНС2мн')):
+                    pns2m_idf.add(identifier)
+                elif identifier.startswith('.ПНС2ж'):
+                    pns2z_idf.add(identifier)
+                elif identifier.startswith('.ПНС2с'):
+                    pns2s_idf.add(identifier)
+                elif identifier.startswith('.ПНС2мн'):
+                    pns2mn_idf.add(identifier)
+
+                elif identifier.startswith('.ПНСК'):
+                    pnsk_idf.add(identifier)
+
+                elif (identifier.startswith('.ПНСм')
+                      and not identifier.startswith('.ПНСмн')):
+                    pnsm_idf.add(identifier)
+                elif identifier.startswith('.ПНСж'):
+                    pnsz_idf.add(identifier)
+                elif identifier.startswith('.ПНСс'):
+                    pnss_idf.add(identifier)
+                elif identifier.startswith('.ПНСмн'):
+                    pnsmn_idf.add(identifier)
+
+                elif (identifier.startswith('.ППД1м')
+                      and not identifier.startswith('.ППД1мн')):
+                    ppd1m_idf.add(identifier)
+                elif identifier.startswith('.ППД1ж'):
+                    ppd1z_idf.add(identifier)
+                elif identifier.startswith('.ППД1с'):
+                    ppd1s_idf.add(identifier)
+                elif identifier.startswith('.ППД1мн'):
+                    ppd1mn_idf.add(identifier)
+
+                elif (identifier.startswith('.ППД2м')
+                      and not identifier.startswith('.ППД2мн')):
+                    ppd2m_idf.add(identifier)
+                elif identifier.startswith('.ППД2ж'):
+                    ppd2z_idf.add(identifier)
+                elif identifier.startswith('.ППД2с'):
+                    ppd2s_idf.add(identifier)
+                elif identifier.startswith('.ППД2мн'):
+                    ppd2mn_idf.add(identifier)
+
+                elif (identifier.startswith('.ППДм')
+                      and not identifier.startswith('.ППДмн')):
+                    ppdm_idf.add(identifier)
+                elif identifier.startswith('.ППДж'):
+                    ppdz_idf.add(identifier)
+                elif identifier.startswith('.ППДс'):
+                    ppds_idf.add(identifier)
+                elif identifier.startswith('.ППДмн'):
+                    ppdmn_idf.add(identifier)
+
+                elif (identifier.startswith('.ППС1м')
+                      and not identifier.startswith('.ППС1мн')):
+                    pps1m_idf.add(identifier)
+                elif identifier.startswith('.ППС1ж'):
+                    pps1z_idf.add(identifier)
+                elif identifier.startswith('.ППС1с'):
+                    pps1s_idf.add(identifier)
+                elif identifier.startswith('.ППС1мн'):
+                    pps1mn_idf.add(identifier)
+
+                elif (identifier.startswith('.ППС2м')
+                      and not identifier.startswith('.ППС2мн')):
+                    pps2m_idf.add(identifier)
+                elif identifier.startswith('.ППС2ж'):
+                    pps2z_idf.add(identifier)
+                elif identifier.startswith('.ППС2с'):
+                    pps2s_idf.add(identifier)
+                elif identifier.startswith('.ППС2мн'):
+                    pps2mn_idf.add(identifier)
+
+                elif identifier.startswith('.ППСК'):
+                    ppsk_idf.add(identifier)
+
+                elif (identifier.startswith('.ППСм')
+                      and not identifier.startswith('.ППСмн')):
+                    ppsm_idf.add(identifier)
+                elif identifier.startswith('.ППСж'):
+                    ppsz_idf.add(identifier)
+                elif identifier.startswith('.ППСс'):
+                    ppss_idf.add(identifier)
+                elif identifier.startswith('.ППСмн'):
+                    ppsmn_idf.add(identifier)
+
+                elif identifier.startswith('.ДН'):
+                    dn_idf.add(identifier)
+                elif identifier.startswith('.ДП'):
+                    dp_idf.add(identifier)
+
+                elif identifier.startswith('.ГП'):
+                    gp_idf.add(identifier)
+
+    identifiers += sorted(list(gi_idf))
+    identifiers += sorted(list(gnb_idf))
+    identifiers += sorted(list(gp_idf),
+                          key=lambda x: sorting_by_gender[x.split('-')[0][3:]])
+    identifiers += sorted(list(gpv_idf))
+    identifiers += sorted(list(gs_idf))
+
+    identifiers += sorted(list(pndm_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(pndz_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(pnds_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(pndmn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+
+    identifiers += sorted(list(pndk_idf),
+                          key=lambda x: sorting_by_gender[x.split('-')[0][5:]])
+
+    identifiers += sorted(list(pnd1m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pnd1z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pnd1s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pnd1mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(pnd2m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pnd2z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pnd2s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pnd2mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(pnsm_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(pnsz_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(pnss_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(pnsmn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+
+    identifiers += sorted(list(pnsk_idf),
+                          key=lambda x: sorting_by_gender[x.split('-')[0][5:]])
+
+    identifiers += sorted(list(pns1m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pns1z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pns1s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pns1mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(pns2m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pns2z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pns2s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pns2mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(ppdm_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(ppdz_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(ppds_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(ppdmn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+
+    identifiers += sorted(list(ppd1m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(ppd1z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(ppd1s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(ppd1mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(ppd2m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(ppd2z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(ppd2s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(ppd2mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(ppsm_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(ppsz_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(ppss_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+    identifiers += sorted(list(ppsmn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+
+    identifiers += sorted(list(pps1m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pps1z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pps1s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pps1mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(pps2m_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pps2z_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pps2s_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+    identifiers += sorted(list(pps2mn_idf),
+                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+
+    identifiers += sorted(list(ppsk_idf),
+                          key=lambda x: sorting_by_gender[x.split('-')[0][5:]])
+
+    identifiers += sorted(list(dn_idf))
+    identifiers += sorted(list(dp_idf))
+
+    return identifiers
