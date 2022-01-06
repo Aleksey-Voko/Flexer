@@ -27,8 +27,8 @@ def get_imperfective_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and 'нес' in group.title_word_form.info
+        if (group.title_word_form.idf.startswith('.Г')
+            and 'нес' in group.title_word_form.info)
     ]
     return word_forms
 
@@ -40,8 +40,8 @@ def get_perfect_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and 'сов' in group.title_word_form.info
+        if (group.title_word_form.idf.startswith('.Г')
+            and 'сов' in group.title_word_form.info)
     ]
     return word_forms
 
@@ -53,8 +53,8 @@ def get_two_species_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and '2в' in group.title_word_form.info
+        if (group.title_word_form.idf.startswith('.Г')
+            and '2в' in group.title_word_form.info)
     ]
     return word_forms
 
@@ -66,8 +66,8 @@ def get_transitive_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and 'пер' in group.title_word_form.info
+        if (group.title_word_form.idf.startswith('.Г')
+            and 'пер' in group.title_word_form.info)
     ]
     return word_forms
 
@@ -79,8 +79,8 @@ def get_intransitive_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and 'неп' in group.title_word_form.info
+        if (group.title_word_form.idf.startswith('.Г')
+            and 'неп' in group.title_word_form.info)
     ]
     return word_forms
 
@@ -92,8 +92,8 @@ def get_impersonal_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and 'б' in group.title_word_form.info
+        if (group.title_word_form.idf.startswith('.Г')
+            and 'б' in group.title_word_form.info)
     ]
     return word_forms
 
@@ -105,8 +105,8 @@ def get_reflexive_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and group.title_word_form.name.endswith(('ся', 'сь'))
+        if (group.title_word_form.idf.startswith('.Г')
+            and group.title_word_form.name.endswith(('ся', 'сь')))
     ]
     return word_forms
 
@@ -118,8 +118,8 @@ def get_non_reflexive_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and not group.title_word_form.name.endswith(('ся', 'сь'))
+        if (group.title_word_form.idf.startswith('.Г')
+            and not group.title_word_form.name.endswith(('ся', 'сь')))
     ]
     return word_forms
 
@@ -131,8 +131,8 @@ def get_walked_verbs(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and group.title_word_form.name.endswith(('шел', 'шелся'))
+        if (group.title_word_form.idf.startswith('.Г')
+            and group.title_word_form.name.endswith(('шел', 'шелся')))
     ]
     return word_forms
 
@@ -254,8 +254,8 @@ def get_verbs_hyphenated(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.Г')
-           and '-' in group.title_word_form.name
+        if (group.title_word_form.idf.startswith('.Г')
+            and '-' in group.title_word_form.name)
     ]
     return word_forms
 
@@ -352,7 +352,7 @@ def save_verbs_pattern_combinations(word_forms_bases, _):
         'НЕ образуется для\nглаголов сов. вида\nиз списка 1',
         '',
         'НЕ образуется для\nгл-ов из списка 1\nи для гл-ов I спр.\n'
-         'с единственной словоформой\n.ГНБ3мн на\n-ЖУТ / -ЧУТ / -ШУТ / -ЩУТ',
+        'с единственной словоформой\n.ГНБ3мн на\n-ЖУТ / -ЧУТ / -ШУТ / -ЩУТ',
         '',
         'НЕ образуется для\nГНЕВАТЬ ',
         'НЕ образуется для\nглаголов из списка 1',
