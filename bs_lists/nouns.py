@@ -27,8 +27,10 @@ def get_inanimate_nouns(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.С')
-           and 'неод' in group.title_word_form.info
+        if (
+                group.title_word_form.idf.startswith('.С')
+                and 'неод' in group.title_word_form.info
+        )
     ]
     return word_forms
 
@@ -40,8 +42,10 @@ def get_animate_nouns(word_forms_bases, _) -> list:
 
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
-        if group.title_word_form.idf.startswith('.С')
-           and 'одуш' in group.title_word_form.info
+        if (
+                group.title_word_form.idf.startswith('.С')
+                and 'одуш' in group.title_word_form.info
+        )
     ]
     return word_forms
 
@@ -57,10 +61,10 @@ def get_singular_nouns(word_forms_bases, _) -> list:
         str(group.title_word_form) for group in word_forms_bases
         if (group.title_word_form.idf.startswith('.С')
             and any(map(
-                lambda x: x.startswith(('м', 'ж', 'с'))
-                          and not x.startswith('мн'),
+                lambda x: (x.startswith(('м', 'ж', 'с'))
+                           and not x.startswith('мн')),
                     group.title_word_form.info)))
-           or group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
+        or group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
     ]
     return word_forms
 
@@ -73,9 +77,8 @@ def get_non_plural_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and any(map(
-            lambda x: x.startswith(('м!', 'ж!', 'с!')),
-            group.title_word_form.info))
+        and any(map(lambda x: x.startswith(('м!', 'ж!', 'с!')),
+                    group.title_word_form.info))
     ]
     return word_forms
 
@@ -93,7 +96,7 @@ def get_plural_nouns(word_forms_bases, _) -> list:
             and any(map(
                     lambda x: x.startswith('мн'),
                     group.title_word_form.info)))
-           or group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
+        or group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
     ]
     return word_forms
 
@@ -106,9 +109,7 @@ def get_non_singular_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and any(map(
-            lambda x: x.startswith('мн!'),
-            group.title_word_form.info))
+        and any(map(lambda x: x.startswith('мн!'), group.title_word_form.info))
     ]
     return word_forms
 
@@ -134,7 +135,7 @@ def get_singular_and_plural_nouns(word_forms_bases, _) -> list:
                             and not x.startswith('мн!')
                     ), group.title_word_form.info)))
 
-           or group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
+        or group.title_word_form.idf in ('.СеИ-СмнИ', '.СмнИ-СеИ')
     ]
     return word_forms
 
@@ -160,8 +161,8 @@ def get_masculine_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '/' not in group.title_word_form.idf
-           and any(map(
+        and '/' not in group.title_word_form.idf
+        and any(map(
             lambda x: (
                           x.startswith('м')
                           and '-' not in x
@@ -204,20 +205,20 @@ def get_feminine_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '/' not in group.title_word_form.idf
-           and any(map(
+        and '/' not in group.title_word_form.idf
+        and any(map(
             lambda x: (
-                              x.startswith('ж')
-                              and '-' not in x
+                            x.startswith('ж')
+                            and '-' not in x
                       ) or (
-                              x.startswith('ж')
-                              and group.title_word_form.idf == '.СеИ-'
+                            x.startswith('ж')
+                            and group.title_word_form.idf == '.СеИ-'
                       ) or (
-                              x.startswith('ж')
-                              and '-ж' in x
+                            x.startswith('ж')
+                            and '-ж' in x
                       ) or (
-                              x.startswith('ж!')
-                              and '-ж!' in x
+                            x.startswith('ж!')
+                            and '-ж!' in x
                       ),
             group.title_word_form.info))
     ]
@@ -245,20 +246,20 @@ def get_neuter_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '/' not in group.title_word_form.idf
-           and any(map(
+        and '/' not in group.title_word_form.idf
+        and any(map(
             lambda x: (
-                              x.startswith('с')
-                              and '-' not in x
+                            x.startswith('с')
+                            and '-' not in x
                       ) or (
-                              x.startswith('с')
-                              and group.title_word_form.idf == '.СеИ-'
+                            x.startswith('с')
+                            and group.title_word_form.idf == '.СеИ-'
                       ) or (
-                              x.startswith('с')
-                              and '-с' in x
+                            x.startswith('с')
+                            and '-с' in x
                       ) or (
-                              x.startswith('с!')
-                              and '-с!' in x
+                            x.startswith('с!')
+                            and '-с!' in x
                       ),
             group.title_word_form.info))
     ]
@@ -277,15 +278,15 @@ def get_nouns_of_i_declension(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '-С' not in group.title_word_form.idf
-           and any(map(
+        and '-С' not in group.title_word_form.idf
+        and any(map(
             lambda x: x.startswith(('м', 'ж', 'с'))
-                      and not x.startswith('мн')
-                      and 'I' in x
-                      and 'II' not in x
-                      and 'I5&II2*' not in x
-                      and 'I7&II4*' not in x,
-            group.title_word_form.info))
+                and not x.startswith('мн')
+                and 'I' in x
+                and 'II' not in x
+                and 'I5&II2*' not in x
+                and 'I7&II4*' not in x,
+                group.title_word_form.info))
     ]
     return word_forms
 
@@ -302,15 +303,15 @@ def get_nouns_of_ii_declension(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '-С' not in group.title_word_form.idf
-           and any(map(
+        and '-С' not in group.title_word_form.idf
+        and any(map(
             lambda x: x.startswith(('м', 'ж', 'с'))
-                      and not x.startswith('мн')
-                      and 'II' in x
-                      and 'III' not in x
-                      and 'I5&II2*' not in x
-                      and 'I7&II4*' not in x,
-            group.title_word_form.info))
+                and not x.startswith('мн')
+                and 'II' in x
+                and 'III' not in x
+                and 'I5&II2*' not in x
+                and 'I7&II4*' not in x,
+                group.title_word_form.info))
     ]
     return word_forms
 
@@ -326,12 +327,12 @@ def get_nouns_of_iii_declension(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '-С' not in group.title_word_form.idf
-           and any(map(
+        and '-С' not in group.title_word_form.idf
+        and any(map(
             lambda x: x.startswith(('м', 'ж', 'с'))
-                      and not x.startswith('мн')
-                      and 'III' in x,
-            group.title_word_form.info))
+                and not x.startswith('мн')
+                and 'III' in x,
+                group.title_word_form.info))
     ]
     return word_forms
 
@@ -346,15 +347,15 @@ def get_mixed_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '-С' not in group.title_word_form.idf
-           and any(map(
+        and '-С' not in group.title_word_form.idf
+        and any(map(
             lambda x: x.startswith(('м', 'ж', 'с'))
-                      and not x.startswith('мн')
-                      and (
-                              'I5&II2*' in x
-                              or 'I7&II4*' in x
-                      ),
-            group.title_word_form.info))
+                and not x.startswith('мн')
+                and (
+                    'I5&II2*' in x
+                    or 'I7&II4*' in x
+                ),
+                group.title_word_form.info))
     ]
     return word_forms
 
@@ -368,11 +369,11 @@ def get_pol_nouns(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and any(map(
+        and any(map(
             lambda x: x.startswith(('м', 'ж', 'с'))
-                      and not x.startswith('мн')
-                      and '/' in x,
-            group.title_word_form.info))
+                and not x.startswith('мн')
+                and '/' in x,
+                group.title_word_form.info))
     ]
     return word_forms
 
@@ -459,7 +460,7 @@ def get_nouns_hyphenated(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and '-' in group.title_word_form.name
+        and '-' in group.title_word_form.name
     ]
     return word_forms
 
@@ -640,7 +641,7 @@ def get_nouns_multiple_hyphens(word_forms_bases, _) -> list:
     word_forms = [
         str(group.title_word_form) for group in word_forms_bases
         if group.title_word_form.idf.startswith('.С')
-           and group.title_word_form.name.count('-') > 1
+        and group.title_word_form.name.count('-') > 1
     ]
     return word_forms
 
