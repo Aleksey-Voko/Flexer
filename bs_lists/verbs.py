@@ -1,6 +1,6 @@
 """Все Глаголы"""
 
-
+import re
 from collections import OrderedDict
 from pathlib import Path
 
@@ -912,7 +912,10 @@ def get_verbs_hyphenated_identifiers(word_forms_bases, _) -> list:
     }
 
     gi_idf = set()  # .ГИ
-    gnb_idf = set()  # .ГНБ
+
+    gnb_e_idf = set()  # .ГНБ<*>е
+    gnb_mn_idf = set()  # .ГНБ<*>мн
+
     gp_idf = set()  # .ГП
     gpv_idf = set()  # .ГПв
     gs_idf = set()  # .ГС
@@ -996,8 +999,12 @@ def get_verbs_hyphenated_identifiers(word_forms_bases, _) -> list:
             for identifier in idfs:
                 if identifier.startswith('.ГИ'):
                     gi_idf.add(identifier)
-                elif identifier.startswith('.ГНБ'):
-                    gnb_idf.add(identifier)
+
+                elif re.match(r'.ГНБ\dе', identifier):
+                    gnb_e_idf.add(identifier)
+                elif re.match(r'.ГНБ\dмн', identifier):
+                    gnb_mn_idf.add(identifier)
+
                 elif identifier.startswith('.ГПв'):
                     gpv_idf.add(identifier)
                 elif identifier.startswith('.ГС'):
@@ -1141,7 +1148,10 @@ def get_verbs_hyphenated_identifiers(word_forms_bases, _) -> list:
                     gp_idf.add(identifier)
 
     identifiers += sorted(list(gi_idf))
-    identifiers += sorted(list(gnb_idf))
+
+    identifiers += sorted(list(gnb_e_idf))
+    identifiers += sorted(list(gnb_mn_idf))
+
     identifiers += sorted(list(gp_idf),
                           key=lambda x: sorting_by_gender[x.split('-')[0][3:]])
     identifiers += sorted(list(gpv_idf))
