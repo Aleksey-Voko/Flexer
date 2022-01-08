@@ -1158,124 +1158,124 @@ def get_verbs_hyphenated_identifiers(word_forms_bases, _) -> list:
     identifiers += sorted(list(gs_idf))
 
     identifiers += sorted(list(pndm_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(pndz_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(pnds_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(pndmn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
 
     identifiers += sorted(list(pndk_idf),
-                          key=lambda x: sorting_by_gender[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_gender[x[5]], x))
 
     identifiers += sorted(list(pnd1m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pnd1z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pnd1s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pnd1mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: (sorting_by_case[x[7]], x))
 
     identifiers += sorted(list(pnd2m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pnd2z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pnd2s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pnd2mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: (sorting_by_case[x[7]], x))
 
     identifiers += sorted(list(pnsm_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(pnsz_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(pnss_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(pnsmn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
 
     identifiers += sorted(list(pnsk_idf),
-                          key=lambda x: sorting_by_gender[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_gender[x[5]], x))
 
     identifiers += sorted(list(pns1m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pns1z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pns1s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pns1mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: (sorting_by_case[x[7]], x))
 
     identifiers += sorted(list(pns2m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pns2z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pns2s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pns2mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: (sorting_by_case[x[7]], x))
 
     identifiers += sorted(list(ppdm_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(ppdz_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(ppds_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(ppdmn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
 
     identifiers += sorted(list(ppd1m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(ppd1z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(ppd1s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]]))
     identifiers += sorted(list(ppd1mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: (sorting_by_case[x[7]]))
 
     identifiers += sorted(list(ppd2m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(ppd2z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(ppd2s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(ppd2mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: (sorting_by_case[x[7]], x))
 
     identifiers += sorted(list(ppsm_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(ppsz_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(ppss_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_case[x[5]], x))
     identifiers += sorted(list(ppsmn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
 
     identifiers += sorted(list(pps1m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: sorting_by_case[x[6:]])
     identifiers += sorted(list(pps1z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: sorting_by_case[x[6:]])
     identifiers += sorted(list(pps1s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: sorting_by_case[x[6:]])
     identifiers += sorted(list(pps1mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: sorting_by_case[x[7:]])
 
     identifiers += sorted(list(pps2m_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pps2z_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pps2s_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][6:]])
+                          key=lambda x: (sorting_by_case[x[6]], x))
     identifiers += sorted(list(pps2mn_idf),
-                          key=lambda x: sorting_by_case[x.split('-')[0][7:]])
+                          key=lambda x: (sorting_by_case[x[7]], x))
 
     identifiers += sorted(list(ppsk_idf),
-                          key=lambda x: sorting_by_gender[x.split('-')[0][5:]])
+                          key=lambda x: (sorting_by_gender[x[5]], x))
 
     identifiers += sorted(list(dn_idf))
-    identifiers += sorted(list(dp_idf))
+    identifiers += sorted(list(dp_idf), reverse=True)
 
     return identifiers
 
