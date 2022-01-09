@@ -4,6 +4,7 @@
 from collections import OrderedDict
 from itertools import zip_longest
 
+from bs_lists.picking import sorting_by_case
 from rem import reminder_nouns
 from utils import (save_list_of_lists_to_csv_file, save_list_to_file,
                    get_bs_title_word_form)
@@ -764,19 +765,10 @@ def get_nouns_ch_both_parts_identifiers(word_forms_bases, _) -> list:
     print(f'Создан документ: Сущ-ные с дефисом. Изм. обе части.txt')
     print(f'... сортировка ...')
 
-    sei_idf = set()  # .СеИ
-    ser_idf = set()  # .СеР
-    sed_idf = set()  # .СеД
-    sev_idf = set()  # .СеВ
-    set_idf = set()  # .СеТ
-    sep_idf = set()  # .СеП
-
-    smni_idf = set()  # .СмнИ
-    smnr_idf = set()  # .СмнР
-    smnd_idf = set()  # .СмнД
-    smnv_idf = set()  # .СмнВ
-    smnt_idf = set()  # .СмнТ
-    smnp_idf = set()  # .СмнП
+    se_idf = set()  # .Се
+    semn_idf = set()  # .Смн
+    se_spec_idf = set()  # .Се_Смн
+    semn_spec_idf = set()  # .Смн_Се
 
     identifiers = []
 
@@ -786,44 +778,23 @@ def get_nouns_ch_both_parts_identifiers(word_forms_bases, _) -> list:
             idfs = [x.idf for x in forms]
 
             for identifier in idfs:
-                if identifier.startswith('.СеИ'):
-                    sei_idf.add(identifier)
-                elif identifier.startswith('.СеР'):
-                    ser_idf.add(identifier)
-                elif identifier.startswith('.СеД'):
-                    sed_idf.add(identifier)
-                elif identifier.startswith('.СеВ'):
-                    sev_idf.add(identifier)
-                elif identifier.startswith('.СеТ'):
-                    set_idf.add(identifier)
-                elif identifier.startswith('.СеП'):
-                    sep_idf.add(identifier)
-                elif identifier.startswith('.СмнИ'):
-                    smni_idf.add(identifier)
-                elif identifier.startswith('.СмнР'):
-                    smnr_idf.add(identifier)
-                elif identifier.startswith('.СмнД'):
-                    smnd_idf.add(identifier)
-                elif identifier.startswith('.СмнВ'):
-                    smnv_idf.add(identifier)
-                elif identifier.startswith('.СмнТ'):
-                    smnt_idf.add(identifier)
-                elif identifier.startswith('.СмнП'):
-                    smnp_idf.add(identifier)
+                if identifier.count('е') > 1:
+                    se_idf.add(identifier)
+                elif identifier.count('мн') > 1:
+                    semn_idf.add(identifier)
+                elif identifier[2] == 'е':
+                    se_spec_idf.add(identifier)
+                else:
+                    semn_spec_idf.add(identifier)
 
-    identifiers += sorted(list(sei_idf))
-    identifiers += sorted(list(ser_idf))
-    identifiers += sorted(list(sed_idf))
-    identifiers += sorted(list(sev_idf))
-    identifiers += sorted(list(set_idf))
-    identifiers += sorted(list(sep_idf))
-
-    identifiers += sorted(list(smni_idf))
-    identifiers += sorted(list(smnr_idf))
-    identifiers += sorted(list(smnd_idf))
-    identifiers += sorted(list(smnv_idf))
-    identifiers += sorted(list(smnt_idf))
-    identifiers += sorted(list(smnp_idf))
+    identifiers += sorted(list(se_idf),
+                          key=lambda x: (sorting_by_case[x[3]], x))
+    identifiers += sorted(list(semn_idf),
+                          key=lambda x: (sorting_by_case[x[4]], x))
+    identifiers += sorted(list(se_spec_idf),
+                          key=lambda x: (sorting_by_case[x[3]], x))
+    identifiers += sorted(list(semn_spec_idf),
+                          key=lambda x: (sorting_by_case[x[4]], x))
 
     return identifiers
 
