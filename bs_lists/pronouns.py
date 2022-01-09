@@ -286,3 +286,63 @@ def get_pronouns_identifiers(word_forms_bases, _) -> list:
                           key=lambda x: (sorting_by_case[x[4]], x))
 
     return identifiers
+
+
+# Мест-ния с дефисом. Изм. обе части. Идентификаторы.txt
+def get_pronouns_hyphenated_identifiers(word_forms_bases, _) -> list:
+    """
+    1. Создать документ Мест-ния с дефисом. Изм. обе части.txt .
+    2. Найти в БС группы с ЗС из документа
+        Мест-ния с дефисом. Изм. обе части.txt .
+    3. Создать документ Мест-ния с дефисом. Изм. обе части. Идентификаторы.txt
+        и вставить в него все идентификаторы из найденных согласно п. 2 групп.
+    4. Удалить повторы одинаковых идентификаторов, оставив только уникальные.
+    5. Упорядочить идентификаторы следующим образом:
+        сначала с учётом числа (сначала идентификаторы единственного числа,
+        затем - множественного);
+        затем учитывая порядок падежей: И Р Д В Т П ;
+        затем - в соответствии с алфавитным порядком
+        остальных элементов идентификаторов.
+    6. Сохранить документ
+        Мест-ния с дефисом. Изм. обе части. Идентификаторы.txt .
+    """
+
+    # Мест-ния с дефисом. Изм. обе части.txt
+    pronouns_hyphenated_ch_both_parts = get_pronouns_hyphenated_ch_both_parts(
+        word_forms_bases, _)
+    save_list_to_file(pronouns_hyphenated_ch_both_parts,
+                      'Мест-ния с дефисом. Изм. обе части.txt',
+                      encoding='cp1251')
+    print(f'Создан документ: Мест-ния с дефисом. Изм. обе части.txt')
+    print(f'... сортировка ...')
+
+    m_idf = set()  # .М
+    m_gen_idf = set()  # .М(м)(ж)(с)
+    m_mn_idf = set()  # .Ммн
+
+    identifiers = []
+
+    for group in word_forms_bases:
+        if (str(group.title_word_form) in pronouns_hyphenated_ch_both_parts
+                and group.title_word_form.idf.startswith('.М')):
+            forms = [group.title_word_form] + group.word_forms
+            idfs = [x.idf for x in forms]
+
+            for identifier in idfs:
+                if identifier[2:4] == 'мн':
+                    m_mn_idf.add(identifier)
+                elif identifier[2] in ('м', 'ж', 'с'):
+                    m_gen_idf.add(identifier)
+                else:
+                    m_idf.add(identifier)
+
+    identifiers += sorted(list(m_idf),
+                          key=lambda x: (sorting_by_case[x[2]], x))
+    identifiers += sorted(list(m_gen_idf),
+                          key=lambda x: (
+                              sorting_by_gender[x[2]],
+                              sorting_by_case[x[3]], x))
+    identifiers += sorted(list(m_mn_idf),
+                          key=lambda x: (sorting_by_case[x[4]], x))
+
+    return identifiers
