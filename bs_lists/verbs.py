@@ -4,6 +4,7 @@ import re
 from collections import OrderedDict
 from pathlib import Path
 
+from bs_lists.picking import sorting_by_number, sorting_by_gender, sorting_by_case
 from rem import reminder_nouns
 from utils import save_list_of_lists_to_csv_file, save_list_to_file
 from word_form import TitleWordForm
@@ -462,108 +463,48 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
     print(f'Создан документ: Глаголы с дефисом.txt')
     print(f'... сортировка ...')
 
-    sorting_by_case = {
-        'И': 1,
-        'Р': 2,
-        'Д': 3,
-        'В': 4,
-        'Т': 5,
-        'Т1': 6,
-        'Т2': 7,
-        'Т3': 8,
-        'П': 9,
-    }
-
-    sorting_by_gender = {
-        'м': 1,
-        'м1': 2,
-        'м2': 3,
-        'м3': 4,
-        'ж': 5,
-        'ж1': 6,
-        'ж2': 7,
-        'ж3': 8,
-        'с': 9,
-        'с1': 10,
-        'с2': 11,
-        'с3': 12,
-        'мн': 13,
-        'мн1': 14,
-        'мн2': 15,
-        'мн3': 16,
-    }
-
     gi_idf = set()  # .ГИ
     gnb_idf = set()  # .ГНБ
+
     gp_idf = set()  # .ГП
+    gpmn_idf = set()  # .ГПмн
     gpv_idf = set()  # .ГПв
-    gs_idf = set()  # .ГС
 
-    pndm_idf = set()  # .ПНДм
-    pndz_idf = set()  # .ПНДж
-    pnds_idf = set()  # .ПНДс
-    pndmn_idf = set()  # .ПНДмн
+    gsd_idf = set()  # .ГСД
 
+    pnd_idf = set()  # .ПНД
+    pnd_mn_idf = set()  # .ПНДмн
+    pnd1_idf = set()  # .ПНД1
+    pnd1_mn_idf = set()  # .ПНД1мн
+    pnd2_idf = set()  # .ПНД2
+    pnd2_mn_idf = set()  # .ПНД2мн
     pndk_idf = set()  # .ПНДК
+    pndk_mn_idf = set()  # .ПНДКмн
 
-    pnd1m_idf = set()  # .ПНД1м
-    pnd1z_idf = set()  # .ПНД1ж
-    pnd1s_idf = set()  # .ПНД1с
-    pnd1mn_idf = set()  # .ПНД1мн
+    pns_idf = set()  # .ПНС
+    pns_mn_idf = set()  # .ПНСмн
+    pns1_idf = set()  # .ПНС1
+    pns1_mn_idf = set()  # .ПНС1мн
+    pns2_idf = set()  # .ПНС2
+    pns2_mn_idf = set()  # .ПНС2мн
+    pnsk_idf = set()  # .ПНСК
+    pnsk_mn_idf = set()  # .ПНСКмн
 
-    pnd2m_idf = set()  # .ПНД2м
-    pnd2z_idf = set()  # .ПНД2ж
-    pnd2s_idf = set()  # .ПНД2с
-    pnd2mn_idf = set()  # .ПНД2мн
+    ppd_idf = set()  # .ППД
+    ppd_mn_idf = set()  # .ППДмн
+    ppd1_idf = set()  # .ППД1
+    ppd1_mn_idf = set()  # .ППД1мн
+    ppd2_idf = set()  # .ППД2
+    ppd2_mn_idf = set()  # .ППД2мн
 
-    pnsm_idf = set()  # .ПНСм
-    pnsz_idf = set()  # .ПНСж
-    pnss_idf = set()  # .ПНСс
-    pnsmn_idf = set()  # .ПНСмн
-
-    pnsk_idf = set()  # .ПНСКм
-
-    pns1m_idf = set()  # .ПНС1м
-    pns1z_idf = set()  # .ПНС1ж
-    pns1s_idf = set()  # .ПНС1с
-    pns1mn_idf = set()  # .ПНС1мн
-
-    pns2m_idf = set()  # .ПНС2м
-    pns2z_idf = set()  # .ПНС2ж
-    pns2s_idf = set()  # .ПНС2с
-    pns2mn_idf = set()  # .ПНС2мн
-
-    ppdm_idf = set()  # .ППДм
-    ppdz_idf = set()  # .ППДж
-    ppds_idf = set()  # .ППДс
-    ppdmn_idf = set()  # .ППДмн
-
-    ppd1m_idf = set()  # .ППД1м
-    ppd1z_idf = set()  # .ППД1ж
-    ppd1s_idf = set()  # .ППД1с
-    ppd1mn_idf = set()  # .ППД1мн
-
-    ppd2m_idf = set()  # .ППД2м
-    ppd2z_idf = set()  # .ППД2ж
-    ppd2s_idf = set()  # .ППД2с
-    ppd2mn_idf = set()  # .ППД2мн
-
-    ppsm_idf = set()  # .ППСм
-    ppsz_idf = set()  # .ППСж
-    ppss_idf = set()  # .ППСс
-    ppsmn_idf = set()  # .ППСмн
-
-    pps1m_idf = set()  # .ППС1м
-    pps1z_idf = set()  # .ППС1ж
-    pps1s_idf = set()  # .ППС1с
-    pps1mn_idf = set()  # .ППС1мн
-
-    pps2m_idf = set()  # .ППС2м
-    pps2z_idf = set()  # .ППС2ж
-    pps2s_idf = set()  # .ППС2с
-    pps2mn_idf = set()  # .ППС2мн
-
-    ppsk_idf = set()  # .ППСКм
+    pps_idf = set()  # .ППС
+    pps_mn_idf = set()  # .ППСмн
+    pps1_idf = set()  # .ППС1
+    pps1_mn_idf = set()  # .ППС1мн
+    pps2_idf = set()  # .ППС2
+    pps2_mn_idf = set()  # .ППС2мн
+    ppsk_idf = set()  # .ППСК
+    ppsk_mn_idf = set()  # .ППСКмн
 
     dn_idf = set()  # .ДН
     dp_idf = set()  # .ДП
@@ -581,267 +522,168 @@ def get_verbs_identifiers(word_forms_bases, _) -> list:
                     gi_idf.add(identifier)
                 elif identifier.startswith('.ГНБ'):
                     gnb_idf.add(identifier)
+
                 elif identifier.startswith('.ГПв'):
                     gpv_idf.add(identifier)
-                elif identifier.startswith('.ГС'):
-                    gs_idf.add(identifier)
+                elif identifier.startswith('.ГПмн'):
+                    gpmn_idf.add(identifier)
+                elif identifier.startswith('.ГП'):
+                    gp_idf.add(identifier)
 
-                elif (identifier.startswith('.ПНД1м')
-                      and not identifier.startswith('.ПНД1мн')):
-                    pnd1m_idf.add(identifier)
-                elif identifier.startswith('.ПНД1ж'):
-                    pnd1z_idf.add(identifier)
-                elif identifier.startswith('.ПНД1с'):
-                    pnd1s_idf.add(identifier)
+                elif identifier.startswith('.ГСД'):
+                    gsd_idf.add(identifier)
+
                 elif identifier.startswith('.ПНД1мн'):
-                    pnd1mn_idf.add(identifier)
-
-                elif (identifier.startswith('.ПНД2м')
-                      and not identifier.startswith('.ПНД2мн')):
-                    pnd2m_idf.add(identifier)
-                elif identifier.startswith('.ПНД2ж'):
-                    pnd2z_idf.add(identifier)
-                elif identifier.startswith('.ПНД2с'):
-                    pnd2s_idf.add(identifier)
+                    pnd1_mn_idf.add(identifier)
+                elif identifier.startswith('.ПНД1'):
+                    pnd1_idf.add(identifier)
                 elif identifier.startswith('.ПНД2мн'):
-                    pnd2mn_idf.add(identifier)
-
+                    pnd2_mn_idf.add(identifier)
+                elif identifier.startswith('.ПНД2'):
+                    pnd2_idf.add(identifier)
+                elif identifier.startswith('.ПНДКмн'):
+                    pndk_mn_idf.add(identifier)
                 elif identifier.startswith('.ПНДК'):
                     pndk_idf.add(identifier)
-
-                elif (identifier.startswith('.ПНДм')
-                      and not identifier.startswith('.ПНДмн')):
-                    pndm_idf.add(identifier)
-                elif identifier.startswith('.ПНДж'):
-                    pndz_idf.add(identifier)
-                elif identifier.startswith('.ПНДс'):
-                    pnds_idf.add(identifier)
                 elif identifier.startswith('.ПНДмн'):
-                    pndmn_idf.add(identifier)
+                    pnd_mn_idf.add(identifier)
+                elif identifier.startswith('.ПНД'):
+                    pnd_idf.add(identifier)
 
-                elif (identifier.startswith('.ПНС1м')
-                      and not identifier.startswith('.ПНС1мн')):
-                    pns1m_idf.add(identifier)
-                elif identifier.startswith('.ПНС1ж'):
-                    pns1z_idf.add(identifier)
-                elif identifier.startswith('.ПНС1с'):
-                    pns1s_idf.add(identifier)
                 elif identifier.startswith('.ПНС1мн'):
-                    pns1mn_idf.add(identifier)
-
-                elif (identifier.startswith('.ПНС2м')
-                      and not identifier.startswith('.ПНС2мн')):
-                    pns2m_idf.add(identifier)
-                elif identifier.startswith('.ПНС2ж'):
-                    pns2z_idf.add(identifier)
-                elif identifier.startswith('.ПНС2с'):
-                    pns2s_idf.add(identifier)
+                    pns1_mn_idf.add(identifier)
+                elif identifier.startswith('.ПНС1'):
+                    pns1_idf.add(identifier)
                 elif identifier.startswith('.ПНС2мн'):
-                    pns2mn_idf.add(identifier)
-
+                    pns2_mn_idf.add(identifier)
+                elif identifier.startswith('.ПНС2'):
+                    pns2_idf.add(identifier)
+                elif identifier.startswith('.ПНСКмн'):
+                    pnsk_mn_idf.add(identifier)
                 elif identifier.startswith('.ПНСК'):
                     pnsk_idf.add(identifier)
-
-                elif (identifier.startswith('.ПНСм')
-                      and not identifier.startswith('.ПНСмн')):
-                    pnsm_idf.add(identifier)
-                elif identifier.startswith('.ПНСж'):
-                    pnsz_idf.add(identifier)
-                elif identifier.startswith('.ПНСс'):
-                    pnss_idf.add(identifier)
                 elif identifier.startswith('.ПНСмн'):
-                    pnsmn_idf.add(identifier)
+                    pns_mn_idf.add(identifier)
+                elif identifier.startswith('.ПНС'):
+                    pns_idf.add(identifier)
 
-                elif (identifier.startswith('.ППД1м')
-                      and not identifier.startswith('.ППД1мн')):
-                    ppd1m_idf.add(identifier)
-                elif identifier.startswith('.ППД1ж'):
-                    ppd1z_idf.add(identifier)
-                elif identifier.startswith('.ППД1с'):
-                    ppd1s_idf.add(identifier)
                 elif identifier.startswith('.ППД1мн'):
-                    ppd1mn_idf.add(identifier)
-
-                elif (identifier.startswith('.ППД2м')
-                      and not identifier.startswith('.ППД2мн')):
-                    ppd2m_idf.add(identifier)
-                elif identifier.startswith('.ППД2ж'):
-                    ppd2z_idf.add(identifier)
-                elif identifier.startswith('.ППД2с'):
-                    ppd2s_idf.add(identifier)
+                    ppd1_mn_idf.add(identifier)
+                elif identifier.startswith('.ППД1'):
+                    ppd1_idf.add(identifier)
                 elif identifier.startswith('.ППД2мн'):
-                    ppd2mn_idf.add(identifier)
-
-                elif (identifier.startswith('.ППДм')
-                      and not identifier.startswith('.ППДмн')):
-                    ppdm_idf.add(identifier)
-                elif identifier.startswith('.ППДж'):
-                    ppdz_idf.add(identifier)
-                elif identifier.startswith('.ППДс'):
-                    ppds_idf.add(identifier)
+                    ppd2_mn_idf.add(identifier)
+                elif identifier.startswith('.ППД2'):
+                    ppd2_idf.add(identifier)
                 elif identifier.startswith('.ППДмн'):
-                    ppdmn_idf.add(identifier)
+                    ppd_mn_idf.add(identifier)
+                elif identifier.startswith('.ППД'):
+                    ppd_idf.add(identifier)
 
-                elif (identifier.startswith('.ППС1м')
-                      and not identifier.startswith('.ППС1мн')):
-                    pps1m_idf.add(identifier)
-                elif identifier.startswith('.ППС1ж'):
-                    pps1z_idf.add(identifier)
-                elif identifier.startswith('.ППС1с'):
-                    pps1s_idf.add(identifier)
                 elif identifier.startswith('.ППС1мн'):
-                    pps1mn_idf.add(identifier)
-
-                elif (identifier.startswith('.ППС2м')
-                      and not identifier.startswith('.ППС2мн')):
-                    pps2m_idf.add(identifier)
-                elif identifier.startswith('.ППС2ж'):
-                    pps2z_idf.add(identifier)
-                elif identifier.startswith('.ППС2с'):
-                    pps2s_idf.add(identifier)
+                    pps1_mn_idf.add(identifier)
+                elif identifier.startswith('.ППС1'):
+                    pps1_idf.add(identifier)
                 elif identifier.startswith('.ППС2мн'):
-                    pps2mn_idf.add(identifier)
-
+                    pps2_mn_idf.add(identifier)
+                elif identifier.startswith('.ППС2'):
+                    pps2_idf.add(identifier)
+                elif identifier.startswith('.ППСКмн'):
+                    ppsk_mn_idf.add(identifier)
                 elif identifier.startswith('.ППСК'):
                     ppsk_idf.add(identifier)
-
-                elif (identifier.startswith('.ППСм')
-                      and not identifier.startswith('.ППСмн')):
-                    ppsm_idf.add(identifier)
-                elif identifier.startswith('.ППСж'):
-                    ppsz_idf.add(identifier)
-                elif identifier.startswith('.ППСс'):
-                    ppss_idf.add(identifier)
                 elif identifier.startswith('.ППСмн'):
-                    ppsmn_idf.add(identifier)
+                    pps_mn_idf.add(identifier)
+                elif identifier.startswith('.ППС'):
+                    pps_idf.add(identifier)
 
                 elif identifier.startswith('.ДН'):
                     dn_idf.add(identifier)
                 elif identifier.startswith('.ДП'):
                     dp_idf.add(identifier)
 
-                elif identifier.startswith('.ГП'):
-                    gp_idf.add(identifier)
-
     identifiers += sorted(list(gi_idf))
-    identifiers += sorted(list(gnb_idf))
-    identifiers += sorted(list(gp_idf), key=lambda x: sorting_by_gender[x[3:]])
-    identifiers += sorted(list(gpv_idf))
-    identifiers += sorted(list(gs_idf))
+    identifiers += sorted(list(gnb_idf),
+                          key=lambda x: (x[4], sorting_by_number[x[5]], x))
+    identifiers += sorted(list(gp_idf),
+                          key=lambda x: (sorting_by_gender[x[3]], x))
+    identifiers += sorted(list(gpmn_idf))
+    identifiers += sorted(list(gpv_idf),
+                          key=lambda x: (sorting_by_number[x[4]], x))
+    identifiers += sorted(list(gsd_idf))
 
-    identifiers += sorted(list(pndm_idf), key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(pndz_idf), key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(pnds_idf), key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(pndmn_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-
+    identifiers += sorted(list(pnd_idf),
+                          key=lambda x: (sorting_by_gender[x[4]],
+                                         sorting_by_case[x[5]], x))
+    identifiers += sorted(list(pnd_mn_idf),
+                          key=lambda x: (sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pnd1_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pnd1_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
+    identifiers += sorted(list(pnd2_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pnd2_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
     identifiers += sorted(list(pndk_idf),
-                          key=lambda x: sorting_by_gender[x[5:]])
+                          key=lambda x: (sorting_by_gender[x[5]], x))
+    identifiers += sorted(list(pndk_mn_idf))
 
-    identifiers += sorted(list(pnd1m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pnd1z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pnd1s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pnd1mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
-
-    identifiers += sorted(list(pnd2m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pnd2z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pnd2s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pnd2mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
-
-    identifiers += sorted(list(pnsm_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(pnsz_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(pnss_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(pnsmn_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-
+    identifiers += sorted(list(pns_idf),
+                          key=lambda x: (sorting_by_gender[x[4]],
+                                         sorting_by_case[x[5]], x))
+    identifiers += sorted(list(pns_mn_idf),
+                          key=lambda x: (sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pns1_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pns1_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
+    identifiers += sorted(list(pns2_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pns2_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
     identifiers += sorted(list(pnsk_idf),
-                          key=lambda x: sorting_by_gender[x[5:]])
+                          key=lambda x: (sorting_by_gender[x[5]], x))
+    identifiers += sorted(list(pnsk_mn_idf))
 
-    identifiers += sorted(list(pns1m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pns1z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pns1s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pns1mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
+    identifiers += sorted(list(ppd_idf),
+                          key=lambda x: (sorting_by_gender[x[4]],
+                                         sorting_by_case[x[5]], x))
+    identifiers += sorted(list(ppd_mn_idf),
+                          key=lambda x: (sorting_by_case[x[6]], x))
+    identifiers += sorted(list(ppd1_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(ppd1_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
+    identifiers += sorted(list(ppd2_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(ppd2_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
 
-    identifiers += sorted(list(pns2m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pns2z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pns2s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pns2mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
-
-    identifiers += sorted(list(ppdm_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(ppdz_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(ppds_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(ppdmn_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-
-    identifiers += sorted(list(ppd1m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(ppd1z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(ppd1s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(ppd1mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
-
-    identifiers += sorted(list(ppd2m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(ppd2z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(ppd2s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(ppd2mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
-
-    identifiers += sorted(list(ppsm_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(ppsz_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(ppss_idf),
-                          key=lambda x: sorting_by_case[x[5:]])
-    identifiers += sorted(list(ppsmn_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-
-    identifiers += sorted(list(pps1m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pps1z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pps1s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pps1mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
-
-    identifiers += sorted(list(pps2m_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pps2z_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pps2s_idf),
-                          key=lambda x: sorting_by_case[x[6:]])
-    identifiers += sorted(list(pps2mn_idf),
-                          key=lambda x: sorting_by_case[x[7:]])
-
+    identifiers += sorted(list(pps_idf),
+                          key=lambda x: (sorting_by_gender[x[4]],
+                                         sorting_by_case[x[5]], x))
+    identifiers += sorted(list(pps_mn_idf),
+                          key=lambda x: (sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pps1_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pps1_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
+    identifiers += sorted(list(pps2_idf),
+                          key=lambda x: (sorting_by_gender[x[5]],
+                                         sorting_by_case[x[6]], x))
+    identifiers += sorted(list(pps2_mn_idf),
+                          key=lambda x: (sorting_by_case[x[7]], x))
     identifiers += sorted(list(ppsk_idf),
-                          key=lambda x: sorting_by_gender[x[5:]])
+                          key=lambda x: (sorting_by_gender[x[5]], x))
+    identifiers += sorted(list(ppsk_mn_idf))
 
     identifiers += sorted(list(dn_idf))
     identifiers += sorted(list(dp_idf))
@@ -879,37 +721,6 @@ def get_verbs_hyphenated_identifiers(word_forms_bases, _) -> list:
                       encoding='cp1251')
     print(f'Создан документ: Глаголы с дефисом.txt')
     print(f'... сортировка ...')
-
-    sorting_by_case = {
-        'И': 1,
-        'Р': 2,
-        'Д': 3,
-        'В': 4,
-        'Т': 5,
-        'Т1': 6,
-        'Т2': 7,
-        'Т3': 8,
-        'П': 9,
-    }
-
-    sorting_by_gender = {
-        'м': 1,
-        'м1': 2,
-        'м2': 3,
-        'м3': 4,
-        'ж': 5,
-        'ж1': 6,
-        'ж2': 7,
-        'ж3': 8,
-        'с': 9,
-        'с1': 10,
-        'с2': 11,
-        'с3': 12,
-        'мн': 13,
-        'мн1': 14,
-        'мн2': 15,
-        'мн3': 16,
-    }
 
     gi_idf = set()  # .ГИ
 

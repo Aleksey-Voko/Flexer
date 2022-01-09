@@ -12,3 +12,8 @@ sorting_by_gender = {
     'ж': 2,
     'с': 3,
 }
+
+sorting_by_number = {
+    'е': 1,
+    'м': 2,
+}
