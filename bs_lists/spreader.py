@@ -54,7 +54,8 @@ from bs_lists.pronouns import (get_pronouns, get_pronouns_no_plural,
                                get_pronouns_hyphenated,
                                get_pronouns_hyphenated_ch_first_part,
                                get_pronouns_hyphenated_ch_last_part,
-                               get_pronouns_hyphenated_ch_both_parts)
+                               get_pronouns_hyphenated_ch_both_parts,
+                               get_pronouns_identifiers)
 from bs_lists.rest import (get_loners, get_words_hyphenated, get_latin_words,
                            get_words_with_exp_notes, get_homonyms,
                            get_words_with_exp_notes_no_homonyms,
@@ -167,6 +168,7 @@ EXPLICIT_TASKS = {
     'Мест-ния с дефисом. Изм. первая часть.txt': get_pronouns_hyphenated_ch_first_part,
     'Мест-ния с дефисом. Изм. последняя часть.txt': get_pronouns_hyphenated_ch_last_part,
     'Мест-ния с дефисом. Изм. обе части.txt': get_pronouns_hyphenated_ch_both_parts,
+    'Местоимения. Идентификаторы.txt': get_pronouns_identifiers,
 
     'Числительные.txt': get_numerals,
     'Числительные с дефисом.txt': get_numerals_hyphenated,
